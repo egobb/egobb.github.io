@@ -1,0 +1,245 @@
+
+:root{
+  --bg:#0b0f14;
+  --card:#11161d;
+  --muted:#8b9bb0;
+  --text:#e6edf3;
+  --accent:#7cb8ff;
+  --border:#1b2430;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;background:var(--bg);color:var(--text);}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:24px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.brand{font-weight:700;font-size:1.1rem;color:var(--text)}
+.lang-toggle{border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:8px 14px;cursor:pointer}
+.hero{display:flex;flex-direction:column;gap:16px;padding:56px 0 24px;border-bottom:1px solid var(--border)}
+.hero h1{font-size:2rem;margin:0}
+.hero p{color:var(--muted);max-width:60ch;margin:0}
+.cta{display:flex;gap:12px;margin-top:8px}
+.button{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 14px;border-radius:10px}
+.button.primary{background:linear-gradient(180deg,#1a2633,#15202b);border-color:#223043}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:24px}
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.section h2{margin:0 0 8px 0;font-size:1.1rem}
+.meta{color:var(--muted);font-size:.95rem}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag{border:1px solid var(--border);background:#0e131a;color:var(--text);padding:6px 10px;border-radius:999px;font-size:.9rem}
+.timeline{display:flex;flex-direction:column;gap:14px}
+.item{padding:14px;border:1px solid var(--border);border-radius:12px;background:#0e131a}
+.item .title{font-weight:600}
+.item .pill{color:var(--muted);font-size:.9rem}
+ul.clean{margin:6px 0 0 18px}
+.footer{color:var(--muted);text-align:center;padding:28px 0}
+.two-col{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:860px){
+  .grid{grid-template-columns:repeat(12,1fr);}
+  .span-7{grid-column:span 7;}
+  .span-5{grid-column:span 5;}
+  .two-col{grid-template-columns:1.2fr .8fr;}
+}
+
+
+/* --- Improved list bullets --- */
+ul.bullets{list-style:none;margin:8px 0 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+ul.bullets li{position:relative;padding-left:28px;line-height:1.55}
+ul.bullets li::before{
+  content:"";
+  position:absolute;left:0;top:0.55em;
+  width:10px;height:10px;border-radius:12px;
+  background: radial-gradient(circle at 30% 30%, #a6d0ff, #7cb8ff);
+  box-shadow: 0 0 0 3px rgba(124,184,255,0.15);
+}
+
+/* Compact variant for highlight lists */
+ul.bullets.compact{gap:8px}
+ul.bullets.compact li{opacity:.95}
+
+/* Section dividers and item polish */
+.section{box-shadow: 0 8px 24px rgba(0,0,0,0.25)}
+.item{background:linear-gradient(180deg,#0f141b,#0c1117);}
+.item .title{font-weight:650;letter-spacing:.2px}
+.item .pill{display:inline-block;margin-top:4px;padding:3px 8px;border:1px solid var(--border);border-radius:999px;background:#0c1218}
+
+/* Headings polish */
+.section h2{font-weight:650;letter-spacing:.2px}
+.hero h1{letter-spacing:.2px}
+
+/* Subtle separators inside section */
+.section + .section{position:relative}
+.section + .section::before{
+  content:"";position:absolute;top:-12px;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,#1b2430,transparent);
+}
+
+/* Tighter tag chips */
+.tag{opacity:.95}
+
+
+/* Softer list item color */
+ul.clean li { color: var(--muted); line-height:1.55; }
+
+/* More compact tags */
+.tags { gap:6px; }
+.tag { font-size:.85rem; padding:5px 9px; }
+
+/* --- Revert to simple clean lists with softer tone --- */
+ul.clean{list-style:disc;margin:6px 0 0 18px;padding:0}
+.item ul.clean li{color:var(--muted);line-height:1.5}
+
+/* --- Compact tags --- */
+.tags{gap:6px}
+.tag{padding:4px 8px;font-size:.85rem}
+
+/* Slightly tighter spacing for side column lists */
+.section.span-5 ul.clean li{margin-bottom:4px}
+
+/* --- Vertical timeline style with nodes --- */
+.timeline{position:relative;margin-left:20px;padding-left:20px;border-left:2px solid var(--border);}
+.timeline .item{position:relative;margin-bottom:28px;padding-left:12px;background:none;border:none;box-shadow:none}
+.timeline .item::before{
+  content:"";
+  position:absolute;left:-31px;top:8px;
+  width:14px;height:14px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 3px rgba(124,184,255,0.25);
+}
+.timeline .title{font-weight:600}
+.timeline .pill{margin:2px 0 8px 0;font-size:.9rem;color:var(--muted)}
+
+/* === Vertical timeline with nodes === */
+.timeline{position:relative;padding-left:42px;margin-left:0}
+.timeline::before{
+  content:"";position:absolute;left:18px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,#1b2430,#223043);
+  border-radius:2px;
+}
+.timeline .item{position:relative}
+.timeline .item{padding-left:16px}
+.timeline .item::before{
+  content:"";position:absolute;left:-30px;top:20px;width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #a6d0ff, #7cb8ff);
+  box-shadow:0 0 0 3px rgba(124,184,255,0.12);
+  border:2px solid #0b0f14; /* cut-out ring on dark bg */
+}
+
+/* Softer list tone inside items (keep from previous step) */
+.item ul.clean li{color:var(--muted);line-height:1.5}
+
+/* Compact tags (keep) */
+.tags{gap:6px}
+.tag{padding:4px 8px;font-size:.85rem}
+
+
+/* === Tag pills: soft background (update) === */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag,
+.tags .tag,
+.skill-tag{
+  background:rgba(124,184,255,0.12);
+  color:var(--accent, #7cb8ff);
+  border:none;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:500;
+  line-height:1.2;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap;
+  transition:background .2s ease, color .2s ease, transform .1s ease;
+}
+.tag:hover,
+.skill-tag:hover{
+  background:rgba(124,184,255,0.22);
+  color:#ffffff;
+  transform:translateY(-1px);
+}
+
+/* Compact groups inside cards/sidebars */
+.section .tags{gap:8px}
+
+
+
+/* === Timeline fix: single vertical line + circular nodes === */
+.timeline {
+  position: relative;
+  padding-left: 42px;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,#1b2430,#223043);
+  border-radius: 2px;
+}
+.timeline .item {
+  position: relative;
+  padding-left: 16px;
+  border-left: none !important; /* ensure no double line */
+}
+.timeline .item::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #a6d0ff, #7cb8ff);
+  box-shadow: 0 0 0 3px rgba(124,184,255,0.12);
+  border: 2px solid #0b0f14;
+}
+
+
+/* === Skill groups === */
+.skill-group { margin-bottom: 16px; }
+.skill-group h3 {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0 0 6px 0;
+}
+
+/* Social links */
+.social-links {
+  display: flex;
+  gap: 18px;
+  margin-top: 12px;
+  font-size: 1.8rem;
+}
+.social-links a {
+  color: var(--muted);
+  transition: color 0.25s ease, transform 0.2s ease;
+}
+.social-links a:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* === Experience timeline nodes with different colors === */
+.timeline .item:nth-child(1)::before {
+  background: radial-gradient(circle at 30% 30%, #9be7c4, #5fd3aa);
+}
+.timeline .item:nth-child(2)::before {
+  background: radial-gradient(circle at 30% 30%, #ffd6a1, #ffb463);
+}
+.timeline .item:nth-child(3)::before {
+  background: radial-gradient(circle at 30% 30%, #c9b8ff, #a58bff);
+}
+.timeline .item:nth-child(4)::before {
+  background: radial-gradient(circle at 30% 30%, #a6d0ff, #7cb8ff);
+}
+
+/* Font Awesome icons in buttons */
+.button i {
+  margin-right: 8px;
+  font-size: 1rem;
+}
