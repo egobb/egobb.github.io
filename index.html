@@ -9,245 +9,264 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="container" id="app" data-lang="en">
-    <header class="header">
-      <div class="brand" data-i18n="brand">Enrique Goberna</div>
-      <button class="lang-toggle" id="langToggle" aria-label="Switch language">ES</button>
-    </header>
+<div class="container" id="app" data-lang="en">
+  <header class="header">
+    <div class="brand" data-i18n="brand">Enrique Goberna</div>
+    <button class="lang-toggle" id="langToggle" aria-label="Switch language">ES</button>
+  </header>
 
-    <section class="hero">
-      <h1 data-i18n="role">Software Engineer — Backend & Distributed Systems</h1>
-      <p data-i18n="summary">
-        Senior Software Engineer with 9+ years (incl. leadership). Focused on scalable, high‑volume data systems for e‑commerce, with strong functional analysis and technical design background.
-      </p>
-      <div class="cta">
-        <a class="button primary" href="assets/Enrique_Goberna_CV.pdf" target="_blank" rel="noopener" data-i18n="download"><i class="fas fa-file-alt"></i> Download CV (PDF)</a>
-        <a class="button" href="mailto:egobernagarcia@gmail.com" data-i18n="contact"><i class="far fa-envelope"></i> Contact</a>
+  <section class="hero">
+    <h1 data-i18n="role">Software Engineer — Backend & Distributed Systems</h1>
+    <p data-i18n="summary">
+      Senior Software Engineer with 9+ years (incl. leadership). Focused on scalable, high-volume data systems for e-commerce, with strong functional analysis and technical design background.
+    </p>
+    <div class="cta">
+      <a class="button primary" href="assets/Enrique_Goberna_CV.pdf" target="_blank" rel="noopener">
+        <i class="fas fa-file-alt"></i> <span data-i18n="download">Download CV (PDF)</span>
+      </a>
+      <a class="button" href="mailto:egobernagarcia@gmail.com">
+        <i class="far fa-envelope"></i> <span data-i18n="contact">Contact</span>
+      </a>
+    </div>
+  </section>
+
+  <main class="grid">
+    <section class="section span-7">
+      <h2 data-i18n="experience">Experience</h2>
+      <div class="timeline">
+
+        <div class="item">
+          <div class="title" data-i18n="exp2_title">Software Development Engineer — Imatia Innovation</div>
+          <div class="pill" data-i18n="exp2_meta">Vigo · 2023–present</div>
+          <ul class="clean">
+            <li data-i18n="exp2_b1">Microservices migration, high-level technical designs and development.</li>
+            <li data-i18n="exp2_b2">Business requirements functional analysis.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Java</span><span class="tag">OpenShift</span><span class="tag">Kafka</span><span class="tag">Couchbase</span><span class="tag">MongoDB</span><span class="tag">Spring Boot</span><span class="tag">Circuit Breaker</span><span class="tag">DDD</span><span class="tag">Hexagonal Architecture</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="title" data-i18n="exp1_title">Team Lead — Imatia Innovation</div>
+          <div class="pill" data-i18n="exp1_meta">Vigo · 2020–present</div>
+          <ul class="clean">
+            <li data-i18n="exp1_b1">Led the engineering team for a global e-commerce inventory application.</li>
+            <li data-i18n="exp1_b2">Team management, task assignment, and prioritization.</li>
+            <li data-i18n="exp1_b3">Functional analysis, technical design and development of new features.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Java</span><span class="tag">IBM WAS</span><span class="tag">IBM MQ</span><span class="tag">DB2</span><span class="tag">MongoDB</span><span class="tag">Grafana</span><span class="tag">Spring</span><span class="tag">Hibernate</span><span class="tag">Docker</span><span class="tag">Scrum</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="title" data-i18n="exp3_title">Software Development Engineer — Bionix Supplychain Technologies</div>
+          <div class="pill" data-i18n="exp3_meta">A Coruña · 2019–2020</div>
+          <ul class="clean">
+            <li data-i18n="exp3_b1">PaaS to centralize RFID data and performance metrics.</li>
+            <li data-i18n="exp3_b2">Backend for Android app to manage RFID readers.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Java</span><span class="tag">Django</span><span class="tag">NodeJS</span><span class="tag">SQL</span><span class="tag">Redis</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="title" data-i18n="exp4_title">Software Development Engineer — Telecon Galicia S.A</div>
+          <div class="pill" data-i18n="exp4_meta">A Coruña · 2016–2019</div>
+          <ul class="clean">
+            <li data-i18n="exp4_b1">Backend for apps and web services (parking, remote metering).</li>
+            <li data-i18n="exp4_b2">Embedded software for energy monitoring and RFID firmware.</li>
+            <li data-i18n="exp4_b3">Systems administration and shell scripting.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Java</span><span class="tag">Django</span><span class="tag">NodeJS</span><span class="tag">Bash</span><span class="tag">C</span><span class="tag">Git</span><span class="tag">MQTT</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <main class="grid">
-      <section class="section span-7">
-        <h2 data-i18n="experience">Experience</h2>
-        <div class="timeline">
 
-          <div class="item">
-            <div class="title" data-i18n="exp2_title">Software Development Engineer — Imatia Innovation</div>
-            <div class="pill" data-i18n="exp2_meta">Vigo · 2023–present</div>
-            <ul class="clean">
-              <li data-i18n="exp2_b1">Microservices migration, high‑level technical designs and development.</li>
-              <li data-i18n="exp2_b2">Business requirements functional analysis.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Java</span><span class="tag">OpenShift</span><span class="tag">Kafka</span><span class="tag">Couchbase</span><span class="tag">MongoDB</span><span class="tag">Spring Boot</span><span class="tag">Circuit Breaker</span><span class="tag">DDD</span><span class="tag">Hexagonal Architecture</span>
-            </div>
-          </div>
+    <section class="section span-5">
+      <h2 data-i18n="strengths_h">Core Strengths</h2>
 
-          <div class="item">
-            <div class="title" data-i18n="exp1_title">Team Lead — Imatia Innovation</div>
-            <div class="pill" data-i18n="exp1_meta">Vigo · 2020–present</div>
-            <ul class="clean">
-              <li data-i18n="exp1_b1">Led the engineering team for a global e‑commerce inventory application.</li>
-              <li data-i18n="exp1_b2">Team management, task assignment, and prioritization.</li>
-              <li data-i18n="exp1_b3">Functional analysis, technical design and development of new features.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Java</span><span class="tag">IBM WAS</span><span class="tag">IBM MQ</span><span class="tag">DB2</span><span class="tag">MongoDB</span><span class="tag">Grafana</span><span class="tag">Spring</span><span class="tag">Hibernate</span><span class="tag">Docker</span><span class="tag">Scrum</span>
-            </div>
-          </div>
+      <ul class="clean">
+        <li data-i18n="str1">Hybrid technical–functional profile with strong product orientation.</li>
+        <li data-i18n="str2">Ability to translate business needs into scalable technical designs.</li>
+        <li data-i18n="str3">Experienced in driving functional analysis and high-level solution design.</li>
+        <li data-i18n="str4">Hands-on software engineering background in high-volume, distributed systems.</li>
+        <li data-i18n="str5">Proven leadership in guiding teams and aligning stakeholders.</li>
+      </ul>
 
-          <div class="item">
-            <div class="title" data-i18n="exp3_title">Software Development Engineer — Bionix Supplychain Technologies</div>
-            <div class="pill" data-i18n="exp3_meta">A Coruña · 2019–2020</div>
-            <ul class="clean">
-              <li data-i18n="exp3_b1">PaaS to centralize RFID data and performance metrics.</li>
-              <li data-i18n="exp3_b2">Backend for Android app to manage RFID readers.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">Java</span><span class="tag">Django</span><span class="tag">NodeJS</span><span class="tag">SQL</span><span class="tag">Redis</span>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="title" data-i18n="exp4_title">Software Development Engineer — Telecon Galicia S.A</div>
-            <div class="pill" data-i18n="exp4_meta">A Coruña · 2016–2019</div>
-            <ul class="clean">
-              <li data-i18n="exp4_b1">Backend for apps and web services (parking, remote metering).</li>
-              <li data-i18n="exp4_b2">Embedded software for energy monitoring and RFID firmware.</li>
-              <li data-i18n="exp4_b3">Systems administration and shell scripting.</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">Java</span><span class="tag">Django</span><span class="tag">NodeJS</span><span class="tag">Bash</span><span class="tag">C</span><span class="tag">Git</span><span class="tag">MQTT</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <h3 style="margin-top:16px" data-i18n="soft">Soft Skills</h3>
+      <div class="tags">
+        <span class="tag" data-i18n="soft1">Functional & Technical Analysis</span>
+        <span class="tag" data-i18n="soft2">Product-Oriented Mindset</span>
+        <span class="tag" data-i18n="soft3">Problem Solving</span>
+        <span class="tag" data-i18n="soft4">Critical Thinking</span>
+        <span class="tag" data-i18n="soft5">Prioritization & Estimation</span>
+        <span class="tag" data-i18n="soft6">Team Collaboration</span>
+        <span class="tag" data-i18n="soft7">Leadership</span>
+        <span class="tag" data-i18n="soft8">Communication</span>
+        <span class="tag" data-i18n="soft9">Continuous Learning</span>
+        <span class="tag" data-i18n="soft10">Adaptability</span>
+      </div>
+    </section>
 
 
-<section class="section span-5">
-  <h2>Core Strengths</h2>
+    <section class="section span-7">
+      <h2 data-i18n="education">Education</h2>
+      <div class="item">
+        <div class="title" data-i18n="ed1_title">MEng, Computer Engineering</div>
+        <div class="pill" data-i18n="ed1_meta">University of A Coruña — 2017–2019</div>
+      </div>
+      <div class="item" style="margin-top:10px">
+        <div class="title" data-i18n="ed2_title">BSc, Computer Engineering</div>
+        <div class="pill" data-i18n="ed2_meta">University of A Coruña — 2012–2017</div>
+      </div>
+    </section>
 
-  <ul class="clean">
-    <li>Hybrid technical–functional profile with strong product orientation.</li>
-    <li>Ability to translate business needs into scalable technical designs.</li>
-    <li>Experienced in driving functional analysis and high-level solution design.</li>
-    <li>Hands-on software engineering background in high-volume, distributed systems.</li>
-    <li>Proven leadership in guiding teams and aligning stakeholders.</li>
-  </ul>
+    <section class="section span-5">
+      <h2 data-i18n="languages">Languages</h2>
+      <div class="tags">
+        <span class="tag" data-i18n="lang_es">Spanish (native)</span><span class="tag" data-i18n="lang_en">English</span><span class="tag" data-i18n="lang_it">Italian</span>
+      </div>
 
-  <h3 style="margin-top:16px">Soft Skills</h3>
-  <div class="tags">
-    <span class="tag">Functional & Technical Analysis</span>
-    <span class="tag">Product-Oriented Mindset</span>
-    <span class="tag">Problem Solving</span>
-    <span class="tag">Critical Thinking</span>
-    <span class="tag">Prioritization & Estimation</span>
-    <span class="tag">Team Collaboration</span>
-    <span class="tag">Leadership</span>
-    <span class="tag">Communication</span>
-    <span class="tag">Continuous Learning</span>
-    <span class="tag">Adaptability</span>
-  </div>
-</section>
+      <h2 style="margin-top:16px" data-i18n="contact_h">Contact</h2>
+      <p class="meta" data-i18n="contact_meta">Vigo (Spain) · <a href="mailto:egobernagarcia@gmail.com">egobernagarcia@gmail.com</a> · +34 648 85 64 70</p>
+    </section>
 
+    <section class="section span-7">
+      <h2>Find me online</h2>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/enriquegoberna/" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://stackoverflow.com/users/6056985/kroka" target="_blank" aria-label="Stack Overflow">
+          <i class="fab fa-stack-overflow"></i>
+        </a>
+        <a href="https://github.com/kikekr" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="mailto:egobernagarcia@gmail.com" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </section>
 
-      <section class="section span-7">
-        <h2 data-i18n="education">Education</h2>
-        <div class="item">
-          <div class="title" data-i18n="ed1_title">MEng, Computer Engineering</div>
-          <div class="pill" data-i18n="ed1_meta">University of A Coruña — 2017–2019</div>
-        </div>
-        <div class="item" style="margin-top:10px">
-          <div class="title" data-i18n="ed2_title">BSc, Computer Engineering</div>
-          <div class="pill" data-i18n="ed2_meta">University of A Coruña — 2012–2017</div>
-        </div>
-      </section>
+  </main>
 
-      <section class="section span-5">
-        <h2 data-i18n="languages">Languages</h2>
-        <div class="tags">
-          <span class="tag" data-i18n="lang_es">Spanish (native)</span><span class="tag" data-i18n="lang_en">English</span><span class="tag" data-i18n="lang_it">Italian</span>
-        </div>
+  <footer class="footer">
+    © <span id="year"></span> <span data-i18n="brand">Enrique Goberna</span>
+  </footer>
+</div>
 
-        <h2 style="margin-top:16px" data-i18n="contact_h">Contact</h2>
-        <p class="meta" data-i18n="contact_meta">Vigo (Spain) · <a href="mailto:egobernagarcia@gmail.com">egobernagarcia@gmail.com</a> · +34 648 85 64 70</p>
-      </section>
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-<section class="section span-7">
-  <h2>Find me online</h2>
-  <div class="social-links">
-    <a href="https://www.linkedin.com/in/enriquegoberna/" target="_blank" aria-label="LinkedIn">
-      <i class="fab fa-linkedin"></i>
-    </a>
-    <a href="https://stackoverflow.com/users/6056985/kroka" target="_blank" aria-label="Stack Overflow">
-      <i class="fab fa-stack-overflow"></i>
-    </a>
-    <a href="https://github.com/kikekr" target="_blank" aria-label="GitHub">
-      <i class="fab fa-github"></i>
-    </a>
-    <a href="mailto:egobernagarcia@gmail.com" aria-label="Email">
-      <i class="fas fa-envelope"></i>
-    </a>
-  </div>
-</section>
-
-    </main>
-
-    <footer class="footer">
-      © <span id="year"></span> <span data-i18n="brand">Enrique Goberna</span>
-    </footer>
-  </div>
-
-  <script>
-    // year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // i18n strings
-    const i18n = {
-      es: {
-        brand: "Enrique Goberna",
-        role: "Ingeniero de Software — Backend & Sistemas Distribuidos",
-        summary: "Ingeniero de Software con 9+ años (incl. liderazgo). Enfocado en sistemas escalables de alto volumen para e‑commerce, con fuerte base de análisis funcional y diseño técnico.",
-        download: "⬇️ Descargar CV (PDF)",
-        contact: "✉️ Contacto",
-        experience: "Experiencia",
-        exp1_title: "Team Lead — Imatia Innovation",
-        exp1_meta: "Vigo · 2020–hoy",
-        exp1_b1: "Lideré el equipo de ingeniería para una aplicación global de inventario e‑commerce.",
-        exp1_b2: "Gestión del equipo, asignación de tareas y priorización.",
-        exp1_b3: "Análisis funcional, diseño técnico y desarrollo de nuevas funcionalidades.",
-        exp2_title: "Software Development Engineer — Imatia Innovation",
-        exp2_meta: "Vigo · 2023–hoy",
-        exp2_b1: "Migración a microservicios y diseños técnicos de alto nivel y desarrollo.",
-        exp2_b2: "Análisis funcional de requisitos de negocio.",
-        exp3_title: "Software Development Engineer — Bionix Supplychain Technologies",
-        exp3_meta: "A Coruña · 2019–2020",
-        exp3_b1: "PaaS para centralizar datos RFID y métricas de rendimiento.",
-        exp3_b2: "Backend para app Android de gestión de lectores RFID.",
-        exp4_title: "Software Development Engineer — Telecon Galicia S.A",
-        exp4_meta: "A Coruña · 2016–2019",
-        exp4_b1: "Backend de apps y servicios web (parking, telegestión).",
-        exp4_b2: "Software embebido para monitorización energética y firmware RFID.",
-        exp4_b3: "Administración de sistemas y scripting.",
-        highlights: "Puntos destacados de Backend",
-        h1: "Microservicios en producción y mensajería de alto rendimiento (Kafka / IBM MQ).",
-        h2: "NoSQL (Couchbase, MongoDB) y DB2; integraciones e‑commerce end‑to‑end.",
-        h3: "Diseño funcional y técnico; DDD y arquitectura hexagonal.",
-        skills: "Skills",
-        soft: "Soft Skills",
-        education: "Educación",
-        ed1_title: "M.Eng., Ingeniería Informática",
-        ed1_meta: "Universidade da Coruña — 2017–2019",
-        ed2_title: "Grado, Ingeniería Informática",
-        ed2_meta: "Universidade da Coruña — 2012–2017",
-        languages: "Idiomas",
-        lang_es: "Español (nativo)",
-        lang_en: "Inglés",
-        lang_it: "Italiano",
-        contact_h: "Contacto",
-        contact_meta: "Vigo (España) · <a href=\"mailto:egobernagarcia@gmail.com\">egobernagarcia@gmail.com</a> · +34 648 85 64 70",
-        foot: "Portfolio Minimalista Oscuro"
-      },
-      en: {
-        // English strings are already in DOM; only used when toggling back
-      }
-    };
-
-    const app = document.getElementById('app');
-    const toggle = document.getElementById('langToggle');
-    const transEls = document.querySelectorAll('[data-i18n]');
-
-    function setLang(lang){
-      app.setAttribute('data-lang', lang);
-      if(lang === 'es'){
-        transEls.forEach(el => {
-          const key = el.getAttribute('data-i18n');
-          if(i18n.es[key]){
-            el.innerHTML = i18n.es[key];
-          }
-        });
-        toggle.textContent = 'EN';
-        localStorage.setItem('lang','es');
-      } else {
-        // Reload base English by reloading the page or storing originals.
-        // For simplicity, we store originals on first run:
-        originals.forEach(({el, html}) => el.innerHTML = html);
-        toggle.textContent = 'ES';
-        localStorage.setItem('lang','en');
-      }
+  // i18n strings
+  const i18n = {
+    es: {
+      brand: "Enrique Goberna",
+      role: "Ingeniero de Software — Backend & Sistemas Distribuidos",
+      summary: "Ingeniero de Software con 9+ años (incl. liderazgo). Enfocado en sistemas escalables de alto volumen para e-commerce, con fuerte base de análisis funcional y diseño técnico.",
+      download: "Descargar CV (PDF)",
+      contact: "Contacto",
+      experience: "Experiencia",
+      exp1_title: "Team Lead — Imatia Innovation",
+      exp1_meta: "Vigo · 2020–hoy",
+      exp1_b1: "Lideré el equipo de ingeniería para una aplicación global de inventario e-commerce.",
+      exp1_b2: "Gestión del equipo, asignación de tareas y priorización.",
+      exp1_b3: "Análisis funcional, diseño técnico y desarrollo de nuevas funcionalidades.",
+      exp2_title: "Software Development Engineer — Imatia Innovation",
+      exp2_meta: "Vigo · 2023–hoy",
+      exp2_b1: "Migración a microservicios y diseños técnicos de alto nivel y desarrollo.",
+      exp2_b2: "Análisis funcional de requisitos de negocio.",
+      exp3_title: "Software Development Engineer — Bionix Supplychain Technologies",
+      exp3_meta: "A Coruña · 2019–2020",
+      exp3_b1: "PaaS para centralizar datos RFID y métricas de rendimiento.",
+      exp3_b2: "Backend para app Android de gestión de lectores RFID.",
+      exp4_title: "Software Development Engineer — Telecon Galicia S.A",
+      exp4_meta: "A Coruña · 2016–2019",
+      exp4_b1: "Backend de apps y servicios web (parking, telegestión).",
+      exp4_b2: "Software embebido para monitorización energética y firmware RFID.",
+      exp4_b3: "Administración de sistemas y scripting.",
+      highlights: "Puntos destacados de Backend",
+      h1: "Microservicios en producción y mensajería de alto rendimiento (Kafka / IBM MQ).",
+      h2: "NoSQL (Couchbase, MongoDB) y DB2; integraciones e-commerce end-to-end.",
+      h3: "Diseño funcional y técnico; DDD y arquitectura hexagonal.",
+      skills: "Skills",
+      strengths_h: "Fortalezas Clave",
+      str1: "Perfil híbrido técnico-funcional con fuerte orientación al producto.",
+      str2: "Capacidad para traducir necesidades de negocio en diseños técnicos escalables.",
+      str3: "Experiencia en liderar análisis funcional y diseño de soluciones de alto nivel.",
+      str4: "Experiencia práctica en ingeniería de software en sistemas distribuidos de alto volumen.",
+      str5: "Liderazgo demostrado en la dirección de equipos y alineación de stakeholders.",
+      soft: "Soft Skills",
+      soft1: "Análisis funcional y técnico",
+      soft2: "Mentalidad orientada al producto",
+      soft3: "Resolución de problemas",
+      soft4: "Pensamiento crítico",
+      soft5: "Priorización y estimación",
+      soft6: "Colaboración en equipo",
+      soft7: "Liderazgo",
+      soft8: "Comunicación",
+      soft9: "Aprendizaje continuo",
+      soft10: "Adaptabilidad",
+      education: "Educación",
+      ed1_title: "M.Eng., Ingeniería Informática",
+      ed1_meta: "Universidade da Coruña — 2017–2019",
+      ed2_title: "Grado, Ingeniería Informática",
+      ed2_meta: "Universidade da Coruña — 2012–2017",
+      languages: "Idiomas",
+      lang_es: "Español (nativo)",
+      lang_en: "Inglés",
+      lang_it: "Italiano",
+      contact_h: "Contacto",
+      contact_meta: "Vigo (España) · <a href=\"mailto:egobernagarcia@gmail.com\">egobernagarcia@gmail.com</a> · +34 648 85 64 70",
+      foot: "Portfolio Minimalista Oscuro"
+    },
+    en: {
+      // English strings are already in DOM; only used when toggling back
     }
+  };
 
-    // store originals for EN
-    const originals = Array.from(transEls).map(el => ({el, html: el.innerHTML}));
+  const app = document.getElementById('app');
+  const toggle = document.getElementById('langToggle');
+  const transEls = document.querySelectorAll('[data-i18n]');
 
-    // init from storage
-    const saved = localStorage.getItem('lang') || 'en';
-    setLang(saved);
+  function setLang(lang){
+    app.setAttribute('data-lang', lang);
+    if(lang === 'es'){
+      transEls.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(i18n.es[key]){
+          el.innerHTML = i18n.es[key];
+        }
+      });
+      toggle.textContent = 'EN';
+      localStorage.setItem('lang','es');
+    } else {
+      // Reload base English by reloading the page or storing originals.
+      originals.forEach(({el, html}) => el.innerHTML = html);
+      toggle.textContent = 'ES';
+      localStorage.setItem('lang','en');
+    }
+  }
 
-    toggle.addEventListener('click', () => {
-      const current = app.getAttribute('data-lang');
-      setLang(current === 'en' ? 'es' : 'en');
-    });
-  </script>
+  // store originals for EN
+  const originals = Array.from(transEls).map(el => ({el, html: el.innerHTML}));
+
+  // init from storage
+  const saved = localStorage.getItem('lang') || 'en';
+  setLang(saved);
+
+  toggle.addEventListener('click', () => {
+    const current = app.getAttribute('data-lang');
+    setLang(current === 'en' ? 'es' : 'en');
+  });
+</script>
 </body>
 </html>
