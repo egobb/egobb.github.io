@@ -96,19 +96,7 @@ ul.clean{list-style:disc;margin:6px 0 0 18px;padding:0}
 /* Slightly tighter spacing for side column lists */
 .section.span-5 ul.clean li{margin-bottom:4px}
 
-/* --- Vertical timeline style with nodes --- */
-.timeline{position:relative;margin-left:20px;padding-left:20px;border-left:2px solid var(--border);}
-.timeline .item{position:relative;margin-bottom:28px;padding-left:12px;background:none;border:none;box-shadow:none}
-.timeline .item::before{
-  content:"";
-  position:absolute;left:-31px;top:8px;
-  width:14px;height:14px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 0 3px rgba(124,184,255,0.25);
-}
-.timeline .title{font-weight:600}
-.timeline .pill{margin:2px 0 8px 0;font-size:.9rem;color:var(--muted)}
+
 
 /* === Vertical timeline with nodes === */
 .timeline{position:relative;padding-left:42px;margin-left:0}
