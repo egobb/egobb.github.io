@@ -1,0 +1,24 @@
+---
+# Only front matter so Jekyll will process this SCSS
+---
+
+// Minimal Mistakes base
+@import "minimal-mistakes/skins/custom"; // our custom skin
+@import "minimal-mistakes";              // theme core
+
+// Tweaks to match enriquegoberna.com vibe
+// Tipografía base (ajústala a tu elección)
+:root {
+  --eg-font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html, body {
+  font-family: var(--eg-font);
+}
+
+// Links acorde a tu paleta (ajusta el color)
+a { text-underline-offset: 2px; }
+
+.site-title, .page__title, h1, h2, h3 {
+  letter-spacing: 0.1px;
+}

@@ -1,0 +1,53 @@
+# Site config for enabling Jekyll + Minimal Mistakes and a /blog section
+title: "Enrique Goberna"
+description: "Personal site + blog about building my portfolio"
+url: "https://enriquegoberna.com"
+baseurl: ""
+
+# Theme (remote, compatible with GitHub Pages builds)
+remote_theme: "mmistakes/minimal-mistakes"
+
+# Plugins allowed on GitHub Pages
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# Minimal Mistakes core settings
+minimal_mistakes_skin: "custom"
+paginate: 10
+paginate_path: "/blog/page:num"
+
+# Collections / Permalinks
+permalink: /blog/:title/
+
+# Navigation data
+nav_data: _data/navigation.yml
+
+# Markdown / highlighter
+markdown: kramdown
+kramdown:
+  input: GFM
+highlighter: rouge
+
+# Defaults to apply Minimal Mistakes layout to posts
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: false
+      read_time: true
+      related: true
+
+# Exclude typical dev files
+exclude:
+  - "node_modules"
+  - "vendor"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "README*"
+  - "README_BLOG.md"
+  - "*.zip"

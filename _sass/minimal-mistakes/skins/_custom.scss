@@ -1,0 +1,12 @@
+// Skin "custom" for Minimal Mistakes.
+// Ajusta colores para acercarlos a tu web.
+$body-background-color: #ffffff !default;
+$text-color: #111111 !default;
+$primary-color: #0b61ff !default; // color de acento (links, etc.) — cámbialo por el tuyo
+$link-color: $primary-color !default;
+$muted-text-color: #666 !default;
+$border-color: #eee !default;
+
+// Optional: más suave para code blocks
+$code-background-color: #f6f8fa !default;
+$code-border-color: #e1e4e8 !default;
