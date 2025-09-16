@@ -1,12 +1,17 @@
-// Skin "custom" for Minimal Mistakes.
-// Ajusta colores para acercarlos a tu web.
-$body-background-color: #ffffff !default;
-$text-color: #111111 !default;
-$primary-color: #0b61ff !default; // color de acento (links, etc.) — cámbialo por el tuyo
+/* Dark Minimalist skin */
+$body-background-color: #0b0f16 !default;
+$text-color: #e6e9ef !default;
+$muted-text-color: #98a2b3 !default;
+$border-color: #1b2230 !default;
+$primary-color: #0b61ff !default;
 $link-color: $primary-color !default;
-$muted-text-color: #666 !default;
-$border-color: #eee !default;
-
-// Optional: más suave para code blocks
-$code-background-color: #f6f8fa !default;
-$code-border-color: #e1e4e8 !default;
+$code-background-color: #101622 !default;
+$code-border-color: #1b2230 !default;
+$body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !default;
+$btn-primary-bg: $primary-color !default;
+$btn-primary-border: $primary-color !default;
+$btn-primary-color: #ffffff !default;
+$btn-border-radius: 0.75rem !default;
+$h1-font-size: 2rem !default;
+$h2-font-size: 1.5rem !default;
+$h3-font-size: 1.25rem !default;
