@@ -9,10 +9,11 @@ remote_theme: "mmistakes/minimal-mistakes"
 
 # Plugins allowed on GitHub Pages
 plugins:
+  - jekyll-include-cache
+  - jekyll-paginate
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-paginate
 
 # Minimal Mistakes core settings
 minimal_mistakes_skin: "custom"
