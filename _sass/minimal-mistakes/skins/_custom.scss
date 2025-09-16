@@ -1,12 +1,24 @@
-// Skin "custom" for Minimal Mistakes.
-// Ajusta colores para acercarlos a tu web.
-$body-background-color: #ffffff !default;
-$text-color: #111111 !default;
-$primary-color: #0b61ff !default; // color de acento (links, etc.) — cámbialo por el tuyo
-$link-color: $primary-color !default;
-$muted-text-color: #666 !default;
-$border-color: #eee !default;
+/* === Dark skin aligned with your home page === */
+$body-background-color: #0b0f16 !default;  // dark background
+$text-color: #e6e9ef !default;             // main text
+$muted-text-color: #98a2b3 !default;       // secondary text
+$border-color: #1b2230 !default;           // subtle borders
 
-// Optional: más suave para code blocks
-$code-background-color: #f6f8fa !default;
-$code-border-color: #e1e4e8 !default;
+$primary-color: #0b61ff !default;          // accent/link color
+$link-color: $primary-color !default;
+
+$code-background-color: #101622 !default;  // code block background
+$code-border-color: #1b2230 !default;
+
+$body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !default;
+
+/* Buttons with rounded corners like in your home */
+$btn-primary-bg: $primary-color !default;
+$btn-primary-border: $primary-color !default;
+$btn-primary-color: #ffffff !default;
+$btn-border-radius: 0.75rem !default;
+
+/* Headings slightly reduced for a sober look */
+$h1-font-size: 2rem !default;
+$h2-font-size: 1.5rem !default;
+$h3-font-size: 1.25rem !default;
