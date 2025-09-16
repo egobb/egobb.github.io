@@ -16,7 +16,7 @@ plugins:
   - jekyll-sitemap
 
 # Minimal Mistakes core settings
-minimal_mistakes_skin: "dark"
+minimal_mistakes_skin: "custom"
 paginate: 10
 paginate_path: "/blog/page:num"
 

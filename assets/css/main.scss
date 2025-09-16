@@ -1,33 +1,22 @@
 ---
+# Only front matter so Jekyll will process this SCSS
 ---
-@import "minimal-mistakes/skins/custom";
-@import "minimal-mistakes";
 
-/* Typography consistent with the homepage */
-:root { --eg-font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
-html, body { font-family: var(--eg-font); }
+// Minimal Mistakes base
+@import "minimal-mistakes/skins/custom"; // our custom skin
+@import "minimal-mistakes";              // theme core
+
+// Tweaks to match enriquegoberna.com vibe
+:root {
+  --eg-font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html, body {
+  font-family: var(--eg-font);
+}
+
 a { text-underline-offset: 2px; }
-h1, h2, h3, .page__title { letter-spacing: .1px; }
 
-/* Match homepage width */
-.container, .page, .page__inner-wrap, .initial-content {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+.site-title, .page__title, h1, h2, h3 {
+  letter-spacing: 0.1px;
 }
-
-/* Remove white card backgrounds */
-.page, .archive, .sidebar {
-  background: transparent;
-  box-shadow: none;
-  border: 0;
-}
-
-/* Cleaner blockquotes */
-.page__content blockquote {
-  border-left: 3px solid var(--mm-muted, #1b2230);
-  opacity: .95;
-}
-
-/* Rounded buttons */
-.btn, .btn--primary { border-radius: 0.75rem; }
