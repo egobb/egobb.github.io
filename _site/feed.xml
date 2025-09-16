@@ -1,22 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2025-09-16T07:53:37+02:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Enrique Goberna</title><subtitle>Personal site + blog about building my portfolio</subtitle><entry><title type="html">Hello, Dark Minimalist</title><link href="http://0.0.0.0:4000/blog/hello-dark-minimalist/" rel="alternate" type="text/html" title="Hello, Dark Minimalist" /><published>2025-09-16T00:00:00+02:00</published><updated>2025-09-16T00:00:00+02:00</updated><id>http://0.0.0.0:4000/blog/hello-dark-minimalist</id><content type="html" xml:base="http://0.0.0.0:4000/blog/hello-dark-minimalist/"><![CDATA[<p>This is the first post of the new <strong>dark minimalist</strong> blog.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2025-09-16T08:10:04+02:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Enrique Goberna</title><subtitle>Personal site + blog about building my portfolio</subtitle><entry><title type="html">Welcome to the Blog: Building My Portfolio</title><link href="http://0.0.0.0:4000/blog/welcome-blog/" rel="alternate" type="text/html" title="Welcome to the Blog: Building My Portfolio" /><published>2025-09-16T00:00:00+02:00</published><updated>2025-09-16T00:00:00+02:00</updated><id>http://0.0.0.0:4000/blog/welcome-blog</id><content type="html" xml:base="http://0.0.0.0:4000/blog/welcome-blog/"><![CDATA[<p>As a software engineer with more than nine years of experience — I’ve spent most of my career building scalable, high-volume data systems for e-commerce. Over time, I’ve realized something very clear: no matter how much you grow in the industry, <strong>having a personal portfolio is no longer optional</strong>. It’s a must-have.</p>
 
+<p>This blog is my space to document that journey. Every step I take to design, improve, and polish my portfolio will be written down here — not only as a way to keep myself accountable, but also to share ideas and approaches that might help other engineers in a similar situation. Think of it as a public logbook of progress.</p>
+
+<h3 id="why-a-portfolio">Why a Portfolio?</h3>
+<p>A portfolio is more than just a résumé with code. It’s a way to <strong>showcase skills, decisions, and technical judgment in a tangible way</strong>. Recruiters and companies don’t just want to read that you’ve worked with Java, Kafka, or distributed systems — they want to see how you <em>apply</em> those technologies. A portfolio is the bridge between words and proof.</p>
+
+<h3 id="what-to-expect-here">What to Expect Here</h3>
+<p>The posts in this blog will cover:</p>
 <ul>
-  <li>Built on Jekyll + Minimal Mistakes (remote theme).</li>
-  <li>Styled with a custom dark skin and light typography.</li>
-  <li>Ships with pagination, SEO, sitemap and RSS by default.</li>
+  <li><strong>Technical breakdowns</strong> of the features I add to my portfolio projects.</li>
+  <li><strong>Design decisions</strong>: why I chose one approach over another.</li>
+  <li><strong>Learnings along the way</strong>, including mistakes (which are often the most valuable lessons).</li>
+  <li>Reflections on my career so far and how this portfolio ties into where I want to go next.</li>
 </ul>
 
-<p>Next steps:</p>
-<ol>
-  <li>Tweak the accent color.</li>
-  <li>Publish short notes about your portfolio work-in-progress.</li>
-  <li>Add a <em>/now</em> page or a roadmap if you like.</li>
-</ol>]]></content><author><name></name></author><category term="notes" /><category term="setup" /><category term="jekyll" /><category term="github-pages" /><summary type="html"><![CDATA[A clean start: a dark minimalist blog powered by Jekyll and Minimal Mistakes.]]></summary></entry><entry><title type="html">Bienvenido al blog: construyendo mi portfolio</title><link href="http://0.0.0.0:4000/blog/welcome-blog/" rel="alternate" type="text/html" title="Bienvenido al blog: construyendo mi portfolio" /><published>2025-09-16T00:00:00+02:00</published><updated>2025-09-16T00:00:00+02:00</updated><id>http://0.0.0.0:4000/blog/welcome-blog</id><content type="html" xml:base="http://0.0.0.0:4000/blog/welcome-blog/"><![CDATA[<p>Este es el primer post de prueba. Aquí iré documentando:</p>
+<h3 id="a-bit-about-me">A Bit About Me</h3>
+<p>I’m currently working as a Senior Software Engineer, specialized in backend development, distributed systems, and large-scale data processing. My experience spans from legacy systems to microservices architectures, with a focus on building reliable, high-volume solutions. I enjoy working at the intersection of <strong>technical design and functional analysis</strong>, helping teams bridge business needs with scalable technical implementations.</p>
 
-<ul>
-  <li>Qué estoy construyendo.</li>
-  <li>Por qué lo hago así (y qué alternativas barajo).</li>
-  <li>Lo que aprendo o cambio por el camino.</li>
-</ul>
+<p>Outside of the day-to-day coding, I see this blog as a creative outlet: a way to keep track of my own growth while sharing a story that’s bigger than just commits and pull requests.</p>
 
-<p>Si has llegado desde la home, arriba tienes el enlace de <em>Blog</em>. Y desde el blog, siempre habrá un enlace de vuelta a la web principal.</p>]]></content><author><name></name></author><category term="portfolio" /><category term="notas" /><category term="jekyll" /><category term="minimal-mistakes" /><category term="github-pages" /><summary type="html"><![CDATA[Arranco un blog sencillo para documentar avances, decisiones y dudas al construir mi portfolio.]]></summary></entry></feed>
+<hr />
+
+<p>This is just the beginning. Over the next posts, I’ll be unpacking how I’m structuring my portfolio, what tools I’m choosing, and the reasoning behind each decision. If you’re also working on your own portfolio — or thinking of starting — I hope you’ll find some inspiration here.</p>]]></content><author><name></name></author><category term="portfolio" /><category term="personal" /><category term="career" /><category term="software-engineering" /><category term="portfolio" /><category term="career-growth" /><category term="blogging" /><summary type="html"><![CDATA[As a software engineer with more than nine years of experience — I’ve spent most of my career building scalable, high-volume data systems for e-commerce. Over time, I’ve realized something very clear: no matter how much you grow in the industry, having a personal portfolio is no longer optional. It’s a must-have.]]></summary></entry></feed>

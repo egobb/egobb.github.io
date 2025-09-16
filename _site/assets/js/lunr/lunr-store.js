@@ -1,13 +1,7 @@
 var store = [{
-        "title": "Hello, Dark Minimalist",
-        "excerpt":"This is the first post of the new dark minimalist blog. Built on Jekyll + Minimal Mistakes (remote theme). Styled with a custom dark skin and light typography. Ships with pagination, SEO, sitemap and RSS by default. Next steps: Tweak the accent color. Publish short notes about your portfolio work-in-progress....","categories": ["notes"],
-        "tags": ["setup","jekyll","github-pages"],
-        "url": "/blog/hello-dark-minimalist/",
-        "teaser": null
-      },{
-        "title": "Bienvenido al blog: construyendo mi portfolio",
-        "excerpt":"Este es el primer post de prueba. Aquí iré documentando: Qué estoy construyendo. Por qué lo hago así (y qué alternativas barajo). Lo que aprendo o cambio por el camino. Si has llegado desde la home, arriba tienes el enlace de Blog. Y desde el blog, siempre habrá un enlace...","categories": ["portfolio","notas"],
-        "tags": ["jekyll","minimal-mistakes","github-pages"],
+        "title": "Welcome to the Blog: Building My Portfolio",
+        "excerpt":"As a software engineer with more than nine years of experience — I’ve spent most of my career building scalable, high-volume data systems for e-commerce. Over time, I’ve realized something very clear: no matter how much you grow in the industry, having a personal portfolio is no longer optional. It’s...","categories": ["portfolio","personal","career"],
+        "tags": ["software-engineering","portfolio","career-growth","blogging"],
         "url": "/blog/welcome-blog/",
         "teaser": null
       }]

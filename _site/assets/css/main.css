@@ -1,3 +1,9 @@
+.page__footer { background: #0b0f14 !important; color: #a0a6af; border-top: 1px solid rgba(255, 255, 255, 0.06); text-align: center; /* centra horizontalmente todo el contenido */ }
+
+.page__footer a { color: #6aa6ff; }
+
+.page__footer a:hover { color: #93c1ff; }
+
 /* Copyright comment */
 /*!
  * Minimal Mistakes Jekyll Theme 4.27.3 by Michael Rose

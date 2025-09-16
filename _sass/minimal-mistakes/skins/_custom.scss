@@ -10,3 +10,18 @@ $border-color: rgba(255,255,255,0.08) !default;
 // Optional: más suave para code blocks
 $code-background-color: #0f141a !default;
 $code-border-color: #e1e4e8 !default;
+
+.page__footer {
+  background: #0b0f14 !important;
+  color: #a0a6af;  // gris suave para el texto
+  border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;   /* centra horizontalmente todo el contenido */
+}
+
+.page__footer a {
+  color: #6aa6ff;          // enlaces en footer
+}
+
+.page__footer a:hover {
+  color: #93c1ff;          // hover
+}
