@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2025-09-16T07:53:37+02:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Enrique Goberna</title><subtitle>Personal site + blog about building my portfolio</subtitle><entry><title type="html">Hello, Dark Minimalist</title><link href="http://0.0.0.0:4000/blog/hello-dark-minimalist/" rel="alternate" type="text/html" title="Hello, Dark Minimalist" /><published>2025-09-16T00:00:00+02:00</published><updated>2025-09-16T00:00:00+02:00</updated><id>http://0.0.0.0:4000/blog/hello-dark-minimalist</id><content type="html" xml:base="http://0.0.0.0:4000/blog/hello-dark-minimalist/"><![CDATA[<p>This is the first post of the new <strong>dark minimalist</strong> blog.</p>
+
+<ul>
+  <li>Built on Jekyll + Minimal Mistakes (remote theme).</li>
+  <li>Styled with a custom dark skin and light typography.</li>
+  <li>Ships with pagination, SEO, sitemap and RSS by default.</li>
+</ul>
+
+<p>Next steps:</p>
+<ol>
+  <li>Tweak the accent color.</li>
+  <li>Publish short notes about your portfolio work-in-progress.</li>
+  <li>Add a <em>/now</em> page or a roadmap if you like.</li>
+</ol>]]></content><author><name></name></author><category term="notes" /><category term="setup" /><category term="jekyll" /><category term="github-pages" /><summary type="html"><![CDATA[A clean start: a dark minimalist blog powered by Jekyll and Minimal Mistakes.]]></summary></entry><entry><title type="html">Bienvenido al blog: construyendo mi portfolio</title><link href="http://0.0.0.0:4000/blog/welcome-blog/" rel="alternate" type="text/html" title="Bienvenido al blog: construyendo mi portfolio" /><published>2025-09-16T00:00:00+02:00</published><updated>2025-09-16T00:00:00+02:00</updated><id>http://0.0.0.0:4000/blog/welcome-blog</id><content type="html" xml:base="http://0.0.0.0:4000/blog/welcome-blog/"><![CDATA[<p>Este es el primer post de prueba. Aquí iré documentando:</p>
+
+<ul>
+  <li>Qué estoy construyendo.</li>
+  <li>Por qué lo hago así (y qué alternativas barajo).</li>
+  <li>Lo que aprendo o cambio por el camino.</li>
+</ul>
+
+<p>Si has llegado desde la home, arriba tienes el enlace de <em>Blog</em>. Y desde el blog, siempre habrá un enlace de vuelta a la web principal.</p>]]></content><author><name></name></author><category term="portfolio" /><category term="notas" /><category term="jekyll" /><category term="minimal-mistakes" /><category term="github-pages" /><summary type="html"><![CDATA[Arranco un blog sencillo para documentar avances, decisiones y dudas al construir mi portfolio.]]></summary></entry></feed>
