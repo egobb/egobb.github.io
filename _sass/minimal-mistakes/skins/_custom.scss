@@ -1,17 +1,29 @@
-/* Dark Minimalist skin */
-$body-background-color: #0b0f16 !default;
-$text-color: #e6e9ef !default;
-$muted-text-color: #98a2b3 !default;
-$border-color: #1b2230 !default;
-$primary-color: #0b61ff !default;
+/* Dark Minimalist skin aligned with your homepage */
+
+/* Base */
+$body-background-color: #0e1117 !default;   // background same as your homepage
+$text-color: #e6e9ef !default;              // main text (near white)
+$muted-text-color: #9ca3af !default;        // muted gray for secondary
+$border-color: #1f2937 !default;            // subtle borders/dividers
+
+/* Accent */
+$primary-color: #1d4ed8 !default;           // blue accent (buttons, links)
 $link-color: $primary-color !default;
-$code-background-color: #101622 !default;
-$code-border-color: #1b2230 !default;
+
+/* Code blocks */
+$code-background-color: #111827 !default;
+$code-border-color: #1f2937 !default;
+
+/* Typography */
 $body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !default;
+
+/* Buttons */
 $btn-primary-bg: $primary-color !default;
 $btn-primary-border: $primary-color !default;
 $btn-primary-color: #ffffff !default;
-$btn-border-radius: 0.75rem !default;
+$btn-border-radius: 0.5rem !default;
+
+/* Headings */
 $h1-font-size: 2rem !default;
 $h2-font-size: 1.5rem !default;
 $h3-font-size: 1.25rem !default;
