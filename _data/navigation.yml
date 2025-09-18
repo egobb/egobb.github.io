@@ -1,6 +1,0 @@
-# Simple nav sample; merge these links in tu layout si lo deseas.
-main:
-  - title: "Home"
-    url: "/"
-  - title: "Blog"
-    url: "/blog/"
