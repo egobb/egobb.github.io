@@ -23,30 +23,6 @@ languages:
     languageCode: en-US
     languageName: "English"
     weight: 1
-  zh-cn:
-    languageCode: zh-CN
-    languageName: "简体中文"
-    weight: 2
-  ja:
-    languageCode: ja-JP
-    languageName: "日本語"
-    weight: 3
-  fr:
-    languageCode: fr-FR
-    languageName: "Français"
-    weight: 4
-  # de:
-  #   languageCode: de-DE
-  #   languageName: "Deutsch"
-  #   weight: 5
-  # es:
-  #   languageCode: es-ES
-  #   languageName: "Español"
-  #   weight: 6
-  # ru:
-  #   languageCode: ru-RU
-  #   languageName: "Русский"
-  #   weight: 7
 
 # 分类法配置
 taxonomies:
@@ -85,7 +61,7 @@ menus:
       params:
         icon: about
     - name: Contact
-      url: https://google.com
+      url: egobernagarcia@gmail.com
       weight: 20
       params:
         icon: contact
@@ -98,22 +74,22 @@ menus:
   # footer social link
   social:
     - name: GitHub
-      url: https://github.com/username
+      url: https://github.com/egobb
       weight: 10
       params:
         icon: github
     - name: Twitter
-      url: https://twitter.com/username
+      url: https://twitter.com/egobb_
       weight: 20
       params:
         icon: twitter
     - name: LinkedIn
-      url: https://linkedin.com/in/username
+      url: https://linkedin.com/in/enriquegoberna
       weight: 30
       params:
         icon: linkedin
     - name: Email
-      url: mailto:your.email@example.com
+      url: mailto:egobernagarcia@gmail.com
       weight: 40
       params:
         icon: email
@@ -139,7 +115,7 @@ params:
     name: "Enrique Goberna"
     title: "Software Engineer"
     description: "Scalable architectures, data processing, and e-commerce platforms. Passionate about clean design and resilient systems."
-    avatar: "/images/avatar.svg"
+    avatar: "/images/Profile_Ghibli_3_small.png"
     social:
       - name: "GitHub"
         url: "https://github.com/egobb"
@@ -148,7 +124,7 @@ params:
         url: "https://twitter.com/egobb_"
         icon: "twitter"
       - name: "Email"
-        url: "egobernagarcia@gmail.com"
+        url: "mailto:egobernagarcia@gmail.com"
         icon: "email"
 
   # UI Components Control
