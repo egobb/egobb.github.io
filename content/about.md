@@ -1,21 +1,17 @@
 ---
 title: "About"
 layout: "about"
-summary: "I am a software engineer focused on event-driven microservices, performance, and scalability."
-date: 2024-01-01T00:00:00+08:00
+summary: "I am a senior software engineer focused on event-driven microservices, performance, and scalability."
+date: 2025-09-19T00:00:00+02:00
 links:
-  - name: "Hugo Docs"
-    url: "https://gohugo.io"
-    icon: "https://gohugo.io/favicon.ico"
-    description: "The world's fastest static site generator"
-  - name: "Tailwindcss"
-    url: "https://tailwindcss.com"
-    description: "CSS framework"
   - name: "GitHub"
     url: "https://github.com/egobb"
     icon: "https://github.com/fluidicon.png"
-    description: "The world's largest code hosting platform. "
-  
+    description: "Check out my projects and contributions on GitHub. "
+  - name: "LinkedIn"
+    url: "https://www.linkedin.com/in/enriquegoberna/"
+    icon: "https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico"
+    description: "Connect with me on LinkedIn"
 
 ---
 

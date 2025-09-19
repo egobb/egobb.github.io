@@ -51,6 +51,11 @@ menus:
       weight: 50
       params:
         icon: archive
+    - name: nav.about
+      pageRef: /about
+      weight: 50
+      params:
+        icon: about
 
 
   # footer menu
@@ -61,7 +66,7 @@ menus:
       params:
         icon: about
     - name: Contact
-      url: egobernagarcia@gmail.com
+      url: mailto:egobernagarcia@gmail.com
       weight: 20
       params:
         icon: contact
@@ -113,8 +118,8 @@ params:
 
   author:
     name: "Enrique Goberna"
-    title: "Software Engineer"
-    description: "Scalable architectures, data processing, and e-commerce platforms. Passionate about clean design and resilient systems."
+    title: "Senior Software Engineer"
+    description: "Scalable architectures, data processing, and e-commerce platforms. Passionate about clean, resilient, and data-intensive systems."
     avatar: "/images/Profile_Ghibli_3_small.png"
     social:
       - name: "GitHub"
