@@ -2,7 +2,7 @@ name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
-    branches: [ migrate/hugo ]   #
+    branches: [ main ]   #
   workflow_dispatch:
 
 permissions:
