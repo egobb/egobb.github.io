@@ -6,7 +6,7 @@ tags: ["kafka", "redpanda", "spring-boot", "ddd", "hexagonal", "testcontainers",
 summary: "We moved from a synchronous REST insert to an event-driven pipeline: batch POST → domain events → private Kafka topic → consumer maps back to domain and processes as before. Here’s the why, the how, and the code."
 ---
 
-I’ve been thinking about how to keep evolving my order-tracking project
+I’ve been thinking about how to keep evolving my [order-tracking](https://github.com/egobb/order-tracking) project
 , and once the basic functional records were in place, the next natural step was to ensure a minimal yet solid scalability layer. After all, what’s the point of a clean domain model if it can’t handle growth? And what better way to achieve that than by moving to an event-driven architecture with Kafka. That shift allowed me to decouple ingestion from processing, improve throughput, and prepare the service for future enhancements without locking myself into synchronous bottlenecks.
 
 ## The problem we were solving
