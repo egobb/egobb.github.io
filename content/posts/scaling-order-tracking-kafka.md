@@ -1,5 +1,5 @@
 ---
-title: "Scaling Order Tracking with Kafka (Redpanda), Domain Events, and Auto-Ingestion"
+title: "Scaling Order Tracking with Kafka, Domain Events, and Auto-Ingestion"
 date: 2025-09-22
 draft: false
 tags: ["kafka", "redpanda", "spring-boot", "ddd", "hexagonal", "testcontainers", "docker-compose"]
