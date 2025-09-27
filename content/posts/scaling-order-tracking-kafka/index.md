@@ -4,6 +4,7 @@ date: 2025-09-22
 draft: false
 tags: ["kafka", "redpanda", "spring-boot", "ddd", "hexagonal", "testcontainers", "docker-compose"]
 summary: "We moved from a synchronous REST insert to an event-driven pipeline: batch POST → domain events → private Kafka topic → consumer maps back to domain and processes as before. Here’s the why, the how, and the code."
+image: "scaling-order-tracking-kafka.png"
 ---
 
 I’ve been thinking about how to keep evolving my [order-tracking](https://github.com/egobb/order-tracking) project
