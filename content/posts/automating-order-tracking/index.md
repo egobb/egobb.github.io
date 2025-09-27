@@ -3,7 +3,7 @@ title: "Automating Order Tracking: From Functionality to Continuous Integration"
 date: 2025-09-21T10:00:00+02:00
 draft: false
 tags: ["spring-boot", "ci-cd", "github-actions", "docker", "portfolio"]
-image: "automating-order-tracking.png"
+cover: "automatic-order-tracking.png"
 ---
 
 Over the past few days I’ve been evolving [*order-tracking*](https://github.com/egobb/order-tracking), a simple Spring Boot project originally created as a **portfolio piece** to showcase my technical skills. The idea behind it is not only to demonstrate how to build a clean and functional service — with REST endpoints, hexagonal architecture, persistence, and auditability — but also how to approach software engineering with modern practices.  
