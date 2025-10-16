@@ -1,0 +1,8 @@
+2025-10-16T08:52:33.853+02:00
+2025-10-16T06:52:33.849Z INFO 1 --- [order-tracking] [ntainer#0-5-C-1] c.e.o.i.kafka.TrackingEventListener : >>> Consumed from Kafka: TrackingEventMsg[orderId=123, status=PICKED_UP_AT_WAREHOUSE, eventTs=2025-01-01T10:00:00Z, schemaVersion=v1]
+2025-10-16T08:52:33.854+02:00
+2025-10-16T06:52:33.853Z INFO 1 --- [order-tracking] [ntainer#0-5-C-1] c.e.o.a.service.TrackingProcessor : >>> Processing event: TrackingEvent[orderId=123, status=PICKED_UP_AT_WAREHOUSE, eventTs=2025-01-01T10:00:00Z]
+2025-10-16T08:52:34.342+02:00
+2025-10-16T06:52:34.342Z INFO 1 --- [order-tracking] [ntainer#0-5-C-1] c.e.o.i.kafka.TrackingEventListener : >>> Consumed from Kafka: TrackingEventMsg[orderId=123, status=OUT_FOR_DELIVERY, eventTs=2025-01-01T14:00:00Z, schemaVersion=v1]
+2025-10-16T08:52:34.342+02:00
+2025-10-16T06:52:34.342Z INFO 1 --- [order-tracking] [ntainer#0-5-C-1] c.e.o.a.service.TrackingProcessor : >>> Processing event: TrackingEvent[orderId=123, status=OUT_FOR_DELIVERY, eventTs=2025-01-01T14:00:00Z]
