@@ -133,7 +133,7 @@ params:
         icon: "email"
 
   # UI Components Control
-  showThemeSwitch: true      # Set to false to hide theme style switcher (palette icon)
+  showThemeSwitch: false     # Keep one canonical palette; Light/Dark/System remains available.
   showDarkModeSwitch: true   # Set to false to hide dark mode switcher (sun/moon icon)
   showLanguageSwitch: false   # Set to false to hide language switcher
   languageSwitchMode: "dropdown"  # Language switch mode: "dropdown" (show panel) or "cycle" (direct cycle)
@@ -143,44 +143,14 @@ params:
 
   # Dock display mode
   # Options: "scroll" (show on scroll up), "always" (always visible), "float" (floating button)
-  dock: "float"
+  dock: "scroll"
 
-  # default color scheme
+  # Canonical portfolio color scheme
   colorScheme: "default"
   themes:
     default:
-      name: "Default"
+      name: "Portfolio"
       order: 1
-    claude:
-      name: "Claude"
-      order: 2
-    bumblebee:
-      name: "Bumblebee"
-      order: 3
-    emerald:
-      name: "Emerald"
-      order: 4
-    nord:
-      name: "Nord"
-      order: 5
-    sunset:
-      name: "Sunset"
-      order: 6
-    abyss:
-      name: "Abyss"
-      order: 7
-    dracula:
-      name: "Dracula"
-      order: 8
-    amethyst:
-      name: "Amethyst"
-      order: 9
-    slate:
-      name: "Slate"
-      order: 10
-    twitter:
-      name: "Twitter"
-      order: 11
 
 
   home:

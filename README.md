@@ -9,7 +9,7 @@ Deployed with **GitHub Pages** under the custom domain [enriquegoberna.com](http
 
 - **Blog** with lists by *Posts*, *Categories*, *Tags*, and *Archives*.
 - **Search overlay** (with keyboard shortcuts).
-- **Light/Dark/System mode** + multiple **color palettes** (Default, Claude, Bumblebee, Emerald, Nord, Sunset, Abyss, Dracula, Amethyst, Slate, Twitter).
+- **Canonical portfolio visual system** with Light/Dark/System mode and one consistent accent palette.
 - **About** and **Contact** pages, plus **RSS feed**.
 - Built with **Hugo** + **Narrow**, deployed on **GitHub Pages**.
 
@@ -23,12 +23,15 @@ Deployed with **GitHub Pages** under the custom domain [enriquegoberna.com](http
 
 ---
 
-##  Repository structure
+## Repository structure
 
-```
+```text
 .
+├── .ai/plans/          # Resumable AI-assisted implementation plans
 ├── archetypes/         # Content archetypes
+├── assets/css/custom/  # Portfolio-specific visual system overrides
 ├── content/            # Blog posts and pages (e.g., posts/, about/)
+├── docs/               # Source documentation, including visual-system rules
 ├── static/             # Static assets (served as-is in /)
 ├── themes/             # Hugo theme (submodule)
 ├── .github/workflows/  # CI for build/deploy to Pages
@@ -69,8 +72,11 @@ hugo new posts/my-post/index.md
 
 ## Appearance
 
-- Switch **mode** (Light/Dark/System) and **palette** from the header toggle.
-- Configure defaults in `hugo.yaml` according to the Narrow theme documentation.
+Portfolio-specific visual decisions live in [`docs/visual-system.md`](docs/visual-system.md) and `assets/css/custom/portfolio.css`.
+
+- Use **Light/Dark/System** mode from the header control.
+- The old multi-palette selector is intentionally disabled to keep one coherent visual identity.
+- Do not edit the `themes/hugo-narrow` submodule for portfolio-specific styling; use the custom CSS extension point instead.
 
 ---
 
