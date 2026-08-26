@@ -1,60 +1,85 @@
-import { expect, test } from '@playwright/test';
-import { assertNoHorizontalOverflow, stabilizePage } from './helpers';
+import { expect, Locator, Page, test } from '@playwright/test';
+import { getOverflowDiagnostics, stabilizePage } from './helpers';
 
-const primaryLabels = ['Home', 'Projects', 'Engineering writing', 'About', 'Contact'];
+const primaryLinks = [
+  { name: 'Home', selector: 'a[href="/"]' },
+  { name: 'Projects', selector: 'a[href="/projects/"]' },
+  { name: 'Engineering writing', selector: 'a[href="/writing/"]' },
+  { name: 'About', selector: 'a[href="/about/"]' },
+  { name: 'Contact', selector: 'a[href^="mailto:"]' },
+] as const;
 
-test('desktop primary navigation exposes the portfolio journey', async ({ page }) => {
+async function tabUntilFocused(page: Page, target: Locator, maxTabs = 12): Promise<void> {
+  for (let index = 0; index < maxTabs; index += 1) {
+    await page.keyboard.press('Tab');
+    if (await target.evaluate(element => element === document.activeElement)) {
+      return;
+    }
+  }
+  throw new Error(`Target was not reached by keyboard after ${maxTabs} Tab presses`);
+}
+
+test('desktop primary navigation exposes routes and active state', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
   await stabilizePage(page);
 
-  for (const label of primaryLabels) {
-    await expect(page.getByRole('link', { name: label, exact: true }).first()).toBeVisible();
+  const desktopNav = page.locator('header nav').filter({ visible: true }).first();
+  for (const link of primaryLinks) {
+    await expect(desktopNav.locator(`${link.selector}:visible`).first(), `${link.name} link`).toBeVisible();
   }
 
-  await page.getByRole('link', { name: 'Projects', exact: true }).first().click();
+  const projects = desktopNav.locator('a[href="/projects/"]').first();
+  await projects.click();
   await expect(page).toHaveURL(/\/projects\/$/);
-  await expect(page.getByRole('heading', { name: 'Projects', exact: true }).first()).toBeVisible();
+  await expect(page.locator('header nav:visible a[href="/projects/"]').first()).toHaveClass(/nav-active-indicator/);
 
-  await page.getByRole('link', { name: 'Engineering writing', exact: true }).first().click();
+  await page.locator('header nav:visible a[href="/writing/"]').first().click();
   await expect(page).toHaveURL(/\/writing\/$/);
+  await expect(page.locator('header nav:visible a[href="/writing/"]').first()).toHaveClass(/nav-active-indicator/);
 });
 
-test('mobile menu opens, exposes primary links, and navigates without overflow', async ({ page }) => {
+test('mobile menu opens, exposes routes, and navigates without overflow', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await stabilizePage(page);
 
-  const toggle = page.locator('.dropdown-toggle[data-dropdown-type="mobile-menu"]').first();
+  const toggle = page.locator('#mobile-menu-toggle');
   await expect(toggle).toBeVisible();
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
 
-  const menu = page.locator('.dropdown-menu[data-dropdown-type="mobile-menu"]').first();
+  const menu = page.locator('#mobile-menu');
   await expect(menu).toBeVisible();
-  for (const label of primaryLabels) {
-    await expect(menu.getByRole('link', { name: label, exact: true }).first()).toBeVisible();
+  for (const link of primaryLinks) {
+    await expect(menu.locator(link.selector).first(), `${link.name} mobile link`).toBeVisible();
   }
 
-  await assertNoHorizontalOverflow(page);
-  await menu.getByRole('link', { name: 'Projects', exact: true }).first().click();
+  const overflow = await getOverflowDiagnostics(page);
+  expect(
+    overflow.horizontalOverflow,
+    `Mobile menu overflow: ${overflow.scrollWidth}px > ${overflow.clientWidth}px. ` +
+      `Overflowing elements: ${JSON.stringify(overflow.elements)}`,
+  ).toBeFalsy();
+
+  await menu.locator('a[href="/projects/"]').first().click();
   await expect(page).toHaveURL(/\/projects\/$/);
+  await expect(page.locator('#mobile-menu a[href="/projects/"]').first()).toHaveAttribute('aria-current', 'page');
 });
 
-test('keyboard can reach and activate the mobile menu control', async ({ page }) => {
+test('keyboard can reach and activate the mobile menu path', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await stabilizePage(page);
 
-  const toggle = page.locator('.dropdown-toggle[data-dropdown-type="mobile-menu"]').first();
-  await toggle.focus();
+  const toggle = page.locator('#mobile-menu-toggle');
+  await tabUntilFocused(page, toggle);
   await expect(toggle).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
 
-  const menu = page.locator('.dropdown-menu[data-dropdown-type="mobile-menu"]').first();
-  const projects = menu.getByRole('link', { name: 'Projects', exact: true }).first();
-  await projects.focus();
+  const projects = page.locator('#mobile-menu a[href="/projects/"]').first();
+  await tabUntilFocused(page, projects);
   await expect(projects).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/projects\/$/);

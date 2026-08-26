@@ -16,9 +16,9 @@ Bootstrap exception authorized by the user: branch/push/PR may occur before the 
 
 ## Approach
 
-Add repository-owned Playwright infrastructure and an isolated pull-request GitHub Actions workflow. The workflow builds Hugo from the checked-out revision, serves `public/` on runner-local `127.0.0.1`, runs Chromium against a deterministic page/viewport matrix, emits current screenshots plus Playwright results, and uploads the complete visual-review evidence even on failure.
+Add repository-owned Playwright infrastructure and an isolated pull-request GitHub Actions workflow. The workflow builds the exact pull-request head revision, serves `public/` on runner-local `127.0.0.1`, runs Chromium against a deterministic page/viewport matrix, emits current screenshots plus Playwright results, and uploads the complete visual-review evidence even on failure.
 
-Baseline snapshot creation is a deliberate second step after the first CI run produces current screenshots. Baselines must not be fabricated before the rendered output is visually reviewed.
+Baseline snapshot creation is a deliberate second step after generated screenshots are visually reviewed. Baselines must not be fabricated before the rendered output is accepted.
 
 ## Tasks
 
@@ -27,30 +27,56 @@ Baseline snapshot creation is a deliberate second step after the first CI run pr
 - [x] T3 — Add representative page, viewport, structural, navigation, mobile-menu, and keyboard tests.
 - [x] T4 — Add current screenshot capture and machine-readable manifest generation.
 - [x] T5 — Add artifact/report retention and local developer documentation.
-- [ ] T6 — Bootstrap-deliver branch/PR and obtain first GitHub Actions run.
+- [x] T6 — Bootstrap-deliver branch/PR and obtain first GitHub Actions run.
 - [ ] T7 — Inspect generated screenshots and accept baseline snapshots.
 - [ ] T8 — Demonstrate an intentional visual-regression failure, revert the temporary change, and obtain final green CI.
 - [ ] T9 — Run independent final verification and record verdict.
 
+## First runtime evidence
+
+Bootstrap PR: `egobb/egobb.github.io#3`.
+
+First run proved the end-to-end infrastructure boots correctly:
+
+- checkout and submodule initialization passed;
+- Hugo Extended installation passed;
+- Node/npm dependency installation passed;
+- Chromium installation passed;
+- `hugo --minify` passed;
+- Playwright executed;
+- the artifact uploaded with `if: always()`.
+
+The first browser run also exposed test-harness defects that require remediation before product findings can be trusted:
+
+- exact accessible-name selectors failed because theme icons contribute to link accessible names;
+- lazy-loaded images were falsely classified as broken via `naturalWidth`;
+- the representative long-article slug was stale;
+- screenshots/results were recorded after assertions, so failing page/viewports lacked complete current evidence;
+- checkout built GitHub's synthetic PR merge revision instead of the exact PR head;
+- retry traces made the failure artifact approximately 434 MB.
+
+It also detected horizontal overflow on some tablet/mobile pages. That finding remains intentionally strict and will be re-evaluated after harness false positives are removed.
+
+## Remediation design
+
+- identify navigation destinations by stable `href` and verify active state separately;
+- validate image resources by HTTP response rather than viewport-dependent lazy-loading state;
+- use the actual representative long-form article path;
+- capture current screenshots and diagnostics before assertions and always record a result in `finally`;
+- check out the exact PR head SHA and use that same SHA in the manifest/artifact identity;
+- initialize `manifest.json` before the Hugo build;
+- disable retries/traces for the deterministic visual suite to keep artifacts bounded;
+- include overflowing-element diagnostics when overflow is detected;
+- pin accepted snapshot paths under `tests/visual/__snapshots__/`.
+
 ## Validation
 
-Static checks before bootstrap delivery:
-
-- workflow YAML structure and trigger review;
-- exact production workflow remains unchanged;
-- package lock matches package manifest;
-- Playwright configuration references only Chromium and runner-local server;
-- page matrix covers Home, Projects, Engineering writing, About, Posts, and one long article;
-- viewport matrix covers 1440x900, 768x1024, and 390x844;
-- artifacts are uploaded with `if: always()`;
-- no production deployment permissions or external preview host are introduced.
-
-Runtime gate after bootstrap delivery:
+Runtime gate:
 
 - `hugo --minify` passes in Actions;
 - Playwright installs and Chromium launches;
-- current screenshots and manifest artifact are retrievable;
-- structural/navigation/mobile/keyboard checks pass;
+- current screenshots and manifest artifact are retrievable for success and failure;
+- structural/navigation/mobile/keyboard checks pass or expose real product findings with actionable diagnostics;
 - accepted visual baselines are committed only after visual review;
 - temporary intentional visual change produces expected/actual/diff evidence;
 - reverted final revision returns green.

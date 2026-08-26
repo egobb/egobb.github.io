@@ -1,4 +1,4 @@
-import { expect, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -18,10 +18,17 @@ export const pages = [
   { name: 'posts', url: '/posts/', heading: null },
   {
     name: 'long-article',
-    url: '/posts/when-postgres-is-enough-snapshot-ingestion-pipeline/',
+    url: '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/',
     heading: null,
   },
 ] as const;
+
+export type OverflowingElement = {
+  selector: string;
+  left: number;
+  right: number;
+  width: number;
+};
 
 export function ensureVisualDirectories(): void {
   fs.mkdirSync(path.join(visualRoot, 'screenshots'), { recursive: true });
@@ -39,9 +46,10 @@ export async function stabilizePage(page: Page): Promise<void> {
       }
     `,
   });
+  await page.evaluate(() => document.fonts.ready);
 }
 
-export async function collectConsoleErrors(page: Page): Promise<string[]> {
+export function collectConsoleErrors(page: Page): string[] {
   const errors: string[] = [];
   page.on('console', message => {
     if (message.type() === 'error') {
@@ -52,21 +60,58 @@ export async function collectConsoleErrors(page: Page): Promise<string[]> {
   return errors;
 }
 
-export async function assertNoBrokenImages(page: Page): Promise<void> {
-  const broken = await page.locator('img').evaluateAll(images =>
-    images
-      .filter(image => !image.complete || image.naturalWidth === 0)
-      .map(image => image.getAttribute('src') || '<missing src>'),
+export async function findBrokenImages(page: Page): Promise<string[]> {
+  const sources = await page.locator('img[src]').evaluateAll(images =>
+    [...new Set(images.map(image => image.getAttribute('src')).filter((src): src is string => Boolean(src)))],
   );
-  expect(broken, `Broken images: ${broken.join(', ')}`).toEqual([]);
+
+  const broken: string[] = [];
+  for (const src of sources) {
+    const url = new URL(src, page.url()).toString();
+    const response = await page.request.get(url);
+    if (!response.ok()) {
+      broken.push(`${src} (${response.status()})`);
+    }
+  }
+  return broken;
 }
 
-export async function assertNoHorizontalOverflow(page: Page): Promise<void> {
-  const dimensions = await page.evaluate(() => ({
-    scrollWidth: document.documentElement.scrollWidth,
-    clientWidth: document.documentElement.clientWidth,
-  }));
-  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
+export async function getOverflowDiagnostics(page: Page): Promise<{
+  horizontalOverflow: boolean;
+  scrollWidth: number;
+  clientWidth: number;
+  elements: OverflowingElement[];
+}> {
+  return page.evaluate(() => {
+    const clientWidth = document.documentElement.clientWidth;
+    const scrollWidth = document.documentElement.scrollWidth;
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('body *'))
+      .filter(element => {
+        const style = window.getComputedStyle(element);
+        if (style.display === 'none' || style.visibility === 'hidden') return false;
+        const rect = element.getBoundingClientRect();
+        return rect.width > 0 && (rect.left < -1 || rect.right > clientWidth + 1);
+      })
+      .slice(0, 20)
+      .map(element => {
+        const rect = element.getBoundingClientRect();
+        const id = element.id ? `#${element.id}` : '';
+        const classes = Array.from(element.classList).slice(0, 3).map(name => `.${name}`).join('');
+        return {
+          selector: `${element.tagName.toLowerCase()}${id}${classes}`,
+          left: Math.round(rect.left),
+          right: Math.round(rect.right),
+          width: Math.round(rect.width),
+        };
+      });
+
+    return {
+      horizontalOverflow: scrollWidth > clientWidth,
+      scrollWidth,
+      clientWidth,
+      elements,
+    };
+  });
 }
 
 export async function captureCurrentScreenshot(

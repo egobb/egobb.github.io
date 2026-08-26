@@ -4,7 +4,8 @@ export default defineConfig({
   testDir: './tests/visual',
   fullyParallel: false,
   workers: 1,
-  retries: process.env.CI ? 1 : 0,
+  retries: 0,
+  snapshotPathTemplate: '{testDir}/__snapshots__/{arg}',
   reporter: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
@@ -17,7 +18,7 @@ export default defineConfig({
     locale: 'en-US',
     reducedMotion: 'reduce',
     screenshot: 'only-on-failure',
-    trace: 'retain-on-failure',
+    trace: 'off',
   },
   webServer: {
     command: 'python3 -m http.server 1313 --directory public',
