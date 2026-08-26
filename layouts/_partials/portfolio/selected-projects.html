@@ -74,14 +74,8 @@
                 </div>
               </div>
             {{ end }}
-          {{ else }}
-            {{ with .summary }}
-              <p class="text-muted-foreground mt-2 leading-relaxed">{{ . }}</p>
-            {{ end }}
-          {{ end }}
 
-          <div class="mt-5 flex flex-wrap items-center gap-3 text-sm font-medium">
-            {{ if $detailed }}
+            <div class="mt-5 flex flex-wrap items-center gap-3 text-sm font-medium">
               {{ with .caseStudyPageRef }}
                 {{ with site.GetPage . }}
                   <a
@@ -91,28 +85,55 @@
                   </a>
                 {{ end }}
               {{ end }}
-            {{ end }}
 
-            {{ with .articlePageRef }}
-              {{ with site.GetPage . }}
+              {{ with .articlePageRef }}
+                {{ with site.GetPage . }}
+                  <a
+                    href="{{ .RelPermalink }}"
+                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                    Engineering write-up
+                  </a>
+                {{ end }}
+              {{ end }}
+
+              {{ with .repositoryUrl }}
                 <a
-                  href="{{ .RelPermalink }}"
+                  href="{{ . }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                  Engineering write-up
+                  Repository
                 </a>
               {{ end }}
+            </div>
+          {{ else }}
+            {{ with .summary }}
+              <p class="text-muted-foreground mt-2 leading-relaxed">{{ . }}</p>
             {{ end }}
-
-            {{ with .repositoryUrl }}
-              <a
-                href="{{ . }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                Repository
-              </a>
-            {{ end }}
-          </div>
+            <div class="mt-5 flex flex-wrap items-center text-sm font-medium">
+              {{ with .articlePageRef }}
+                {{ with site.GetPage . }}
+                  <a
+                    href="{{ .RelPermalink }}"
+                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                    Engineering write-up
+                  </a>
+                  {{ with $project.repositoryUrl }}
+                    <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+              {{ with .repositoryUrl }}
+                <a
+                  href="{{ . }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                  Repository
+                </a>
+              {{ end }}
+            </div>
+          {{ end }}
         </article>
       {{ end }}
     </div>
