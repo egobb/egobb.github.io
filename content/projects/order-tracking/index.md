@@ -18,23 +18,12 @@ The resulting design moves ingestion behind Kafka, but keeps the processing mode
 
 ## Event flow and ordering boundary
 
-```mermaid
-flowchart LR
-    Client[Client] -->|POST /order/tracking| API[REST adapter]
-    API --> App[Application use case]
-    App -->|TrackingEvent| Pub[Kafka publisher]
-    Pub -->|key = orderId| Topic[(Kafka topic)]
-    Topic --> P0[Partition 0]
-    Topic --> P1[Partition 1]
-    Topic --> PN[Partition N]
-    P0 --> Group[Consumer group]
-    P1 --> Group
-    PN --> Group
-    Group --> Processor[Domain processing]
-    Processor --> Rules[State transition rules]
-    Rules --> Projection[(Order projection)]
-    Rules --> Audit[(Append-only event log)]
-```
+<picture>
+  <source media="(max-width: 640px)" srcset="order-tracking-architecture-mobile.svg">
+  <img src="order-tracking-architecture.svg" alt="Order Tracking architecture: REST ingestion publishes tracking events keyed by orderId to Kafka; keyed partitions feed a consumer and domain processor that update the order projection and append-only audit history." width="1200" height="650" decoding="async">
+</picture>
+
+*Keyed partitioning keeps events for one order on the same Kafka partition while unrelated orders can progress in parallel.*
 
 The important guarantee is **per-order ordering, not global ordering**. [`TrackingEventDomainHandler`](https://github.com/egobb/order-tracking/blob/main/app/src/main/java/com/egobb/orders/infrastructure/kafka/TrackingEventDomainHandler.java) passes `ev.orderId()` as the publication key, and [`TrackingEventPublisher`](https://github.com/egobb/order-tracking/blob/main/app/src/main/java/com/egobb/orders/infrastructure/kafka/TrackingEventPublisher.java) sends that key with the Kafka record. Kafka routes records with the same key to the same partition, so records for one order share a partition and retain that partition's order. Different order IDs can land on different partitions and therefore be processed concurrently.
 
