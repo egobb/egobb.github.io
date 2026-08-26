@@ -59,7 +59,7 @@ jobs:
           fi
 
       - name: Generate candidate Home baselines
-        run: npx playwright test pages.spec.ts --grep "^home renders" --update-snapshots
+        run: npx playwright test --grep "home renders at" --update-snapshots
 
       - name: Run visual review
         run: npm run visual:test
