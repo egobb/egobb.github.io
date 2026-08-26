@@ -3,16 +3,6 @@ title: "About"
 layout: "about"
 summary: "Senior Backend Engineer focused on Java, Kafka, distributed systems, event-driven platforms, reliability, and technical leadership."
 date: 2025-09-19T00:00:00+02:00
-links:
-  - name: "GitHub"
-    url: "https://github.com/egobb"
-    icon: "https://github.com/fluidicon.png"
-    description: "Projects, code, and delivery evidence."
-  - name: "LinkedIn"
-    url: "https://www.linkedin.com/in/enriquegoberna/"
-    icon: "https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico"
-    description: "Professional background and current scope."
-
 ---
 
 I am a **Senior Backend Engineer** focused on **Java, Kafka, distributed systems, and event-driven platforms**. I build and operate backend systems where ordering, idempotency, resilience, observability, and safe delivery matter, combining hands-on engineering with technical leadership across design, code review, cross-team contracts, and mentoring.
@@ -48,5 +38,3 @@ I studied Computer Engineering at the [University of A Coruña](https://www.udc.
 ## Beyond engineering
 
 Outside work, I spend a lot of time strength training, hiking, reading, and learning. Those interests give me a useful counterweight to engineering while reinforcing the same habits I value professionally: consistency, curiosity, and deliberate improvement.
-
-<img src="/images/nature_profile_small.jpeg" alt="Enrique outdoors" width="500">
