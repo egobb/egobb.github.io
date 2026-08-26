@@ -13,7 +13,7 @@ For pull requests targeting `main`, `.github/workflows/visual-review.yml`:
 5. installs Chromium;
 6. builds the site with `hugo --minify` and records build success or failure in the manifest;
 7. serves the generated `public/` directory on runner-local `127.0.0.1:1313`;
-8. runs Playwright against representative pages and viewports;
+8. runs Playwright against representative pages and viewports, including accepted visual-regression baselines;
 9. persists each page/viewport and interaction result independently so Playwright worker restarts cannot erase prior evidence;
 10. finalizes `manifest.json` with `if: always()` and retains screenshots, test results, the HTML report, and manifest as a GitHub Actions artifact even when browser checks fail.
 
@@ -36,7 +36,9 @@ Viewports:
 - tablet: 768 × 1024
 - mobile: 390 × 844
 
-The suite also checks horizontal overflow, image resource responses, unexpected console/page errors, desktop primary navigation and active states, the mobile menu, and a bounded keyboard interaction path.
+All 18 page/viewport combinations are rendered, captured as current screenshots, and checked for response status, expected headings where applicable, broken images, unexpected console/page errors, and horizontal overflow.
+
+The suite also exercises desktop primary navigation and active states, the mobile menu, and a bounded keyboard interaction path, for a current total of 21 Playwright checks.
 
 ## Run locally
 
@@ -84,40 +86,41 @@ The manifest is initialized before Hugo builds, so a build failure still leaves 
 
 Current page screenshots are captured before structural assertions so failed checks still preserve the rendered state.
 
-Playwright retries and trace recording are disabled for this deterministic visual suite. This keeps failure artifacts bounded; the report, current screenshot, failure screenshot, error context, and later visual expected/actual/diff images provide the required evidence without hundreds of megabytes of repeated traces.
+Playwright retries and trace recording are disabled for this deterministic visual suite. This keeps failure artifacts bounded; the report, current screenshot, failure screenshot, error context, and visual expected/actual/diff images provide the required evidence without hundreds of megabytes of repeated traces.
 
 ## Visual regression baselines
 
-Current screenshots are always generated. Baseline assertions are intentionally enabled only after a human or independent visual reviewer has inspected and accepted the first deterministic screenshots.
-
-Accepted snapshots use deterministic repository paths:
+Accepted snapshots are committed under deterministic repository paths:
 
 ```text
 tests/visual/__snapshots__/<page>-<viewport>.png
 ```
 
-Once accepted baselines exist, run the suite with:
+The baseline set is intentionally smaller than the current-screenshot evidence matrix. Every route and viewport is still captured on every run, while regression snapshots cover representative surfaces where a pixel comparison adds the most value:
 
-```bash
-VISUAL_BASELINES=1 npm run visual:test
-```
+- Home — desktop, tablet, and mobile;
+- Projects — mobile;
+- About — mobile;
+- representative long article — mobile.
+
+This gives broad responsive evidence without committing 18 largely redundant full-page images to the repository.
+
+Baseline assertions run automatically in CI; no environment flag is required.
 
 To intentionally update accepted snapshots after reviewing an expected visual change:
 
 ```bash
-VISUAL_BASELINES=1 npm run visual:update
+npm run visual:update
 ```
 
-Never update snapshots only to make CI green. First identify why the rendered output changed and confirm that the change is intended.
-
-CI should set `VISUAL_BASELINES=1` only after the repository contains accepted snapshot files for the complete representative matrix.
+Never update snapshots only to make CI green. First identify why the rendered output changed, inspect the expected/actual/diff evidence, and confirm that the change is intended.
 
 ## Failure semantics
 
 - Hugo build failure → workflow fails and preserves the build result in the manifest.
 - Browser/interaction/overflow/image/console failure → workflow fails and retains available rendered evidence.
-- Unexpected visual diff after baselines are enabled → workflow fails with Playwright expected/actual/diff results.
-- Successful run → current screenshots, manifest, and report are still retained.
+- Unexpected visual diff → workflow fails with Playwright expected/actual/diff results.
+- Successful run → current screenshots, manifest, report, and baseline comparisons are still retained.
 
 ## Production isolation
 
