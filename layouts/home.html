@@ -1,52 +1,55 @@
 {{ define "main" }}
   <div class="mx-auto max-w-4xl">
     {{ if site.Params.author }}
-      <section class="author-section mb-12">
-        <div class="bg-card border-border rounded-xl border p-8 shadow-sm">
-          <div class="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:text-left">
+      <section class="author-section" aria-labelledby="home-hero-title">
+        <div data-visual-role="home-hero-card" class="home-hero-card bg-card border-border rounded-xl border p-8 shadow-sm">
+          <div data-visual-role="home-hero-layout" class="home-hero-layout flex flex-col items-center gap-6 text-center md:flex-row md:text-left">
             <div class="flex-shrink-0">
               {{ if site.Params.author.avatar }}
                 <img
                   src="{{ site.Params.author.avatar }}"
                   alt="{{ site.Params.author.name | default site.Title }}"
-                  class="border-primary/20 h-24 w-24 rounded-full border-4 object-cover shadow-lg" />
+                  class="home-hero-avatar border-primary/20 h-24 w-24 rounded-full border-4 object-cover shadow-lg" />
               {{ else }}
-                <div class="bg-primary text-primary-foreground flex h-24 w-24 items-center justify-center rounded-full text-2xl font-bold shadow-lg">
+                <div class="home-hero-avatar bg-primary text-primary-foreground flex h-24 w-24 items-center justify-center rounded-full text-2xl font-bold shadow-lg">
                   {{ substr (site.Params.author.name | default site.Title) 0 1 | upper }}
                 </div>
               {{ end }}
             </div>
 
-            <div class="min-w-0 flex-1">
-              <h1 class="text-foreground mb-2 text-3xl font-bold">
-                {{ site.Params.author.name | default site.Title }}
+            <div data-visual-role="home-hero-copy" class="min-w-0 flex-1">
+              <p data-visual-role="home-hero-eyebrow" class="home-hero-eyebrow text-primary text-sm font-semibold tracking-wide">
+                Senior Backend Engineer · Java · Kafka · Distributed Systems
+              </p>
+
+              <h1 data-visual-role="home-hero-title" id="home-hero-title" class="home-hero-title text-foreground text-3xl font-bold md:text-4xl">
+                Building reliable event-driven systems at scale.
               </h1>
 
-              {{ if site.Params.author.title }}
-                <p class="text-muted-foreground mb-3 text-lg">{{ site.Params.author.title }}</p>
-              {{ end }}
+              <p data-visual-role="home-hero-summary" class="home-hero-summary text-foreground">
+                I design and operate backend platforms where ordering, resilience and observability matter—and lead the engineering work that makes them dependable in production.
+              </p>
 
-              {{ if site.Params.author.description }}
-                <p class="text-foreground mb-4 leading-relaxed">{{ site.Params.author.description }}</p>
-              {{ end }}
-
-              {{ if site.Params.author.social }}
-                <div class="flex flex-wrap justify-center gap-3 md:justify-start">
-                  {{ range site.Params.author.social }}
-                    <a
-                      href="{{ .url }}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="bg-muted text-muted-foreground hover:text-primary hover:bg-primary/10 focus:ring-primary/20 inline-flex items-center gap-2 rounded-lg px-3 py-2 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 focus:ring-2 focus:outline-none"
-                      title="{{ .name }}">
-                      {{ if .icon }}
-                        {{ partial "features/icon.html" (dict "name" .icon "size" "sm" "ariaLabel" .name) }}
-                      {{ end }}
-                      <span class="text-sm font-medium">{{ .name }}</span>
-                    </a>
-                  {{ end }}
-                </div>
-              {{ end }}
+              <div data-visual-role="home-hero-actions" class="home-hero-actions flex flex-wrap justify-center md:justify-start">
+                <a
+                  data-visual-role="home-hero-primary-cta"
+                  href="{{ "/projects/" | relLangURL }}"
+                  class="home-hero-action bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/20 inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-colors focus:ring-2 focus:outline-none">
+                  View selected projects
+                </a>
+                <a
+                  href="{{ "/writing/" | relLangURL }}"
+                  class="home-hero-action border-border bg-background text-foreground hover:bg-muted focus:ring-primary/20 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
+                  Read case studies
+                </a>
+                <a
+                  href="https://github.com/egobb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="home-hero-action home-hero-tertiary text-muted-foreground hover:text-primary focus:ring-primary/20 inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
+                  GitHub
+                </a>
+              </div>
             </div>
           </div>
         </div>
