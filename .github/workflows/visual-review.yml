@@ -58,6 +58,9 @@ jobs:
             exit 1
           fi
 
+      - name: Generate candidate Home baselines
+        run: npx playwright test tests/visual/pages.spec.ts --grep "^home renders" --update-snapshots
+
       - name: Run visual review
         run: npm run visual:test
 
@@ -74,5 +77,6 @@ jobs:
             artifacts/visual-review
             playwright-report
             test-results
+            tests/visual/__snapshots__/home-*.png
           if-no-files-found: warn
           retention-days: 14
