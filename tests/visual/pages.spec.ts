@@ -31,6 +31,15 @@ type VisualResult = {
   error?: string;
 };
 
+const visualBaselineMatrix = new Set([
+  'home:desktop',
+  'home:tablet',
+  'home:mobile',
+  'projects:mobile',
+  'about:mobile',
+  'long-article:mobile',
+]);
+
 test.beforeAll(() => ensureVisualDirectories());
 
 for (const viewport of viewports) {
@@ -85,7 +94,7 @@ for (const viewport of viewports) {
             `Overflowing elements: ${JSON.stringify(overflow.elements)}`,
         ).toBeFalsy();
 
-        if (process.env.VISUAL_BASELINES === '1') {
+        if (visualBaselineMatrix.has(`${route.name}:${viewport.name}`)) {
           await expect(page).toHaveScreenshot(`${route.name}-${viewport.name}.png`, { fullPage: true });
         }
 
