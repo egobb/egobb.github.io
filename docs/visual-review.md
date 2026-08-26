@@ -13,7 +13,7 @@ For pull requests targeting `main`, `.github/workflows/visual-review.yml`:
 5. installs Chromium;
 6. builds the site with `hugo --minify` and records build success or failure in the manifest;
 7. serves the generated `public/` directory on runner-local `127.0.0.1:1313`;
-8. runs Playwright against representative pages and viewports, including accepted visual-regression baselines;
+8. runs Playwright against representative pages and viewports, including accepted visual-regression baselines and targeted layout-quality assertions for critical surfaces;
 9. persists each page/viewport and interaction result independently so Playwright worker restarts cannot erase prior evidence;
 10. finalizes `manifest.json` with `if: always()` and retains screenshots, test results, the HTML report, and manifest as a GitHub Actions artifact even when browser checks fail.
 
@@ -37,6 +37,10 @@ Viewports:
 - mobile: 390 × 844
 
 All 18 page/viewport combinations are rendered, captured as current screenshots, and checked for response status, expected headings where applicable, broken images, unexpected console/page errors, and horizontal overflow.
+
+The Home hero also has explicit layout-quality checks at all three viewports. These checks protect minimum card padding, semantic spacing between the eyebrow/title/supporting copy/CTA group, separation from the Projects section, readable supporting-copy width and line-height, and a minimum primary-CTA height. The measured values are written into each Home result JSON so failures are diagnosable without relying only on pixel diffs.
+
+These layout-quality assertions complement, rather than replace, visual-regression snapshots. A snapshot proves that rendering did not change unexpectedly; the layout assertions prevent an intentionally refreshed baseline from silently accepting an objectively cramped critical surface.
 
 The suite also exercises desktop primary navigation and active states, the mobile menu, and a bounded keyboard interaction path, for a current total of 21 Playwright checks.
 
@@ -113,14 +117,15 @@ To intentionally update accepted snapshots after reviewing an expected visual ch
 npm run visual:update
 ```
 
-Never update snapshots only to make CI green. First identify why the rendered output changed, inspect the expected/actual/diff evidence, and confirm that the change is intended.
+Never update snapshots only to make CI green. First identify why the rendered output changed, inspect the expected/actual/diff evidence, confirm that the change is intended, and make sure the applicable layout-quality assertions also pass.
 
 ## Failure semantics
 
 - Hugo build failure → workflow fails and preserves the build result in the manifest.
 - Browser/interaction/overflow/image/console failure → workflow fails and retains available rendered evidence.
+- Critical layout-quality failure → workflow fails with the measured spacing/sizing diagnostics persisted in the page result.
 - Unexpected visual diff → workflow fails with Playwright expected/actual/diff results.
-- Successful run → current screenshots, manifest, report, and baseline comparisons are still retained.
+- Successful run → current screenshots, manifest, report, layout diagnostics, and baseline comparisons are still retained.
 
 ## Production isolation
 
