@@ -38,9 +38,9 @@ Viewports:
 
 All 18 page/viewport combinations are rendered, captured as current screenshots, and checked for response status, expected headings where applicable, broken images, unexpected console/page errors, and horizontal overflow.
 
-The Home hero also has explicit layout-quality checks at all three viewports. These checks protect minimum card padding, semantic spacing between the eyebrow/title/supporting copy/CTA group, separation from the Projects section, readable supporting-copy width and line-height, and a minimum primary-CTA height. The measured values are written into each Home result JSON so failures are diagnosable without relying only on pixel diffs.
+The Home hero also has explicit layout-quality checks at all three viewports. These checks protect bounded card padding and hero-to-Projects separation so the composition is neither cramped nor unnecessarily oversized, minimum semantic spacing between the eyebrow/title/supporting copy/CTA group, readable supporting-copy width and line-height, and a minimum primary-CTA height. The measured values are written into each Home result JSON so failures are diagnosable without relying only on pixel diffs.
 
-These layout-quality assertions complement, rather than replace, visual-regression snapshots. A snapshot proves that rendering did not change unexpectedly; the layout assertions prevent an intentionally refreshed baseline from silently accepting an objectively cramped critical surface.
+These layout-quality assertions complement, rather than replace, visual-regression snapshots. A snapshot proves that rendering did not change unexpectedly; the layout assertions prevent an intentionally refreshed baseline from silently accepting either an objectively cramped or an excessively expanded critical surface.
 
 The suite also exercises desktop primary navigation and active states, the mobile menu, and a bounded keyboard interaction path, for a current total of 21 Playwright checks.
 
