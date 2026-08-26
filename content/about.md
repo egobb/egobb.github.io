@@ -1,11 +1,11 @@
 ---
 title: "About"
 layout: "about"
-summary: "Backend systems, distributed platforms, and the engineering decisions that keep them reliable and understandable."
+summary: "Software engineer working on backend platforms for inventory and e-commerce, from domain decisions to production behavior."
 date: 2025-09-19T00:00:00+02:00
 ---
 
-Hello, I’m Enrique. I’ve been building software professionally for more than a decade. Today most of my work is around backend systems for inventory and e-commerce, especially the point where domain rules, data movement, reliability, and operational constraints meet. I still spend a lot of time in code, but my work usually extends from understanding the problem and shaping the design to reviewing implementation, coordinating contracts, and helping the system behave correctly in production.
+Hello, I’m Enrique. I’ve been building software professionally for more than a decade, and today I work mostly on backend platforms for inventory and e-commerce. What I enjoy most is the space between a functional rule and the system that has to enforce it: understanding what the behavior really means, shaping the design, writing and reviewing code, coordinating contracts, and staying close enough to production to see whether the assumptions held up.
 
 **Contact:** [LinkedIn](https://www.linkedin.com/in/enriquegoberna/) · [GitHub](https://github.com/egobb) · [Email](mailto:egobernagarcia@gmail.com)
 
