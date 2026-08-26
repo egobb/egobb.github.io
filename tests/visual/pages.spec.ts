@@ -109,23 +109,26 @@ for (const viewport of viewports) {
 
         if (route.name === 'home') {
           const hero = page.locator('.author-section');
+          await expect(hero).not.toContainText('Senior Backend Engineer · Java · Kafka · Distributed Systems');
+          await expect(hero).not.toContainText('Building reliable event-driven systems at scale.');
+          await expect(hero.getByText('Engineering work and notes', { exact: true })).toBeVisible();
           await expect(
-            hero.getByText('Senior Backend Engineer · Java · Kafka · Distributed Systems', { exact: true }),
-          ).toBeVisible();
-          await expect(
-            hero.getByRole('heading', { name: 'Building reliable event-driven systems at scale.', exact: true }),
+            hero.getByRole('heading', {
+              name: 'I build backend systems and write down the decisions that matter.',
+              exact: true,
+            }),
           ).toBeVisible();
           await expect(
             hero.getByText(
-              'I design and operate backend platforms where ordering, resilience and observability matter—and lead the engineering work that makes them dependable in production.',
+              'The work usually comes down to data movement, ordering, failure handling and keeping systems understandable as they evolve. This site is where I document those constraints, trade-offs and the simpler choices that often survive them.',
               { exact: true },
             ),
           ).toBeVisible();
-          await expect(hero.getByRole('link', { name: 'View selected projects', exact: true })).toHaveAttribute(
+          await expect(hero.getByRole('link', { name: 'Explore projects', exact: true })).toHaveAttribute(
             'href',
             '/projects/',
           );
-          await expect(hero.getByRole('link', { name: 'Read case studies', exact: true })).toHaveAttribute(
+          await expect(hero.getByRole('link', { name: 'Read engineering notes', exact: true })).toHaveAttribute(
             'href',
             '/writing/',
           );
