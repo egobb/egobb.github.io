@@ -1,7 +1,7 @@
 {
   "work_id": "portfolio-roadmap-3-order-tracking-case-study",
   "work_item": "egobb/portfolio-roadmap#3",
-  "lifecycle_stage": "verification_candidate",
+  "lifecycle_stage": "review_ready",
   "change_track": "moderate",
   "verification_mode": "remote_ci",
   "repository_roles": {
@@ -18,14 +18,41 @@
   },
   "plan_path": ".ai/plans/portfolio-roadmap-3-order-tracking-case-study.md",
   "delivery_disposition": "internal",
+  "verification": {
+    "candidate_sha": "32f7657d043d49d8223500a78af96d205e095d73",
+    "candidate_run_id": 32980114998,
+    "candidate_result": "success",
+    "final_sha": "d36fc7509fbd1a5063faee09014c2ebe8bb973bf",
+    "final_run_id": 32980551178,
+    "final_result": "success"
+  },
+  "delivery": {
+    "branch": "feat/portfolio-roadmap-3-order-tracking-case-study",
+    "pull_request": 12,
+    "pull_request_state": "open",
+    "pull_request_draft": false,
+    "work_item_relation": "Related to egobb/portfolio-roadmap#3"
+  },
   "verification_branch": "verify/portfolio-roadmap-3-order-tracking-case-study",
+  "verification_pull_request": {
+    "number": 11,
+    "state": "closed",
+    "merged": false
+  },
   "product_paths": [
     "content/projects/order-tracking/index.md",
     "tests/visual/helpers.ts"
   ],
+  "verified_product_blobs": {
+    "content/projects/order-tracking/index.md": "4e0a602da28ad1705a7471e39e11269f7389dbb7",
+    "tests/visual/helpers.ts": "447ff36b4f5859c926ef6d09a3e1831c4ff6d1cd"
+  },
   "internal_exclusions": [
     ".ai/plans/**",
     ".ai/workflows/**"
+  ],
+  "post_merge_blockers": [
+    "Verify the merged case study is publicly live before closing egobb/portfolio-roadmap#3."
   ],
   "notes": [
     "Projects hub dependency is complete and already links /projects/order-tracking/.",
