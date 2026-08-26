@@ -1,7 +1,7 @@
 {
   "work_id": "portfolio-roadmap-39",
   "work_item": "egobb/portfolio-roadmap#39",
-  "lifecycle_stage": "implementation",
+  "lifecycle_stage": "review_ready",
   "change_track": "moderate",
   "verification_mode": "remote_ci",
   "repositories": {
@@ -17,14 +17,24 @@
   },
   "verification_transport": {
     "branch": "verify/portfolio-roadmap-39-projects-hub",
-    "pr": null,
-    "candidate_sha": null,
-    "status": "preparing"
+    "pr": 22,
+    "candidate_sha": "3b061feb897ccde6f8249ec837ed5ed821a8e07a",
+    "run_id": 33005862784,
+    "status": "passed_and_closed"
   },
   "final_delivery": {
     "branch": "feat/portfolio-roadmap-39-projects-hub",
-    "pr": null,
-    "sha": null
+    "pr": 23,
+    "sha": "1c96ee16905eceaa629251912637fdab9531f457",
+    "run_id": 33006127205,
+    "status": "review_ready"
+  },
+  "verification": {
+    "verdict": "PASS",
+    "hugo_build": "passed",
+    "playwright_visual_interaction_gate": "passed",
+    "artifact": "visual-review-pr-23-1c96ee16905eceaa629251912637fdab9531f457",
+    "artifact_digest": "sha256:44bfb82acf758e514c012b902d21efe02a19f5b2bd5e0bfe9c669a79a5945921"
   },
   "artifact_context": {
     "artifact_purpose": "Document engineering work, constraints, decisions and current limitations for technical readers; recruitment is secondary.",
@@ -37,5 +47,6 @@
     ".ai/plans/**",
     ".ai/workflows/**",
     "verification-only infrastructure"
-  ]
+  ],
+  "remaining_external_gate": "Review deployed public /projects/ after merge/deployment; merge and publication are outside this workflow authorization."
 }
