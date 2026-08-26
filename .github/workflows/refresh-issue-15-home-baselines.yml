@@ -1,0 +1,60 @@
+name: Refresh issue 15 home baselines
+
+on:
+  push:
+    branches:
+      - issue-15-historical-article-curation
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-home-baselines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: issue-15-historical-article-curation
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: latest
+          extended: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Hugo site
+        run: hugo --minify
+
+      - name: Refresh Home snapshots only
+        run: npx playwright test tests/visual/pages.spec.ts --grep '^home renders at' --update-snapshots
+
+      - name: Commit refreshed Home baselines
+        shell: bash
+        run: |
+          git add tests/visual/__snapshots__/home-desktop-linux.png \
+                  tests/visual/__snapshots__/home-tablet-linux.png \
+                  tests/visual/__snapshots__/home-mobile-linux.png
+          if git diff --cached --quiet; then
+            echo 'Home baselines already match; nothing to commit.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'test: refresh curated Home visual baselines'
+          git push origin HEAD:issue-15-historical-article-curation
