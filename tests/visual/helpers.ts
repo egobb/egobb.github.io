@@ -18,6 +18,11 @@ export const pages = [
     url: '/projects/order-tracking/',
     heading: 'Order Tracking — Event-Driven Ingestion with Kafka',
   },
+  {
+    name: 'snapshot-ingestion-case-study',
+    url: '/projects/snapshot-ingestion/',
+    heading: 'Snapshot Ingestion — Resilient Coordination with PostgreSQL',
+  },
   { name: 'writing', url: '/writing/', heading: 'Engineering writing' },
   { name: 'about', url: '/about/', heading: 'About' },
   { name: 'posts', url: '/posts/', heading: null },
