@@ -1,11 +1,11 @@
 ---
 title: "About"
 layout: "about"
-summary: "From embedded software and smart metering to RFID, inventory platforms, and backend systems."
+summary: "Backend systems, distributed platforms, and the engineering decisions that keep them reliable and understandable."
 date: 2025-09-19T00:00:00+02:00
 ---
 
-Hello, I’m Enrique. I started close to hardware, writing low-level and embedded software, then moved into the backend side of smart metering, RFID, and inventory systems. Since 2020 most of my work has been on backend platforms, but the path into them still shapes how I think about software: follow the data, understand the domain rule behind it, and keep the implementation close to the failure modes it has to survive.
+Hello, I’m Enrique. I’ve been building software professionally for more than a decade. Today most of my work is around backend systems for inventory and e-commerce, especially the point where domain rules, data movement, reliability, and operational constraints meet. I still spend a lot of time in code, but my work usually extends from understanding the problem and shaping the design to reviewing implementation, coordinating contracts, and helping the system behave correctly in production.
 
 **Contact:** [LinkedIn](https://www.linkedin.com/in/enriquegoberna/) · [GitHub](https://github.com/egobb) · [Email](mailto:egobernagarcia@gmail.com)
 
@@ -13,21 +13,17 @@ Hello, I’m Enrique. I started close to hardware, writing low-level and embedde
   <img src="/images/nature_profile_small.jpeg" alt="Enrique Goberna outdoors" width="500" style="display: block; width: 100%; height: auto; border-radius: 0.75rem;" decoding="async">
 </figure>
 
-## From devices to backend systems
+## What I work on
 
-I studied Computer Engineering at the [University of A Coruña](https://www.udc.es/). My bachelor’s thesis, *[Energy Consumption Modeling for the Qualcomm Snapdragon 810 Processor](https://drive.google.com/file/d/1WrdhfTrU4Ey2ytuP9didsABFV0ZPd8cK/view?usp=sharing)*, grew out of that early interest in low-level software and embedded systems.
+Since 2020, I have worked on central inventory platforms for e-commerce, first in a large monolithic system and later through its evolution toward distributed, event-driven services. The problems that keep me interested are usually about data consistency and failure: ordering, retries, duplicate handling, recovery, backpressure, observability, and how to change a system without making it harder to reason about.
 
-After university I worked on embedded software for energy-management devices. The same job also pulled me into a different problem: designing the backend platform behind a smart-metering management PaaS. That was my first sustained move from software running on devices toward the systems coordinating and interpreting their data.
-
-Later I worked on RFID platforms, a path closely related to my master’s thesis, *[Inventory Traceability and Verification Across the Supply Chain Using RFID](https://drive.google.com/file/d/151UcWF2ceoW0Mq8scb0J0-OAJDNRPLb9/view?usp=sharing)*. It brought together device events, inventory state, and the business rules around how goods move through a supply chain.
-
-In 2020 I moved into central inventory backend systems for e-commerce. I started with a large monolithic platform and later became involved in its evolution toward distributed, event-driven services. The production systems are confidential, so I keep the implementation details high-level here.
+The production systems are confidential, so I keep their details high-level here. The public projects on this site let me explore similar questions openly: when asynchronous messaging earns its complexity, when PostgreSQL is enough, where guarantees really begin and end, and what makes a system easier to operate.
 
 ## How I work
 
-Much of my day-to-day work sits between a domain rule and the code that eventually enforces it. A change can start as a question about inventory behavior or a data contract, then pass through service boundaries, persistence, events, tests, deployment, and production diagnostics. I tend to stay involved across that path: clarifying behavior, reviewing designs and code, aligning API and data contracts with other teams, and troubleshooting the result when it reaches a real environment.
+I tend to work close to both the domain and the implementation. A change may start with an inventory behavior or a data-contract question and end up touching APIs, events, persistence, tests, deployment, and production diagnostics. I like making that path explicit: clarifying behavior, reviewing designs and code, aligning contracts with other teams, working through problems with other engineers, and staying close to the implementation when something has to be diagnosed or changed.
 
-I prefer the simplest design that meets the actual constraints. When extra machinery is justified, I want its boundaries to be explicit: ordering, duplicate handling, retries, backpressure, replay and recovery, and observability should be decisions we can point to rather than assumptions hidden in the system.
+I prefer simple designs until the problem earns more machinery. When complexity is necessary, I want its boundaries to be visible: what is ordered, what can be duplicated, what can be replayed, how recovery works, and how we know the system is healthy.
 
 ## Selected projects
 
@@ -35,6 +31,10 @@ The projects on this site are smaller, public systems where the source, tests, a
 
 - **[Order Tracking — Event-Driven Ingestion with Kafka](/projects/order-tracking/)** — a Java and Spring Boot system that moves order-event ingestion onto Kafka while preserving per-order ordering and keeping domain rules isolated from transport and persistence. [Engineering write-up](/posts/scaling-order-tracking-kafka/).
 - **[Snapshot Ingestion — Resilient Coordination with PostgreSQL](/projects/snapshot-ingestion/)** — a staged ingestion pipeline that uses PostgreSQL coordination, streaming XML, idempotent upserts, and recovery mechanisms instead of introducing a message broker before it is needed. [Engineering write-up](/posts/when-postgres-is-enough-snapshot-ingestion-pipeline/).
+
+## Background
+
+I studied Computer Engineering at the [University of A Coruña](https://www.udc.es/). Earlier in my career I worked on embedded software, a smart-metering platform, and RFID systems. My [bachelor’s thesis](https://drive.google.com/file/d/1WrdhfTrU4Ey2ytuP9didsABFV0ZPd8cK/view?usp=sharing) dealt with processor energy consumption and my [master’s thesis](https://drive.google.com/file/d/151UcWF2ceoW0Mq8scb0J0-OAJDNRPLb9/view?usp=sharing) with RFID-based supply-chain traceability. Over time, the work I found most interesting moved toward backend platforms, distributed data flows, and the operational side of running them, which has been my main focus since 2020.
 
 ## Beyond engineering
 
