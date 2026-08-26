@@ -9,6 +9,10 @@ I am a **Senior Backend Engineer** focused on **Java, Kafka, distributed systems
 
 **Contact:** [LinkedIn](https://www.linkedin.com/in/enriquegoberna/) · [GitHub](https://github.com/egobb) · [Email](mailto:egobernagarcia@gmail.com)
 
+<figure style="margin: 1.75rem auto 2.25rem; max-width: 500px;">
+  <img src="/images/nature_profile_small.jpeg" alt="Enrique Goberna outdoors" width="500" style="display: block; width: 100%; height: auto; border-radius: 0.75rem;" decoding="async">
+</figure>
+
 ## Current engineering focus
 
 Since 2020, I have worked on high-volume inventory and e-commerce backend systems, helping evolve a large platform toward distributed, event-driven services. My work spans architecture and implementation: Spring Boot services, Kafka-based workflows, data consistency, failure handling, observability, and the operational paths needed to deploy, diagnose, and recover systems safely.
