@@ -47,9 +47,9 @@ jobs:
       - name: Commit refreshed Home baselines only
         shell: bash
         run: |
-          git add tests/visual/__snapshots__/home-desktop-linux.png \
-                  tests/visual/__snapshots__/home-tablet-linux.png \
-                  tests/visual/__snapshots__/home-mobile-linux.png
+          git add tests/visual/__snapshots__/home-desktop.png \
+                  tests/visual/__snapshots__/home-tablet.png \
+                  tests/visual/__snapshots__/home-mobile.png
           if git diff --cached --quiet; then
             echo 'Home baselines already match; nothing to commit.'
             exit 0
