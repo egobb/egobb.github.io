@@ -1,11 +1,11 @@
 ---
 title: "About"
 layout: "about"
-summary: "Senior Backend Engineer focused on Java, Kafka, distributed systems, event-driven platforms, reliability, and technical leadership."
+summary: "From embedded software and smart metering to RFID, inventory platforms, and backend systems."
 date: 2025-09-19T00:00:00+02:00
 ---
 
-I am a **Senior Backend Engineer** focused on **Java, Kafka, distributed systems, and event-driven platforms**. I build and operate backend systems where ordering, idempotency, resilience, observability, and safe delivery matter, combining hands-on engineering with technical leadership across design, code review, cross-team contracts, and mentoring.
+Hello, I’m Enrique. I started close to hardware, writing low-level and embedded software, then moved into the backend side of smart metering, RFID, and inventory systems. Since 2020 most of my work has been on backend platforms, but the path into them still shapes how I think about software: follow the data, understand the domain rule behind it, and keep the implementation close to the failure modes it has to survive.
 
 **Contact:** [LinkedIn](https://www.linkedin.com/in/enriquegoberna/) · [GitHub](https://github.com/egobb) · [Email](mailto:egobernagarcia@gmail.com)
 
@@ -13,32 +13,29 @@ I am a **Senior Backend Engineer** focused on **Java, Kafka, distributed systems
   <img src="/images/nature_profile_small.jpeg" alt="Enrique Goberna outdoors" width="500" style="display: block; width: 100%; height: auto; border-radius: 0.75rem;" decoding="async">
 </figure>
 
-## Current engineering focus
+## From devices to backend systems
 
-Since 2020, I have worked on high-volume inventory and e-commerce backend systems, helping evolve a large platform toward distributed, event-driven services. My work spans architecture and implementation: Spring Boot services, Kafka-based workflows, data consistency, failure handling, observability, and the operational paths needed to deploy, diagnose, and recover systems safely.
+I studied Computer Engineering at the [University of A Coruña](https://www.udc.es/). My bachelor’s thesis, *[Energy Consumption Modeling for the Qualcomm Snapdragon 810 Processor](https://drive.google.com/file/d/1WrdhfTrU4Ey2ytuP9didsABFV0ZPd8cK/view?usp=sharing)*, grew out of that early interest in low-level software and embedded systems.
 
-The production systems I work on are confidential, so I describe that experience at a high level here. The projects below provide public, reproducible evidence of the same kinds of engineering decisions and trade-offs.
+After university I worked on embedded software for energy-management devices. The same job also pulled me into a different problem: designing the backend platform behind a smart-metering management PaaS. That was my first sustained move from software running on devices toward the systems coordinating and interpreting their data.
 
-## How I approach systems
+Later I worked on RFID platforms, a path closely related to my master’s thesis, *[Inventory Traceability and Verification Across the Supply Chain Using RFID](https://drive.google.com/file/d/151UcWF2ceoW0Mq8scb0J0-OAJDNRPLb9/view?usp=sharing)*. It brought together device events, inventory state, and the business rules around how goods move through a supply chain.
 
-- **Start with the simplest architecture that meets the reliability and scale requirements.** New infrastructure should solve a real problem, not create one.
-- **Make failure modes explicit.** Ordering, retries, duplicate handling, backpressure, replay, and recovery belong in the design, not in an afterthought.
-- **Treat operability as part of the system.** Observability, safe delivery, diagnostics, and rollback paths influence architecture from the beginning.
-- **Prefer evidence over claims.** Tests, reproducible environments, diagrams, and documented trade-offs are more useful than technology lists.
+In 2020 I moved into central inventory backend systems for large-scale e-commerce. I started with a large monolithic platform and later became involved in its evolution toward distributed, event-driven services. The production systems are confidential, so I keep the implementation details high-level here.
 
-## Technical leadership
+## How I work
 
-Alongside implementation, I contribute to technical design, code reviews, API and data-contract alignment, production troubleshooting, and cross-team coordination. I have typically mentored and supported a small engineering group of **4–5 engineers**, helping translate functional constraints into technical decisions and keeping delivery grounded in maintainable engineering choices.
+Much of my day-to-day work sits between a domain rule and the code that eventually enforces it. A change can start as a question about inventory behaviour or a data contract, then pass through service boundaries, persistence, events, tests, deployment, and production diagnostics. I tend to stay involved across that path: clarifying behaviour, reviewing designs and code, aligning API and data contracts with other teams, and troubleshooting the result when it reaches a real environment.
+
+I prefer the simplest design that meets the actual constraints. When extra machinery is justified, I want its boundaries to be explicit: ordering, duplicate handling, retries, backpressure, replay and recovery, and observability should be decisions we can point to rather than assumptions hidden in the system.
 
 ## Selected projects
+
+The projects on this site are smaller, public systems where the source, tests, and trade-offs can be inspected directly.
 
 - **[Order Tracking — Event-Driven Ingestion with Kafka](/projects/order-tracking/)** — a Java and Spring Boot system that moves order-event ingestion onto Kafka while preserving per-order ordering and keeping domain rules isolated from transport and persistence. [Engineering write-up](/posts/scaling-order-tracking-kafka/).
 - **[Snapshot Ingestion — Resilient Coordination with PostgreSQL](/projects/snapshot-ingestion/)** — a staged ingestion pipeline that uses PostgreSQL coordination, streaming XML, idempotent upserts, and recovery mechanisms instead of introducing a message broker before it is needed. [Engineering write-up](/posts/when-postgres-is-enough-snapshot-ingestion-pipeline/).
 
-## Background
-
-I studied Computer Engineering at the [University of A Coruña](https://www.udc.es/), starting in low-level and embedded software before moving into RFID, supply-chain platforms, and eventually backend engineering. That progression gave me a useful perspective on systems from the edge to the platform layer, while my work since 2020 has increasingly centered on distributed backend architecture, production reliability, and technical leadership.
-
 ## Beyond engineering
 
-Outside work, I spend a lot of time strength training, hiking, reading, and learning. Those interests give me a useful counterweight to engineering while reinforcing the same habits I value professionally: consistency, curiosity, and deliberate improvement.
+Outside work, I spend a lot of time strength training, hiking, and reading. I also enjoy learning things that have nothing to do with software and spending time with the people close to me.
