@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: visual-review-${{ github.event.pull_request.number || github.ref }}
@@ -56,21 +56,6 @@ jobs:
           else
             node scripts/visual-review-manifest.mjs failed
             exit 1
-          fi
-
-      - name: Bootstrap accepted visual baselines
-        if: github.event_name == 'pull_request' && github.head_ref == 'test/issue-34-automated-visual-review'
-        env:
-          PR_BRANCH: ${{ github.head_ref }}
-        shell: bash
-        run: |
-          if [ ! -d tests/visual/__snapshots__ ]; then
-            npx playwright test tests/visual/pages.spec.ts --update-snapshots
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add tests/visual/__snapshots__
-            git commit -m "test: accept visual review baselines"
-            git push origin "HEAD:${PR_BRANCH}"
           fi
 
       - name: Run visual review
