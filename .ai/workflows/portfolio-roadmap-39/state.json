@@ -1,0 +1,41 @@
+{
+  "work_id": "portfolio-roadmap-39",
+  "work_item": "egobb/portfolio-roadmap#39",
+  "lifecycle_stage": "implementation",
+  "change_track": "moderate",
+  "verification_mode": "remote_ci",
+  "repositories": {
+    "work_item_repo": "egobb/portfolio-roadmap",
+    "implementation_repos": ["egobb/egobb.github.io"],
+    "decision_source_repos": ["egobb/portfolio-roadmap", "egobb/egobb.github.io"],
+    "evidence_repos": ["egobb/portfolio-roadmap", "egobb/egobb.github.io"],
+    "delivery_repos": ["egobb/egobb.github.io"]
+  },
+  "base": {
+    "branch": "main",
+    "sha": "ff504dbfbb6589206d17782bb1ab7d6f94d39d6d"
+  },
+  "verification_transport": {
+    "branch": "verify/portfolio-roadmap-39-projects-hub",
+    "pr": null,
+    "candidate_sha": null,
+    "status": "preparing"
+  },
+  "final_delivery": {
+    "branch": "feat/portfolio-roadmap-39-projects-hub",
+    "pr": null,
+    "sha": null
+  },
+  "artifact_context": {
+    "artifact_purpose": "Document engineering work, constraints, decisions and current limitations for technical readers; recruitment is secondary.",
+    "primary_audience": "Technical readers of the public portfolio.",
+    "editorial_guidance": "egobb/portfolio-roadmap/docs/11-authenticity-editorial-guardrails.md",
+    "recruiter_optimization_authorization": "absent",
+    "historical_content_handling": "not applicable"
+  },
+  "delivery_exclusions": [
+    ".ai/plans/**",
+    ".ai/workflows/**",
+    "verification-only infrastructure"
+  ]
+}
