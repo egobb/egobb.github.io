@@ -109,6 +109,8 @@ for (const viewport of viewports) {
 
         if (route.name === 'home') {
           const hero = page.locator('.author-section');
+          await expect(hero).not.toContainText('Senior Backend Engineer · Java · Kafka · Distributed Systems');
+          await expect(hero).not.toContainText('Building reliable event-driven systems at scale.');
           await expect(hero.getByText('Engineering work and notes', { exact: true })).toBeVisible();
           await expect(
             hero.getByRole('heading', {
