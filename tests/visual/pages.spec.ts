@@ -13,6 +13,27 @@ import {
   writeEvidenceResult,
 } from './helpers';
 
+type HomeHeroLayoutDiagnostics = {
+  cardInsets: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+  gaps: {
+    eyebrowToTitle: number;
+    titleToSummary: number;
+    summaryToActions: number;
+    heroToProjects: number;
+  };
+  summary: {
+    width: number;
+    fontSize: number;
+    lineHeight: number;
+  };
+  primaryCtaHeight: number;
+};
+
 type VisualResult = {
   page: string;
   url: string;
@@ -28,6 +49,7 @@ type VisualResult = {
     clientWidth: number;
     elements: Array<{ selector: string; left: number; right: number; width: number }>;
   } | null;
+  homeHeroLayout?: HomeHeroLayoutDiagnostics;
   error?: string;
 };
 
@@ -96,7 +118,7 @@ for (const viewport of viewports) {
           ).toBeVisible();
           await expect(
             hero.getByText(
-              'I design and operate backend platforms where ordering, idempotency, resilience and observability matter—and lead the engineering work needed to make them dependable in production.',
+              'I design and operate backend platforms where ordering, resilience and observability matter—and lead the engineering work that makes them dependable in production.',
               { exact: true },
             ),
           ).toBeVisible();
@@ -104,7 +126,7 @@ for (const viewport of viewports) {
             'href',
             '/projects/',
           );
-          await expect(hero.getByRole('link', { name: 'Read engineering case studies', exact: true })).toHaveAttribute(
+          await expect(hero.getByRole('link', { name: 'Read case studies', exact: true })).toHaveAttribute(
             'href',
             '/writing/',
           );
@@ -112,6 +134,93 @@ for (const viewport of viewports) {
             'href',
             'https://github.com/egobb',
           );
+
+          const layout = await page.evaluate<HomeHeroLayoutDiagnostics>(() => {
+            const box = (role: string) => {
+              const element = document.querySelector<HTMLElement>(`[data-visual-role="${role}"]`);
+              if (!element) throw new Error(`Missing visual-role element: ${role}`);
+              const rect = element.getBoundingClientRect();
+              return {
+                top: rect.top,
+                right: rect.right,
+                bottom: rect.bottom,
+                left: rect.left,
+                width: rect.width,
+                height: rect.height,
+              };
+            };
+
+            const card = box('home-hero-card');
+            const innerLayout = box('home-hero-layout');
+            const eyebrow = box('home-hero-eyebrow');
+            const title = box('home-hero-title');
+            const summary = box('home-hero-summary');
+            const actions = box('home-hero-actions');
+            const primaryCta = box('home-hero-primary-cta');
+
+            const summaryElement = document.querySelector<HTMLElement>('[data-visual-role="home-hero-summary"]');
+            if (!summaryElement) throw new Error('Missing home hero summary');
+            const summaryStyle = window.getComputedStyle(summaryElement);
+
+            const projectsHeading = Array.from(document.querySelectorAll<HTMLElement>('h2, h3')).find(
+              element => element.textContent?.trim() === 'Selected projects',
+            );
+            if (!projectsHeading) throw new Error('Missing Selected projects heading');
+            const projectsRect = projectsHeading.getBoundingClientRect();
+
+            return {
+              cardInsets: {
+                top: Math.round(innerLayout.top - card.top),
+                right: Math.round(card.right - innerLayout.right),
+                bottom: Math.round(card.bottom - innerLayout.bottom),
+                left: Math.round(innerLayout.left - card.left),
+              },
+              gaps: {
+                eyebrowToTitle: Math.round(title.top - eyebrow.bottom),
+                titleToSummary: Math.round(summary.top - title.bottom),
+                summaryToActions: Math.round(actions.top - summary.bottom),
+                heroToProjects: Math.round(projectsRect.top - card.bottom),
+              },
+              summary: {
+                width: Math.round(summary.width),
+                fontSize: Number.parseFloat(summaryStyle.fontSize),
+                lineHeight: Number.parseFloat(summaryStyle.lineHeight),
+              },
+              primaryCtaHeight: Math.round(primaryCta.height),
+            };
+          });
+          result.homeHeroLayout = layout;
+
+          const minimumCardInset = viewport.name === 'mobile' ? 28 : 36;
+          const minimumHeroToProjectsGap = viewport.name === 'mobile' ? 52 : 68;
+
+          expect(layout.cardInsets.top, 'Home hero needs more top breathing room').toBeGreaterThanOrEqual(
+            minimumCardInset,
+          );
+          expect(layout.cardInsets.right, 'Home hero needs more right breathing room').toBeGreaterThanOrEqual(
+            minimumCardInset,
+          );
+          expect(layout.cardInsets.bottom, 'Home hero needs more bottom breathing room').toBeGreaterThanOrEqual(
+            minimumCardInset,
+          );
+          expect(layout.cardInsets.left, 'Home hero needs more left breathing room').toBeGreaterThanOrEqual(
+            minimumCardInset,
+          );
+          expect(layout.gaps.eyebrowToTitle, 'Eyebrow and title are visually cramped').toBeGreaterThanOrEqual(10);
+          expect(layout.gaps.titleToSummary, 'Title and supporting copy are visually cramped').toBeGreaterThanOrEqual(
+            16,
+          );
+          expect(layout.gaps.summaryToActions, 'Supporting copy and CTAs are visually cramped').toBeGreaterThanOrEqual(
+            24,
+          );
+          expect(layout.gaps.heroToProjects, 'Hero and projects section are visually cramped').toBeGreaterThanOrEqual(
+            minimumHeroToProjectsGap,
+          );
+          expect(layout.summary.width, 'Supporting copy is too wide for comfortable scanning').toBeLessThanOrEqual(620);
+          expect(layout.summary.lineHeight / layout.summary.fontSize, 'Supporting copy line-height is too dense').toBeGreaterThanOrEqual(
+            1.5,
+          );
+          expect(layout.primaryCtaHeight, 'Primary CTA is too compressed vertically').toBeGreaterThanOrEqual(40);
         }
 
         expect(result.brokenImages, `Broken image resources on ${route.url}`).toEqual([]);
