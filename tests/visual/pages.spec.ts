@@ -86,6 +86,34 @@ for (const viewport of viewports) {
           await expect(page.getByRole('heading', { name: route.heading, exact: true }).first()).toBeVisible();
         }
 
+        if (route.name === 'home') {
+          const hero = page.locator('.author-section');
+          await expect(
+            hero.getByText('Senior Backend Engineer · Java · Kafka · Distributed Systems', { exact: true }),
+          ).toBeVisible();
+          await expect(
+            hero.getByRole('heading', { name: 'Building reliable event-driven systems at scale.', exact: true }),
+          ).toBeVisible();
+          await expect(
+            hero.getByText(
+              'I design and operate backend platforms where ordering, idempotency, resilience and observability matter—and lead the engineering work needed to make them dependable in production.',
+              { exact: true },
+            ),
+          ).toBeVisible();
+          await expect(hero.getByRole('link', { name: 'View selected projects', exact: true })).toHaveAttribute(
+            'href',
+            '/projects/',
+          );
+          await expect(hero.getByRole('link', { name: 'Read engineering case studies', exact: true })).toHaveAttribute(
+            'href',
+            '/writing/',
+          );
+          await expect(hero.getByRole('link', { name: 'GitHub', exact: true })).toHaveAttribute(
+            'href',
+            'https://github.com/egobb',
+          );
+        }
+
         expect(result.brokenImages, `Broken image resources on ${route.url}`).toEqual([]);
         expect(result.consoleErrors, `Console errors on ${route.url}`).toEqual([]);
         expect(
