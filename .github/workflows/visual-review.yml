@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: visual-review-${{ github.event.pull_request.number || github.ref }}
@@ -58,21 +58,8 @@ jobs:
             exit 1
           fi
 
-      - name: Generate reviewed Home baselines
-        run: npx playwright test --grep "home renders at" --update-snapshots
-
-      - name: Persist reviewed Home baselines
-        shell: bash
-        run: |
-          git add tests/visual/__snapshots__/home-*.png
-          if git diff --cached --quiet; then
-            echo "No Home baseline changes to persist."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "test: accept compact homepage visual baselines"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+      - name: Run visual review
+        run: npm run visual:test
 
       - name: Finalize visual-review evidence
         if: always()
@@ -87,6 +74,5 @@ jobs:
             artifacts/visual-review
             playwright-report
             test-results
-            tests/visual/__snapshots__/home-*.png
           if-no-files-found: warn
           retention-days: 14
