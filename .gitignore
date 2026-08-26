@@ -1,3 +1,7 @@
 .idea
 .hugo_build.lock
 public
+node_modules/
+playwright-report/
+test-results/
+artifacts/visual-review/

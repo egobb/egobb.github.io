@@ -1,0 +1,11 @@
+{
+  "name": "enriquegoberna-portfolio",
+  "private": true,
+  "scripts": {
+    "visual:test": "playwright test",
+    "visual:update": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1"
+  }
+}
