@@ -7,14 +7,15 @@ summary: "We moved from a synchronous REST insert to an event-driven pipeline: b
 cover: "scaling-order-tracking-kafka.png"
 ---
 
-I’ve been thinking about how to keep evolving my [order-tracking](https://github.com/egobb/order-tracking) project
-, and once the basic functional records were in place, the next natural step was to ensure a minimal yet solid scalability layer. After all, what’s the point of a clean domain model if it can’t handle growth? And what better way to achieve that than by moving to an event-driven architecture with Kafka. That shift allowed me to decouple ingestion from processing, improve throughput, and prepare the service for future enhancements without locking myself into synchronous bottlenecks.
+> **August 2026 update:** The synchronous version described below was usable and simpler to operate. Kafka was an exploration of a specific boundary — separating request acceptance from processing and preserving order within each order ID — rather than a prerequisite for “scale”. The [current Order Tracking case study](/projects/order-tracking/) documents the narrower guarantees, the operational trade-offs, and the remaining deduplication/replay gaps.
+
+I’d been thinking about how to keep evolving my [order-tracking](https://github.com/egobb/order-tracking) project. Once the basic functional records were in place, I wanted to explore what changed if ingestion and processing no longer happened in the same synchronous request. Kafka gave me a concrete way to test that boundary: accept work quickly, process it independently, and preserve ordering for events that share an `orderId`, while accepting the extra operational complexity that comes with a broker.
 
 ## The problem we were solving
 
-Originally, the service exposed a REST endpoint that **synchronously** inserted tracking events into the database (one or many per POST). That ties request latency to DB work and caps horizontal scalability.
+Originally, the service exposed a REST endpoint that **synchronously** inserted tracking events into the database (one or many per POST). That ties request latency to database work and couples HTTP capacity to processing capacity.
 
-The goal: **decouple ingestion from processing** so the REST layer stays thin and we can scale processing independently. Enter **domain events + Kafka**.
+The experiment was to **decouple ingestion from processing** so the REST layer stays thin and processing can progress independently. The mechanism I chose for that iteration was **domain events + Kafka**.
 
 ## Why Redpanda for Kafka?
 
@@ -88,7 +89,7 @@ public class TrackingEventDomainHandler implements PublishDomainEventPort {
 }
 ```
 
-This keeps domain clean and places Kafka concerns in infrastructure. The key = orderId ensures per-order ordering within a partition.
+This keeps domain clean and places Kafka concerns in infrastructure. The key = orderId keeps records for one order on the same partition, which is the ordering boundary used by this design.
 
 ### 3) Message mapping
 
@@ -145,7 +146,6 @@ public class TrackingEventListener {
 
 - concurrency = "6" → runs multiple consumers in parallel within the same process.
 - The groupId is also aligned in application.yml.
-
 
 ### 6) The REST endpoint (now asynchronous)
 
@@ -206,8 +206,8 @@ spring:
       ack-mode: RECORD
 ```
 
-- Idempotent producer + acks=all + retries for safe delivery.
-- Read committed on the consumer to avoid ver messages no confirmados.
+- Producer idempotence, `acks=all`, and retries reduce producer-side duplicate/retry risk; they do **not** make the complete business flow exactly-once.
+- `read_committed` controls visibility of transactional records on the consumer side; it is not by itself a replay or deduplication strategy.
 - Default bootstrap en 19092 (mapeado por Compose).
 
 > Redpanda’s Docker Compose quickstarts make exposing a single broker + Console straightforward; this project uses that style of layout for local dev
@@ -255,9 +255,11 @@ curl -X POST http://localhost:8080/order/tracking   -H 'Content-Type: applicatio
 ## Why a private Kafka topic?
 
 - It’s an **internal contract**. We can evolve schema/versioning without breaking external consumers.
-- Using **key = orderId** guarantees **ordering** where it matters (per order).
+- Using **key = orderId** keeps records for one order within the same Kafka ordering boundary. It does not provide global ordering or prove end-to-end exactly-once processing.
 
 ## Next steps
+
+> **Historical note:** This is the exploration backlog I had in September 2025, preserved as part of the article. It is not the current project roadmap; the [case study](/projects/order-tracking/) tracks the evidence-driven gaps that matter now.
 
 - Dead-letter topic (DLT) and retry/backoff policy.
 - Functional metrics at invalid state transitions.
