@@ -3,6 +3,7 @@
     {{ partial "navigation/breadcrumb.html" . }}
 
     {{ $posts := where site.RegularPages "Section" "posts" }}
+    {{ $posts = where $posts "Params.writingHidden" "ne" true }}
     {{ $paginator := .Paginate $posts }}
 
     <header class="mb-8">
