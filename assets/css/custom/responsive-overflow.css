@@ -1,0 +1,30 @@
+.portfolio-desktop-header {
+  display: none;
+}
+
+.portfolio-mobile-header {
+  display: flex;
+}
+
+@media (min-width: 1024px) {
+  .portfolio-desktop-header {
+    display: flex;
+  }
+
+  .portfolio-mobile-header {
+    display: none;
+  }
+}
+
+.link-card {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .link-card-group .link-card {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}
