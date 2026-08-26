@@ -21,6 +21,9 @@ test('Snapshot Ingestion case study exposes the core architecture and evidence b
   await expect(
     content.getByRole('heading', { name: 'Evidence today vs. evidence still planned', exact: true }),
   ).toBeVisible();
+  await expect(
+    content.getByText(/PostgreSQL is sufficient while the workload remains a bounded snapshot pipeline/),
+  ).toBeVisible();
 
   const architecture = content.getByRole('img', {
     name: /Snapshot Ingestion architecture: a provider XML snapshot is streamed by a fetch worker/,
