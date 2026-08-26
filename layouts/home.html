@@ -1,52 +1,52 @@
 {{ define "main" }}
   <div class="mx-auto max-w-4xl">
     {{ if site.Params.author }}
-      <section class="author-section mb-16 md:mb-20" aria-labelledby="home-hero-title">
-        <div data-visual-role="home-hero-card" class="bg-card border-border rounded-xl border p-8 shadow-sm md:p-10">
-          <div data-visual-role="home-hero-layout" class="flex flex-col items-center gap-8 text-center md:flex-row md:items-center md:gap-10 md:text-left">
+      <section class="author-section" aria-labelledby="home-hero-title">
+        <div data-visual-role="home-hero-card" class="home-hero-card bg-card border-border rounded-xl border p-8 shadow-sm">
+          <div data-visual-role="home-hero-layout" class="home-hero-layout flex flex-col items-center gap-6 text-center md:flex-row md:text-left">
             <div class="flex-shrink-0">
               {{ if site.Params.author.avatar }}
                 <img
                   src="{{ site.Params.author.avatar }}"
                   alt="{{ site.Params.author.name | default site.Title }}"
-                  class="border-primary/20 h-20 w-20 rounded-full border-4 object-cover shadow-lg md:h-24 md:w-24" />
+                  class="home-hero-avatar border-primary/20 h-24 w-24 rounded-full border-4 object-cover shadow-lg" />
               {{ else }}
-                <div class="bg-primary text-primary-foreground flex h-20 w-20 items-center justify-center rounded-full text-2xl font-bold shadow-lg md:h-24 md:w-24">
+                <div class="home-hero-avatar bg-primary text-primary-foreground flex h-24 w-24 items-center justify-center rounded-full text-2xl font-bold shadow-lg">
                   {{ substr (site.Params.author.name | default site.Title) 0 1 | upper }}
                 </div>
               {{ end }}
             </div>
 
             <div data-visual-role="home-hero-copy" class="min-w-0 flex-1">
-              <p data-visual-role="home-hero-eyebrow" class="text-primary mb-3 text-sm font-semibold tracking-wide md:text-base">
+              <p data-visual-role="home-hero-eyebrow" class="home-hero-eyebrow text-primary text-sm font-semibold tracking-wide">
                 Senior Backend Engineer · Java · Kafka · Distributed Systems
               </p>
 
-              <h1 data-visual-role="home-hero-title" id="home-hero-title" class="text-foreground mb-5 text-3xl leading-tight font-bold md:text-4xl">
+              <h1 data-visual-role="home-hero-title" id="home-hero-title" class="home-hero-title text-foreground text-3xl font-bold md:text-4xl">
                 Building reliable event-driven systems at scale.
               </h1>
 
-              <p data-visual-role="home-hero-summary" class="text-foreground mb-7 max-w-2xl leading-7">
+              <p data-visual-role="home-hero-summary" class="home-hero-summary text-foreground">
                 I design and operate backend platforms where ordering, resilience and observability matter—and lead the engineering work that makes them dependable in production.
               </p>
 
-              <div data-visual-role="home-hero-actions" class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 md:justify-start">
+              <div data-visual-role="home-hero-actions" class="home-hero-actions flex flex-wrap justify-center md:justify-start">
                 <a
                   data-visual-role="home-hero-primary-cta"
                   href="{{ "/projects/" | relLangURL }}"
-                  class="bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/20 inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-semibold shadow-sm transition-colors focus:ring-2 focus:outline-none">
+                  class="home-hero-action bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/20 inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-colors focus:ring-2 focus:outline-none">
                   View selected projects
                 </a>
                 <a
                   href="{{ "/writing/" | relLangURL }}"
-                  class="border-border bg-background text-foreground hover:bg-muted focus:ring-primary/20 inline-flex items-center rounded-lg border px-5 py-2.5 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
+                  class="home-hero-action border-border bg-background text-foreground hover:bg-muted focus:ring-primary/20 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
                   Read case studies
                 </a>
                 <a
                   href="https://github.com/egobb"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-muted-foreground hover:text-primary focus:ring-primary/20 inline-flex items-center rounded-lg px-2 py-2.5 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
+                  class="home-hero-action home-hero-tertiary text-muted-foreground hover:text-primary focus:ring-primary/20 inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
                   GitHub
                 </a>
               </div>
