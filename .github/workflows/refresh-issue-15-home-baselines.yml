@@ -41,10 +41,10 @@ jobs:
       - name: Build Hugo site
         run: hugo --minify
 
-      - name: Refresh Home snapshots only
-        run: npx playwright test pages.spec.ts --grep '^home renders at' --update-snapshots
+      - name: Refresh visual snapshots
+        run: npm run visual:update
 
-      - name: Commit refreshed Home baselines
+      - name: Commit refreshed Home baselines only
         shell: bash
         run: |
           git add tests/visual/__snapshots__/home-desktop-linux.png \
