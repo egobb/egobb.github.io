@@ -69,14 +69,17 @@ There is another explicit failure boundary in [`TrackingProcessor`](https://gith
 
 ### Failure modes I would design for next
 
-| Failure | Current boundary | Production-oriented next step |
-|---|---|---|
-| Producer retry | Idempotent Kafka producer, `acks=all`, configured retries | Monitor send failures and delivery latency; define retry exhaustion behavior |
-| Consumer/process crash | Kafka record can be redelivered depending on offset state | Add durable event identity and database-level deduplication |
-| Invalid state transition | Event is ignored by domain processing | Emit explicit rejection metrics/logs and define a review/DLQ policy |
-| Database unavailable or slow | Kafka decouples request acceptance from processing | Alert on consumer lag and DB errors; apply bounded retries/backoff |
-| Poison or incompatible message | Mapping/processing exception reaches the listener boundary | Version schemas deliberately and add recoverable/non-recoverable error routing |
-| Replay/backfill | No dedicated safe replay path yet | Isolate replay identity, scope, validation and idempotent persistence before enabling it |
+**Producer retry.** The current boundary is an idempotent Kafka producer with `acks=all` and configured retries. The next step would be to monitor send failures and delivery latency and define explicit retry-exhaustion behavior.
+
+**Consumer or process crash.** A Kafka record can be redelivered depending on offset state. The next step is durable event identity plus database-level deduplication so a redelivery cannot duplicate business effects.
+
+**Invalid state transition.** Domain processing currently ignores the event after validation rejects it. The next step is explicit rejection metrics and logs plus a deliberate review or dead-letter policy.
+
+**Database unavailable or slow.** Kafka decouples request acceptance from processing, but downstream work can accumulate. The next step is alerting on consumer lag and database errors with bounded retry and backoff behavior.
+
+**Poison or incompatible message.** A mapping or processing exception currently reaches the listener boundary. The next step is deliberate schema-version handling and separate routing for recoverable and non-recoverable failures.
+
+**Replay or backfill.** There is no dedicated safe replay path yet. Before enabling one, I would isolate replay identity and scope and add validation plus idempotent persistence.
 
 ## Testing evidence
 
