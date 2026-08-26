@@ -1,0 +1,78 @@
+name: Visual review
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: visual-review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VISUAL_REVIEW_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: latest
+          extended: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Initialize visual-review evidence
+        run: node scripts/visual-review-manifest.mjs pending
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Hugo site
+        shell: bash
+        run: |
+          if hugo --minify; then
+            node scripts/visual-review-manifest.mjs passed
+          else
+            node scripts/visual-review-manifest.mjs failed
+            exit 1
+          fi
+
+      - name: Run visual review
+        run: npm run visual:test
+
+      - name: Finalize visual-review evidence
+        if: always()
+        run: node scripts/visual-review-finalize.mjs
+
+      - name: Upload visual-review artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-review-pr-${{ github.event.pull_request.number || 'manual' }}-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            artifacts/visual-review
+            playwright-report
+            test-results
+          if-no-files-found: warn
+          retention-days: 14
