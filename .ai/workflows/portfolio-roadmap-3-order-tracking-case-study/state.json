@@ -1,0 +1,35 @@
+{
+  "work_id": "portfolio-roadmap-3-order-tracking-case-study",
+  "work_item": "egobb/portfolio-roadmap#3",
+  "lifecycle_stage": "verification_candidate",
+  "change_track": "moderate",
+  "verification_mode": "remote_ci",
+  "repository_roles": {
+    "work_item_repo": "egobb/portfolio-roadmap",
+    "implementation_repos": ["egobb/egobb.github.io"],
+    "decision_source_repos": ["egobb/portfolio-roadmap"],
+    "evidence_repos": ["egobb/order-tracking", "egobb/portfolio-roadmap"],
+    "delivery_repos": ["egobb/egobb.github.io"]
+  },
+  "base": {
+    "repository": "egobb/egobb.github.io",
+    "branch": "main",
+    "sha": "2d25c92af8a95701d23a68fcd6d134101396641d"
+  },
+  "plan_path": ".ai/plans/portfolio-roadmap-3-order-tracking-case-study.md",
+  "delivery_disposition": "internal",
+  "verification_branch": "verify/portfolio-roadmap-3-order-tracking-case-study",
+  "product_paths": [
+    "content/projects/order-tracking/index.md",
+    "tests/visual/helpers.ts"
+  ],
+  "internal_exclusions": [
+    ".ai/plans/**",
+    ".ai/workflows/**"
+  ],
+  "notes": [
+    "Projects hub dependency is complete and already links /projects/order-tracking/.",
+    "Public/live acceptance remains post-merge verification.",
+    "No clean-checkout, benchmark, replay, demo, or end-to-end deduplication evidence may be claimed as complete."
+  ]
+}
