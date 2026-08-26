@@ -1,0 +1,38 @@
+{{ define "main" }}
+  <div class="mx-auto max-w-4xl">
+    {{ partial "navigation/breadcrumb.html" . }}
+
+    {{ $posts := where site.RegularPages "Section" "posts" }}
+    {{ $paginator := .Paginate $posts }}
+
+    <header class="mb-8">
+      <h1 class="text-foreground mb-4 text-3xl font-bold">{{ .Title }}</h1>
+
+      {{ if .Content }}
+        <div class="prose prose-neutral dark:prose-invert mb-6 max-w-none">
+          {{ .Content }}
+        </div>
+      {{ end }}
+
+      <div class="text-muted-foreground flex flex-wrap items-center text-sm">
+        <span>{{ $paginator.TotalNumberOfElements }} published articles</span>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <a class="hover:text-primary" href="{{ "/categories/" | relLangURL }}">Categories</a>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <a class="hover:text-primary" href="{{ "/tags/" | relLangURL }}">Tags</a>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <a class="hover:text-primary" href="{{ "/archives/" | relLangURL }}">Archive</a>
+      </div>
+    </header>
+
+    {{ if $paginator.Pages }}
+      {{ partial "content/post-list.html" (dict "posts" $paginator.Pages) }}
+    {{ else }}
+      <div class="py-16 text-center">
+        <h2 class="text-foreground mb-3 text-xl font-medium">No writing published yet</h2>
+      </div>
+    {{ end }}
+
+    {{ partial "navigation/pagination.html" . }}
+  </div>
+{{ end }}
