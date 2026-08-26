@@ -1,4 +1,4 @@
-{{- $projects := site.Data.projects | default site.Params.home.selectedProjects -}}
+{{- $projects := hugo.Data.projects | default site.Params.home.selectedProjects -}}
 {{- $hideHeader := .hideHeader | default false -}}
 {{- $detailed := .detailed | default false -}}
 {{- if $projects -}}
