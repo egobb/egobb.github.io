@@ -17,6 +17,10 @@ test('About page communicates senior-backend positioning and evidence paths', as
 
   const content = page.locator('.prose').first();
   await expect(content.getByText(/I am a Senior Backend Engineer focused on Java, Kafka, distributed systems, and event-driven platforms/)).toBeVisible();
+  await expect(content.getByRole('img', { name: 'Enrique Goberna outdoors', exact: true })).toHaveAttribute(
+    'src',
+    '/images/nature_profile_small.jpeg',
+  );
   await expect(content.getByRole('heading', { name: 'Current engineering focus', exact: true })).toBeVisible();
   await expect(content.getByRole('heading', { name: 'How I approach systems', exact: true })).toBeVisible();
   await expect(content.getByRole('heading', { name: 'Technical leadership', exact: true })).toBeVisible();
