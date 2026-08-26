@@ -1,32 +1,36 @@
 {{- $projects := site.Params.home.selectedProjects -}}
+{{- $hideHeader := .hideHeader | default false -}}
 {{- if $projects -}}
-  <section class="mb-12" aria-labelledby="selected-projects-heading">
-    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <h2 id="selected-projects-heading" class="text-foreground text-2xl font-bold">
-          {{ .title | default "Selected projects" }}
-        </h2>
-        {{ with .description }}
-          <p class="text-muted-foreground mt-2">{{ . }}</p>
+  <section class="mb-12"{{ if $hideHeader }} aria-label="Selected projects"{{ else }} aria-labelledby="selected-projects-heading"{{ end }}>
+    {{ if not $hideHeader }}
+      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 id="selected-projects-heading" class="text-foreground text-2xl font-bold">
+            {{ .title | default "Selected projects" }}
+          </h2>
+          {{ with .description }}
+            <p class="text-muted-foreground mt-2">{{ . }}</p>
+          {{ end }}
+        </div>
+        {{ with .viewAllUrl }}
+          <a
+            href="{{ . | relLangURL }}"
+            class="text-primary hover:text-primary/80 focus:ring-primary/20 inline-flex w-fit items-center rounded-md px-1 py-1 text-sm font-medium focus:ring-2 focus:outline-none">
+            View all projects
+          </a>
         {{ end }}
       </div>
-      {{ with .viewAllUrl }}
-        <a
-          href="{{ . | relLangURL }}"
-          class="text-primary hover:text-primary/80 focus:ring-primary/20 inline-flex w-fit items-center rounded-md px-1 py-1 text-sm font-medium focus:ring-2 focus:outline-none">
-          View all projects
-        </a>
-      {{ end }}
-    </div>
+    {{ end }}
 
     <div class="grid gap-4 md:grid-cols-2">
       {{ range $projects }}
+        {{- $project := . -}}
         <article class="bg-card border-border rounded-xl border p-6 shadow-sm">
           <h3 class="text-foreground text-xl font-semibold">{{ .title }}</h3>
           {{ with .summary }}
             <p class="text-muted-foreground mt-2 leading-relaxed">{{ . }}</p>
           {{ end }}
-          <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
+          <div class="mt-5 flex flex-wrap items-center text-sm font-medium">
             {{ with .articlePageRef }}
               {{ with site.GetPage . }}
                 <a
@@ -34,6 +38,9 @@
                   class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
                   Engineering write-up
                 </a>
+                {{ with $project.repositoryUrl }}
+                  <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                {{ end }}
               {{ end }}
             {{ end }}
             {{ with .repositoryUrl }}

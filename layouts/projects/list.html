@@ -11,10 +11,6 @@
       {{ end }}
     </header>
 
-    {{ partial "portfolio/selected-projects.html" (dict
-      "title" "Selected projects"
-      "description" "Two complementary systems that show different approaches to backend scalability and coordination."
-      )
-    }}
+    {{ partial "portfolio/selected-projects.html" (dict "hideHeader" true) }}
   </div>
 {{ end }}
