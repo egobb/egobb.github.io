@@ -191,34 +191,34 @@ for (const viewport of viewports) {
           });
           result.homeHeroLayout = layout;
 
-          const minimumCardInset = viewport.name === 'mobile' ? 28 : 36;
-          const minimumHeroToProjectsGap = viewport.name === 'mobile' ? 52 : 68;
+          const minimumCardInset = viewport.name === 'mobile' ? 22 : 28;
+          const maximumCardInset = viewport.name === 'mobile' ? 32 : 36;
+          const minimumHeroToProjectsGap = viewport.name === 'mobile' ? 40 : 48;
+          const maximumHeroToProjectsGap = viewport.name === 'mobile' ? 56 : 64;
 
-          expect(layout.cardInsets.top, 'Home hero needs more top breathing room').toBeGreaterThanOrEqual(
-            minimumCardInset,
-          );
-          expect(layout.cardInsets.right, 'Home hero needs more right breathing room').toBeGreaterThanOrEqual(
-            minimumCardInset,
-          );
-          expect(layout.cardInsets.bottom, 'Home hero needs more bottom breathing room').toBeGreaterThanOrEqual(
-            minimumCardInset,
-          );
-          expect(layout.cardInsets.left, 'Home hero needs more left breathing room').toBeGreaterThanOrEqual(
-            minimumCardInset,
-          );
-          expect(layout.gaps.eyebrowToTitle, 'Eyebrow and title are visually cramped').toBeGreaterThanOrEqual(10);
+          for (const [side, inset] of Object.entries(layout.cardInsets)) {
+            expect(inset, `Home hero ${side} inset is too cramped`).toBeGreaterThanOrEqual(minimumCardInset);
+            expect(inset, `Home hero ${side} inset is too spacious for the compact composition`).toBeLessThanOrEqual(
+              maximumCardInset,
+            );
+          }
+          expect(layout.gaps.eyebrowToTitle, 'Eyebrow and title are visually cramped').toBeGreaterThanOrEqual(8);
           expect(layout.gaps.titleToSummary, 'Title and supporting copy are visually cramped').toBeGreaterThanOrEqual(
-            16,
+            12,
           );
           expect(layout.gaps.summaryToActions, 'Supporting copy and CTAs are visually cramped').toBeGreaterThanOrEqual(
-            24,
+            18,
           );
           expect(layout.gaps.heroToProjects, 'Hero and projects section are visually cramped').toBeGreaterThanOrEqual(
             minimumHeroToProjectsGap,
           );
+          expect(
+            layout.gaps.heroToProjects,
+            'Hero and projects section are too far apart for the compact composition',
+          ).toBeLessThanOrEqual(maximumHeroToProjectsGap);
           expect(layout.summary.width, 'Supporting copy is too wide for comfortable scanning').toBeLessThanOrEqual(620);
           expect(layout.summary.lineHeight / layout.summary.fontSize, 'Supporting copy line-height is too dense').toBeGreaterThanOrEqual(
-            1.5,
+            1.55,
           );
           expect(layout.primaryCtaHeight, 'Primary CTA is too compressed vertically').toBeGreaterThanOrEqual(40);
         }
