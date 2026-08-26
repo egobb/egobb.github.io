@@ -14,10 +14,13 @@
         </div>
       {{ end }}
 
-      <div class="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+      <div class="text-muted-foreground flex flex-wrap items-center text-sm">
         <span>{{ $paginator.TotalNumberOfElements }} published articles</span>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
         <a class="hover:text-primary" href="{{ "/categories/" | relLangURL }}">Categories</a>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
         <a class="hover:text-primary" href="{{ "/tags/" | relLangURL }}">Tags</a>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
         <a class="hover:text-primary" href="{{ "/archives/" | relLangURL }}">Archive</a>
       </div>
     </header>
