@@ -21,11 +21,11 @@ After university I worked on embedded software for energy-management devices. Th
 
 Later I worked on RFID platforms, a path closely related to my master’s thesis, *[Inventory Traceability and Verification Across the Supply Chain Using RFID](https://drive.google.com/file/d/151UcWF2ceoW0Mq8scb0J0-OAJDNRPLb9/view?usp=sharing)*. It brought together device events, inventory state, and the business rules around how goods move through a supply chain.
 
-In 2020 I moved into central inventory backend systems for large-scale e-commerce. I started with a large monolithic platform and later became involved in its evolution toward distributed, event-driven services. The production systems are confidential, so I keep the implementation details high-level here.
+In 2020 I moved into central inventory backend systems for e-commerce. I started with a large monolithic platform and later became involved in its evolution toward distributed, event-driven services. The production systems are confidential, so I keep the implementation details high-level here.
 
 ## How I work
 
-Much of my day-to-day work sits between a domain rule and the code that eventually enforces it. A change can start as a question about inventory behaviour or a data contract, then pass through service boundaries, persistence, events, tests, deployment, and production diagnostics. I tend to stay involved across that path: clarifying behaviour, reviewing designs and code, aligning API and data contracts with other teams, and troubleshooting the result when it reaches a real environment.
+Much of my day-to-day work sits between a domain rule and the code that eventually enforces it. A change can start as a question about inventory behavior or a data contract, then pass through service boundaries, persistence, events, tests, deployment, and production diagnostics. I tend to stay involved across that path: clarifying behavior, reviewing designs and code, aligning API and data contracts with other teams, and troubleshooting the result when it reaches a real environment.
 
 I prefer the simplest design that meets the actual constraints. When extra machinery is justified, I want its boundaries to be explicit: ordering, duplicate handling, retries, backpressure, replay and recovery, and observability should be decisions we can point to rather than assumptions hidden in the system.
 
