@@ -13,6 +13,11 @@ export const viewports = [
 export const pages = [
   { name: 'home', url: '/', heading: null },
   { name: 'projects', url: '/projects/', heading: 'Projects' },
+  {
+    name: 'order-tracking-case-study',
+    url: '/projects/order-tracking/',
+    heading: 'Order Tracking — Event-Driven Ingestion with Kafka',
+  },
   { name: 'writing', url: '/writing/', heading: 'Engineering writing' },
   { name: 'about', url: '/about/', heading: 'About' },
   { name: 'posts', url: '/posts/', heading: null },
