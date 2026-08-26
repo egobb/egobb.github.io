@@ -1,5 +1,6 @@
-{{- $projects := site.Params.home.selectedProjects -}}
+{{- $projects := hugo.Data.projects | default site.Params.home.selectedProjects -}}
 {{- $hideHeader := .hideHeader | default false -}}
+{{- $detailed := .detailed | default false -}}
 {{- if $projects -}}
   <section class="mb-12"{{ if $hideHeader }} aria-label="Selected projects"{{ else }} aria-labelledby="selected-projects-heading"{{ end }}>
     {{ if not $hideHeader }}
@@ -26,33 +27,113 @@
       {{ range $projects }}
         {{- $project := . -}}
         <article class="bg-card border-border rounded-xl border p-6 shadow-sm">
-          <h3 class="text-foreground text-xl font-semibold">{{ .title }}</h3>
-          {{ with .summary }}
-            <p class="text-muted-foreground mt-2 leading-relaxed">{{ . }}</p>
-          {{ end }}
-          <div class="mt-5 flex flex-wrap items-center text-sm font-medium">
-            {{ with .articlePageRef }}
-              {{ with site.GetPage . }}
-                <a
-                  href="{{ .RelPermalink }}"
-                  class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                  Engineering write-up
-                </a>
-                {{ with $project.repositoryUrl }}
-                  <span aria-hidden="true">&nbsp;·&nbsp;</span>
+          <h3 class="text-foreground text-xl font-semibold">
+            {{ if and $detailed .canonicalTitle }}{{ .canonicalTitle }}{{ else }}{{ .title }}{{ end }}
+          </h3>
+
+          {{ if $detailed }}
+            {{ with .problem }}
+              <div class="mt-4">
+                <p class="text-foreground text-sm font-semibold">Problem</p>
+                <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
+              </div>
+            {{ end }}
+
+            {{ with .architecturalProposition }}
+              <div class="mt-4">
+                <p class="text-foreground text-sm font-semibold">Architecture</p>
+                <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
+              </div>
+            {{ end }}
+
+            {{ with .designChoices }}
+              <div class="mt-4">
+                <p class="text-foreground text-sm font-semibold">Key decisions</p>
+                <ul class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                  {{ range . }}
+                    <li class="mt-1 flex gap-2"><span aria-hidden="true">—</span><span>{{ . }}</span></li>
+                  {{ end }}
+                </ul>
+              </div>
+            {{ end }}
+
+            {{ with .evidence }}
+              <div class="mt-4">
+                <p class="text-foreground text-sm font-semibold">Evidence</p>
+                <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
+              </div>
+            {{ end }}
+
+            {{ with .stack }}
+              <div class="mt-4">
+                <p class="text-foreground text-sm font-semibold">Stack</p>
+                <div class="mt-2 flex flex-wrap gap-2" aria-label="Technology stack">
+                  {{ range . }}
+                    <span class="bg-muted text-foreground rounded-md px-2 py-1 text-xs font-medium">{{ . }}</span>
+                  {{ end }}
+                </div>
+              </div>
+            {{ end }}
+
+            <div class="mt-5 flex flex-wrap items-center gap-3 text-sm font-medium">
+              {{ with .caseStudyPageRef }}
+                {{ with site.GetPage . }}
+                  <a
+                    href="{{ .RelPermalink }}"
+                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                    Project overview
+                  </a>
                 {{ end }}
               {{ end }}
+
+              {{ with .articlePageRef }}
+                {{ with site.GetPage . }}
+                  <a
+                    href="{{ .RelPermalink }}"
+                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                    Engineering write-up
+                  </a>
+                {{ end }}
+              {{ end }}
+
+              {{ with .repositoryUrl }}
+                <a
+                  href="{{ . }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                  Repository
+                </a>
+              {{ end }}
+            </div>
+          {{ else }}
+            {{ with .summary }}
+              <p class="text-muted-foreground mt-2 leading-relaxed">{{ . }}</p>
             {{ end }}
-            {{ with .repositoryUrl }}
-              <a
-                href="{{ . }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                Repository
-              </a>
-            {{ end }}
-          </div>
+            <div class="mt-5 flex flex-wrap items-center text-sm font-medium">
+              {{ with .articlePageRef }}
+                {{ with site.GetPage . }}
+                  <a
+                    href="{{ .RelPermalink }}"
+                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                    Engineering write-up
+                  </a>
+                  {{ with $project.repositoryUrl }}
+                    <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+              {{ with .repositoryUrl }}
+                <a
+                  href="{{ . }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                  Repository
+                </a>
+              {{ end }}
+            </div>
+          {{ end }}
         </article>
       {{ end }}
     </div>
