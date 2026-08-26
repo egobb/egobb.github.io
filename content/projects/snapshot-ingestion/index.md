@@ -52,7 +52,7 @@ That rule is encoded in [`StagingPlanPostgresRepository`](https://github.com/ego
 - it has not exhausted its attempts;
 - its parent ingestion run is `STAGED`.
 
-The important part is the last condition. If the fetch worker fails halfway through a document, already-inserted staging rows do not silently become a partial canonical snapshot. The processing side waits for an explicit completed-run state instead of inferring completeness from timing or row counts. [`StagingClaimGatingByRunStatusIT`](https://github.com/egobb/plan-service/blob/main/app/src/test/java/com/egobb/plan/service/integration/StagingClaimGatingByRunStatusIT.java) is repository evidence for that gating rule.
+The important part is the last condition. If the fetch worker fails halfway through a document, already-inserted staging rows do not silently become a partial canonical snapshot. The processing side waits for an explicit completed-run state instead of inferring completeness from timing or row counts. [`StagingClaimGatingByRunStatusIT`](https://github.com/egobb/plan-service/blob/main/app/src/test/java/com/egobb/plan/service/integration/StagingClaimGatingByRunStatusIT.java) covers that gating rule in the repository.
 
 This is one reason I prefer the staging boundary to a direct fetch-and-upsert loop: it turns an unreliable external operation into durable, queryable internal state before business data is changed.
 
@@ -80,7 +80,7 @@ Process workers need the opposite behavior. They should run concurrently, but th
 
 [`StagingPlanPostgresRepository`](https://github.com/egobb/plan-service/blob/main/app/src/main/java/com/egobb/plan/service/infrastructure/persistence/postgres/ingest/StagingPlanPostgresRepository.java) claims eligible IDs inside a transaction using `FOR UPDATE OF sp SKIP LOCKED`, marks those rows `PROCESSING`, and records `claimed_at`. Rows locked by one worker are skipped by another worker, so workers naturally receive different batches without a process-wide distributed lock.
 
-That code is strong qualitative evidence of the concurrency design. A dedicated repeated multiworker contention test is still tracked separately, so I do not present a measured "no duplicates under N workers" result here yet.
+That code shows the intended concurrency design directly. A dedicated repeated multiworker contention test is still tracked separately, so I do not present a measured "no duplicates under N workers" result here yet.
 
 ## Retry and recovery are explicit state transitions
 
@@ -90,7 +90,7 @@ On the processing side, failed staging rows increment an attempt counter and eit
 
 The other important failure mode is a worker crash **after** claiming rows. Claimed rows have `status = PROCESSING` and a `claimed_at` timestamp. [`RequeueStuckStagedPlansScheduled`](https://github.com/egobb/plan-service/blob/main/app/src/main/java/com/egobb/plan/service/infrastructure/scheduled/RequeueStuckStagedPlansScheduled.java) invokes repository logic that moves sufficiently old `PROCESSING` rows back to `PENDING` so another worker can retry them.
 
-The mechanism exists in the current code. A dedicated crash/requeue integration scenario is still part of the planned evidence work, so this page distinguishes implementation evidence from a future reproducible failure demonstration.
+The mechanism exists in the current code. A dedicated crash/requeue integration scenario is still part of the planned validation work, so this page distinguishes the implemented recovery mechanism from a future reproducible failure demonstration.
 
 ## Idempotent canonical writes and stale-snapshot protection
 
@@ -123,7 +123,7 @@ Those signals map naturally to the pipeline's failure modes:
 
 What is missing is equally important: this project does not yet publish a measured latency baseline, benchmark report, production SLO, or validated alert thresholds. Those should be derived from reproducible tests or labelled as illustrative later, not presented here as production facts.
 
-## Evidence today vs. evidence still planned
+## What exists today and what is still missing
 
 **Directly visible in the repository today:**
 
@@ -136,16 +136,16 @@ What is missing is equally important: this project does not yet publish a measur
 - database-only search path, bounded cache, and search bulkhead;
 - Actuator/Prometheus plus domain-specific metrics.
 
-**Still deliberately tracked as future evidence:**
+**Still deliberately tracked for explicit validation:**
 
 - a reproducible throughput, latency, and memory benchmark;
-- repeated multiworker contention evidence;
+- repeated multiworker contention validation;
 - an explicit parallel-fetch lock test;
-- repeat-ingestion idempotency evidence;
+- repeat-ingestion idempotency validation;
 - a worker-crash/requeue integration demonstration;
 - a canonical cross-repository architecture asset and short demo.
 
-The distinction matters. The architecture is inspectable now, but architecture reasoning is not the same thing as benchmark evidence.
+The distinction matters. The architecture is inspectable now, but architecture reasoning is not the same thing as measured benchmark results.
 
 ## Trade-offs and the point where I would change the design
 
@@ -160,4 +160,4 @@ I would introduce a broker when the problem changes enough to justify it: sustai
 - [Snapshot Ingestion / Plan Service source repository](https://github.com/egobb/plan-service)
 - [When Postgres Is Enough: engineering write-up](/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/)
 
-The article contains the longer implementation walkthrough and SQL examples. This case study is the interview-oriented view: the failure boundaries, why PostgreSQL is sufficient today, how concurrency and recovery are coordinated, what the code proves, and what still needs measured evidence.
+The article contains the longer implementation walkthrough and SQL examples. This page is the shorter system-level view: the failure boundaries, why PostgreSQL is sufficient today, how concurrency and recovery are coordinated, what is implemented, and what still needs measured validation.
