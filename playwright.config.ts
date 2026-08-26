@@ -5,7 +5,7 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: 0,
-  snapshotPathTemplate: '{testDir}/__snapshots__/{arg}',
+  snapshotPathTemplate: '{testDir}/__snapshots__/{arg}{ext}',
   reporter: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
