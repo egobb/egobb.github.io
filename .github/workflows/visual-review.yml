@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: visual-review-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   visual-review:
@@ -58,22 +58,6 @@ jobs:
             exit 1
           fi
 
-      - name: Generate candidate Home baselines
-        run: npx playwright test --grep "home renders at" --update-snapshots
-
-      - name: Persist candidate Home baselines
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/visual/__snapshots__/home-desktop.png tests/visual/__snapshots__/home-tablet.png tests/visual/__snapshots__/home-mobile.png
-          if git diff --cached --quiet; then
-            echo "Home baselines already current."
-          else
-            git commit -m "test: accept homepage visual baselines"
-            git push origin HEAD:verify/1-homepage-positioning
-          fi
-
       - name: Run visual review
         run: npm run visual:test
 
@@ -90,6 +74,5 @@ jobs:
             artifacts/visual-review
             playwright-report
             test-results
-            tests/visual/__snapshots__/home-*.png
           if-no-files-found: warn
           retention-days: 14
