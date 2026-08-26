@@ -32,6 +32,18 @@ export type OverflowingElement = {
 
 export function ensureVisualDirectories(): void {
   fs.mkdirSync(path.join(visualRoot, 'screenshots'), { recursive: true });
+  fs.mkdirSync(path.join(visualRoot, 'results'), { recursive: true });
+  fs.mkdirSync(path.join(visualRoot, 'interactions'), { recursive: true });
+}
+
+export function writeEvidenceResult(
+  directory: 'results' | 'interactions',
+  name: string,
+  result: unknown,
+): void {
+  const target = path.join(visualRoot, directory);
+  fs.mkdirSync(target, { recursive: true });
+  fs.writeFileSync(path.join(target, `${name}.json`), JSON.stringify(result, null, 2));
 }
 
 export async function stabilizePage(page: Page): Promise<void> {

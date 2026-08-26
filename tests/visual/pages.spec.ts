@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-import fs from 'node:fs';
 import path from 'node:path';
 import {
   captureCurrentScreenshot,
@@ -11,6 +10,7 @@ import {
   stabilizePage,
   viewports,
   visualRoot,
+  writeEvidenceResult,
 } from './helpers';
 
 type VisualResult = {
@@ -31,37 +31,7 @@ type VisualResult = {
   error?: string;
 };
 
-const results: VisualResult[] = [];
-
 test.beforeAll(() => ensureVisualDirectories());
-
-test.afterAll(() => {
-  fs.mkdirSync(visualRoot, { recursive: true });
-  const manifestFile = path.join(visualRoot, 'manifest.json');
-  const existing = fs.existsSync(manifestFile)
-    ? JSON.parse(fs.readFileSync(manifestFile, 'utf8'))
-    : {};
-  const manifest = {
-    ...existing,
-    revision: process.env.VISUAL_REVIEW_REVISION || process.env.GITHUB_SHA || 'local',
-    build: existing.build || 'passed',
-    browser: 'chromium',
-    generatedAt: new Date().toISOString(),
-    pages: pages.map(item => ({
-      name: item.name,
-      url: item.url,
-      viewports: viewports.map(viewport => viewport.name),
-    })),
-    checks: {
-      consoleErrors: results.reduce((sum, result) => sum + result.consoleErrors.length, 0),
-      brokenImages: results.reduce((sum, result) => sum + result.brokenImages.length, 0),
-      horizontalOverflow: results.some(result => result.horizontalOverflow),
-      failedPageViewports: results.filter(result => result.status === 'failed').length,
-    },
-    results,
-  };
-  fs.writeFileSync(manifestFile, JSON.stringify(manifest, null, 2));
-});
 
 for (const viewport of viewports) {
   for (const route of pages) {
@@ -133,7 +103,7 @@ for (const viewport of viewports) {
         result.consoleErrors = [...consoleErrors];
         throw error;
       } finally {
-        results.push(result);
+        writeEvidenceResult('results', `${route.name}-${viewport.name}`, result);
       }
     });
   }

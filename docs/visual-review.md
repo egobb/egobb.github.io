@@ -14,7 +14,8 @@ For pull requests targeting `main`, `.github/workflows/visual-review.yml`:
 6. builds the site with `hugo --minify` and records build success or failure in the manifest;
 7. serves the generated `public/` directory on runner-local `127.0.0.1:1313`;
 8. runs Playwright against representative pages and viewports;
-9. retains current screenshots, test results, the HTML report, and `manifest.json` as a GitHub Actions artifact even when a browser check fails.
+9. persists each page/viewport and interaction result independently so Playwright worker restarts cannot erase prior evidence;
+10. finalizes `manifest.json` with `if: always()` and retains screenshots, test results, the HTML report, and manifest as a GitHub Actions artifact even when browser checks fail.
 
 The workflow has read-only repository permissions and does not deploy to GitHub Pages. Production deployment remains owned by `.github/workflows/hugo.yml` on pushes to `main`.
 
@@ -57,10 +58,11 @@ Build and run:
 ```bash
 hugo --minify
 node scripts/visual-review-manifest.mjs passed
-npm run visual:test
+npm run visual:test || true
+node scripts/visual-review-finalize.mjs
 ```
 
-Playwright starts the local HTTP server automatically.
+The `|| true` above is only to ensure local evidence finalization when inspecting a failing run; the GitHub Actions test step itself is not softened and still fails the workflow. Playwright starts the local HTTP server automatically.
 
 ## Evidence artifact
 
@@ -69,6 +71,8 @@ Every CI run attempts to upload:
 ```text
 artifacts/visual-review/
 ├── manifest.json
+├── interactions/
+├── results/
 └── screenshots/
     └── <page>/<viewport>.png
 
@@ -76,7 +80,9 @@ playwright-report/
 test-results/
 ```
 
-The manifest is initialized before Hugo builds, so a build failure still leaves machine-readable evidence. Browser tests then extend it with page/viewport results and diagnostics. Current page screenshots are captured before structural assertions so failed checks still preserve the rendered state.
+The manifest is initialized before Hugo builds, so a build failure still leaves machine-readable evidence. Each Playwright test writes its own result file before worker teardown, and an `if: always()` workflow step aggregates those records after the test command. This preserves the full matrix even when Playwright restarts a worker after a failed assertion.
+
+Current page screenshots are captured before structural assertions so failed checks still preserve the rendered state.
 
 Playwright retries and trace recording are disabled for this deterministic visual suite. This keeps failure artifacts bounded; the report, current screenshot, failure screenshot, error context, and later visual expected/actual/diff images provide the required evidence without hundreds of megabytes of repeated traces.
 
