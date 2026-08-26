@@ -1,0 +1,53 @@
+{{- $projects := site.Params.home.selectedProjects -}}
+{{- if $projects -}}
+  <section class="mb-12" aria-labelledby="selected-projects-heading">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 id="selected-projects-heading" class="text-foreground text-2xl font-bold">
+          {{ .title | default "Selected projects" }}
+        </h2>
+        {{ with .description }}
+          <p class="text-muted-foreground mt-2">{{ . }}</p>
+        {{ end }}
+      </div>
+      {{ with .viewAllUrl }}
+        <a
+          href="{{ . | relLangURL }}"
+          class="text-primary hover:text-primary/80 focus:ring-primary/20 inline-flex w-fit items-center rounded-md px-1 py-1 text-sm font-medium focus:ring-2 focus:outline-none">
+          View all projects
+        </a>
+      {{ end }}
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2">
+      {{ range $projects }}
+        <article class="bg-card border-border rounded-xl border p-6 shadow-sm">
+          <h3 class="text-foreground text-xl font-semibold">{{ .title }}</h3>
+          {{ with .summary }}
+            <p class="text-muted-foreground mt-2 leading-relaxed">{{ . }}</p>
+          {{ end }}
+          <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
+            {{ with .articlePageRef }}
+              {{ with site.GetPage . }}
+                <a
+                  href="{{ .RelPermalink }}"
+                  class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                  Engineering write-up
+                </a>
+              {{ end }}
+            {{ end }}
+            {{ with .repositoryUrl }}
+              <a
+                href="{{ . }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
+                Repository
+              </a>
+            {{ end }}
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+{{- end -}}

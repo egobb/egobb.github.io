@@ -31,31 +31,31 @@ taxonomies:
 
 menus:
   main:
-    - name: nav.posts
-      pageRef: /posts
+    - name: Home
+      pageRef: /
+      weight: 10
+      params:
+        icon: home
+    - name: Projects
+      pageRef: /projects
       weight: 20
       params:
-        icon: posts
-    - name: nav.categories
-      pageRef: /categories
+        icon: folder
+    - name: Engineering writing
+      pageRef: /writing
       weight: 30
       params:
-        icon: categories
-    - name: nav.tags
-      pageRef: /tags
-      weight: 40
-      params:
-        icon: tags
-    - name: nav.archives
-      pageRef: /archives
-      weight: 50
-      params:
-        icon: archive
+        icon: posts
     - name: nav.about
       pageRef: /about
-      weight: 50
+      weight: 40
       params:
         icon: about
+    - name: Contact
+      url: mailto:egobernagarcia@gmail.com
+      weight: 50
+      params:
+        icon: contact
 
 
   # footer menu
@@ -70,9 +70,24 @@ menus:
       weight: 20
       params:
         icon: contact
+    - name: Categories
+      pageRef: /categories
+      weight: 30
+      params:
+        icon: categories
+    - name: Tags
+      pageRef: /tags
+      weight: 40
+      params:
+        icon: tags
+    - name: Archives
+      pageRef: /archives
+      weight: 50
+      params:
+        icon: archive
     - name: RSS Feed
       url: /index.xml
-      weight: 30
+      weight: 60
       params:
         icon: rss
 
@@ -185,6 +200,15 @@ params:
 
   home:
     recentPostsCount: 5 # Number of recent posts to show on the home page
+    selectedProjects:
+      - title: "Order Tracking"
+        summary: "Event-driven order tracking with Kafka and Spring Boot."
+        repositoryUrl: "https://github.com/egobb/order-tracking"
+        articlePageRef: "/posts/scaling-order-tracking-kafka"
+      - title: "Snapshot Ingestion"
+        summary: "Resilient snapshot ingestion coordinated with PostgreSQL."
+        repositoryUrl: "https://github.com/egobb/plan-service"
+        articlePageRef: "/posts/when-postgres-is-enough-snapshot-ingestion-pipeline"
 
   post:
     showRelated: true           # show related posts
