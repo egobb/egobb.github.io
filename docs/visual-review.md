@@ -128,7 +128,7 @@ For a deliberate change to a critical surface such as Home, accept a new baselin
 3. only the snapshots affected by the intended change are regenerated;
 4. the normal, unmodified visual-review workflow is run again against the committed baselines and exact pull-request head.
 
-A snapshot refresh is evidence maintenance, not a substitute for visual approval.
+A snapshot refresh is evidence maintenance, not a substitute for visual approval. Any later change to the pull-request head requires the normal visual-review gate to pass again before delivery is considered verified.
 
 ## Failure semantics
 
