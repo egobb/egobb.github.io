@@ -119,6 +119,17 @@ npm run visual:update
 
 Never update snapshots only to make CI green. First identify why the rendered output changed, inspect the expected/actual/diff evidence, confirm that the change is intended, and make sure the applicable layout-quality assertions also pass.
 
+### Baseline acceptance protocol
+
+For a deliberate change to a critical surface such as Home, accept a new baseline only after all of the following are true:
+
+1. structural, overflow, console, image, interaction, and applicable layout-quality assertions pass on the new rendering;
+2. the current desktop, tablet, and mobile screenshots are visually reviewed for hierarchy, whitespace, wrapping, readability, and CTA emphasis;
+3. only the snapshots affected by the intended change are regenerated;
+4. the normal, unmodified visual-review workflow is run again against the committed baselines and exact pull-request head.
+
+A snapshot refresh is evidence maintenance, not a substitute for visual approval.
+
 ## Failure semantics
 
 - Hugo build failure → workflow fails and preserves the build result in the manifest.
