@@ -27,7 +27,8 @@ test('Snapshot Ingestion case study exposes the core architecture and evidence b
   });
   await expect(architecture).toBeVisible();
   await expect(architecture).toHaveAttribute('src', 'snapshot-ingestion-architecture.svg');
-  await expect(architecture).toHaveJSProperty('currentSrc', expect.stringContaining('snapshot-ingestion-architecture-mobile.svg'));
+  const currentSrc = await architecture.evaluate(image => (image as HTMLImageElement).currentSrc);
+  expect(currentSrc).toContain('snapshot-ingestion-architecture-mobile.svg');
 
   await expect(
     content.getByRole('link', { name: 'Snapshot Ingestion / Plan Service source repository', exact: true }),
