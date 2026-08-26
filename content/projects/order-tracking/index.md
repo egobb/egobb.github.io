@@ -27,7 +27,7 @@ The resulting design moves ingestion behind Kafka, but keeps the processing mode
 
 The important guarantee is **per-order ordering, not global ordering**. [`TrackingEventDomainHandler`](https://github.com/egobb/order-tracking/blob/main/app/src/main/java/com/egobb/orders/infrastructure/kafka/TrackingEventDomainHandler.java) passes `ev.orderId()` as the publication key, and [`TrackingEventPublisher`](https://github.com/egobb/order-tracking/blob/main/app/src/main/java/com/egobb/orders/infrastructure/kafka/TrackingEventPublisher.java) sends that key with the Kafka record. Kafka routes records with the same key to the same partition, so records for one order share a partition and retain that partition's order. Different order IDs can land on different partitions and therefore be processed concurrently.
 
-That boundary is deliberate. The system does **not** promise ordering between different orders, and adding consumer concurrency does not make one hot order parallel: a single key remains constrained by the throughput of its partition. The current [`OrderTrackingIntegrationTest`](https://github.com/egobb/order-tracking/blob/main/app/src/test/java/com/egobb/orders/integration/OrderTrackingIntegrationTest.java) exercises the REST → Kafka → processor path with multiple orders and verifies that the observed events remain ordered within each order. A more isolated partition-level demonstration is still useful future evidence rather than something I claim as already complete.
+That boundary is deliberate. The system does **not** promise ordering between different orders, and adding consumer concurrency does not make one hot order parallel: a single key remains constrained by the throughput of its partition. The current [`OrderTrackingIntegrationTest`](https://github.com/egobb/order-tracking/blob/main/app/src/test/java/com/egobb/orders/integration/OrderTrackingIntegrationTest.java) exercises the REST → Kafka → processor path with multiple orders and verifies that the observed events remain ordered within each order. A more isolated partition-level test would still be useful, so I do not claim partition-level behavior beyond what the current integration test covers.
 
 ## Evolving the synchronous design instead of replacing the domain
 
@@ -70,9 +70,9 @@ There is another explicit failure boundary in [`TrackingProcessor`](https://gith
 
 **Replay or backfill.** There is no dedicated safe replay path yet. Before enabling one, I would isolate replay identity and scope and add validation plus idempotent persistence.
 
-## Testing evidence
+## Testing
 
-The project has two useful evidence layers today.
+The project has two useful test layers today.
 
 **Domain tests** exercise transition behavior without infrastructure. This keeps the business rules fast to test and makes failures easy to localize.
 
@@ -99,7 +99,7 @@ Any thresholds shown in future dashboards should be labelled as portfolio assump
 
 The repository includes Terraform for a portfolio/preproduction-style AWS environment. [`infra/README.md`](https://github.com/egobb/order-tracking/blob/main/infra/README.md) documents ECS Fargate for the application, ECR for images, an ALB, MSK Serverless, RDS PostgreSQL, Secrets Manager, CloudWatch Logs, remote Terraform state, and GitHub OIDC-based deployment roles.
 
-That infrastructure is intentionally cost-aware and **not a production topology**. The documentation calls out concessions such as simplified networking and small development capacity, and includes a hardening path for private subnets, tighter IAM, stronger database protection, HTTPS, logging, and other controls. I use it as evidence that the service can be described and provisioned beyond localhost—not as evidence of real production scale or availability.
+That infrastructure is intentionally cost-aware and **not a production topology**. The documentation calls out concessions such as simplified networking and small development capacity, and includes a hardening path for private subnets, tighter IAM, stronger database protection, HTTPS, logging, and other controls. It provides a reproducible description of how the service can be provisioned beyond localhost, but it does not establish real production scale or availability.
 
 ## Trade-offs
 
@@ -128,4 +128,4 @@ Those items are intentionally not presented as completed capabilities here.
 - [Order Tracking source repository](https://github.com/egobb/order-tracking)
 - [Kafka migration engineering write-up](/posts/scaling-order-tracking-with-kafka-domain-events-and-auto-ingestion/)
 
-The article walks through the original migration and code in more detail. This page is the shorter case-study view: the problem, architectural decisions, evidence, limitations, and the trade-offs I would defend in an interview.
+The article walks through the original migration and code in more detail. This page is the shorter case-study view: the problem, architectural decisions, current behavior, limitations, and the trade-offs that shape the next iteration.
