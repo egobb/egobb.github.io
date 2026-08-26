@@ -6,9 +6,11 @@ tags: ["AWS", "Terraform", "Infrastructure as Code", "IaC", "GitHub Actions", "C
 cover: "lost-in-the-clouds.png"
 ---
 
-Over the last few weeks, I’ve been working on the next step of my portfolio project: setting up a pre-production environment on AWS. Instead of just running the service locally or on a single server, I wanted to design an infrastructure that is closer to a real-world production setup, with scalability, automation, and reproducibility built in.
+> **August 2026 update:** This article documents a reproducible **pre-production/lab** deployment, not a production-ready environment. The public-subnet/debugging shortcuts and missing hardening called out below are part of that scope. For the current system guarantees and limitations, see the [Order Tracking case study](/projects/order-tracking/).
 
-The goal of this post is to walk through how I deployed this service into production-like conditions on AWS using Terraform and GitHub Actions. Instead of relying on manual configurations in the AWS console, I went fully Infrastructure as Code (IaC) to ensure consistency and make deployments repeatable.
+Over the last few weeks, I’ve been working on the next step of my portfolio project: setting up a pre-production environment on AWS. Instead of just running the service locally or on a single server, I wanted to exercise a deployment topology closer to a real cloud environment, with automation and reproducibility built in while keeping cost and debugging shortcuts explicit.
+
+The goal of this post is to walk through how I deployed this service into a reproducible pre-production environment on AWS using Terraform and GitHub Actions. Instead of relying on manual configurations in the AWS console, I went fully Infrastructure as Code (IaC) to ensure consistency and make deployments repeatable.
 
 In this post, I’ll cover:
 
@@ -18,13 +20,13 @@ In this post, I’ll cover:
 
 - How GitHub Actions automates the build, deployment, and infrastructure provisioning process.
 
-This won’t be an exhaustive deep dive into every Terraform parameter, but rather a practical, step-by-step example of how to set up a production-ready environment for a real application. If you want to explore the full implementation in detail, all the code is available here: [**github.com/egobb/order-tracking**](https://github.com/egobb/order-tracking).
+This won’t be an exhaustive deep dive into every Terraform parameter, but rather a practical, step-by-step example of how to set up a reproducible pre-production environment for a real application. If you want to explore the full implementation in detail, all the code is available here: [**github.com/egobb/order-tracking**](https://github.com/egobb/order-tracking).
 
 ---
 
 ## General Architecture
 
-Before jumping into the Terraform code, let’s take a look at the overall architecture of the application. The goal was to design a cloud-native setup that mimics what you would expect in a production-ready environment, while still being flexible enough for pre-production testing.
+Before jumping into the Terraform code, let’s take a look at the overall architecture of the application. The goal was to exercise a cloud-native topology that uses several components common in production deployments while remaining explicitly scoped to pre-production testing.
 
 At the core, the service is a Spring Boot application running inside Amazon ECS (Fargate). The application image is built and stored in Amazon ECR, and ECS pulls the latest version during deployments.
 
@@ -66,7 +68,7 @@ To keep the project clean and maintainable, I decided to split the Terraform con
 - **`infra/bootstrap/`** → contains all the global resources that only need to be created once. For example, the S3 bucket that stores the Terraform state and the IAM roles required by the environment. This code is executed manually from my local machine only once.
 - **`infra/env/`** → contains the environment-specific resources that can change or evolve with each deployment. This includes ECS, RDS, MSK, VPCs, and all the networking configuration. This code is executed automatically through GitHub Actions whenever I want to deploy.
 
-This separation allows me to avoid accidental re-creation of global resources and ensures that deployments remain safe and reproducible.
+This separation helps avoid accidental re-creation of global resources and keeps deployments repeatable.
 
 Here’s an example of how I configured the **S3 bucket for Terraform state** in the bootstrap stage:
 
@@ -138,7 +140,7 @@ Here’s how the RDS instance appears in the AWS Console:
 
 For asynchronous messaging, the application uses Amazon MSK. Terraform provisions the Kafka cluster inside the same VPC, and ECS tasks communicate with it through the subnets. 
 
-Instead of managing brokers manually, I decided to use **MSK Serverless**. This reduces the operational overhead of capacity planning, simplifies IAM integration for authentication, and scales automatically with demand. For a portfolio project — and even for many production workloads — this is an efficient way to focus on the application rather than cluster management.
+Instead of managing brokers manually, I decided to use **MSK Serverless**. This reduces the operational overhead of capacity planning, simplifies IAM integration for authentication, and scales automatically with demand. For this pre-production environment, it let me focus on the application and AWS integration rather than broker capacity management.
 
 
 ```hcl
@@ -408,7 +410,7 @@ As you can see above, the ECS task definition includes a `logConfiguration` that
 
 With this setup, I can open the AWS Console, go to CloudWatch, and search or filter logs per service and task in real time. This makes debugging much easier, especially in a pre-production environment where quick feedback is critical.
 
-Centralizing both logs and metrics in CloudWatch provides better visibility into the health of the application and lays the foundation for future improvements like setting up alerts, dashboards, or integrating with external observability tools (e.g., Prometheus or Grafana).
+Centralizing logs and the available metrics in CloudWatch improves visibility into the deployment and creates a base for later alerts, dashboards, or integration with external tools such as Prometheus or Grafana. It is a useful operational surface, not by itself a complete observability practice.
 
 Here’s a screenshot of the CloudWatch Log Group with application logs:
 <img src="/images/cloudwatch_log_group.png" alt="CloudWatch Log Group">
@@ -580,13 +582,13 @@ jobs:
 
 ## Conclusions and Key Highlights
 
-This portfolio project demonstrates how a cloud-native service can be deployed on AWS with a production-ready approach, even in a pre-production environment. The setup brings together modern practices such as Infrastructure as Code, automated CI/CD pipelines, and observability out of the box.
+This article documents a reproducible cloud deployment for a pre-production environment. The setup brings together Infrastructure as Code, automated deployment, managed persistence/messaging, and centralized logs, but it deliberately retains shortcuts that keep it outside a production-ready claim.
 
 Key highlights from this architecture: 
 - **Terraform organization matters**: splitting bootstrap and environment code helps avoid accidental re-creation of global resources.
 - **Profiles in Spring Boot are key**: creating an `aws` profile made it easy to separate local development from cloud deployment.
 - **Automation saves time**: with GitHub Actions, deployments are reproducible and consistent with a simple `git push`.
-- **Observability is non-negotiable**: having logs and metrics in CloudWatch makes debugging and monitoring much easier.
+- **Centralized logs improve debugging**: CloudWatch makes it easier to inspect service/task behavior without SSH access.
 - **Flexibility in pre-production**: using public subnets with strict security groups allowed remote access and faster testing cycles.  
 
 ### What’s next?
@@ -596,4 +598,4 @@ While this setup is already functional, there are areas I’d like to improve in
 - Defining **more advanced scaling policies** for ECS tasks.
 - Expanding to a **multi-environment setup** (staging, production) with isolated pipelines.
 
-Overall, this architecture provides a strong foundation for reliable deployments and showcases how to bring production-grade practices into a portfolio project.  
+Overall, this architecture is a reproducible lab for provisioning and deployment rather than evidence of production readiness. Private networking, stronger database protection, HTTPS, alerting, and measured performance/availability would all need their own validation before making a stronger claim.
