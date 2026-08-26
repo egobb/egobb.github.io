@@ -17,7 +17,7 @@ For pull requests targeting `main`, `.github/workflows/visual-review.yml`:
 9. persists each page/viewport and interaction result independently so Playwright worker restarts cannot erase prior evidence;
 10. finalizes `manifest.json` with `if: always()` and retains screenshots, test results, the HTML report, and manifest as a GitHub Actions artifact even when browser checks fail.
 
-The workflow has read-only repository permissions and does not deploy to GitHub Pages. Production deployment remains owned by `.github/workflows/hugo.yml` on pushes to `main`.
+The normal verification workflow has read-only repository permissions and does not deploy to GitHub Pages. Production deployment remains owned by `.github/workflows/hugo.yml` on pushes to `main`.
 
 ## Representative matrix
 
