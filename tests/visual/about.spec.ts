@@ -10,7 +10,7 @@ test('About page centers current backend work while preserving background, photo
 
   await expect(
     page.getByText(
-      'Backend systems, distributed platforms, and the engineering decisions that keep them reliable and understandable.',
+      'Software engineer working on backend platforms for inventory and e-commerce, from domain decisions to production behavior.',
       { exact: true },
     ),
   ).toBeVisible();
@@ -19,7 +19,7 @@ test('About page centers current backend work while preserving background, photo
 
   await expect(content).not.toContainText(/Senior Backend Engineer|hybrid profile|\benabler\b|empowers teams|real value|drives projects forward/i);
   await expect(content.getByText(/building software professionally for more than a decade/i)).toBeVisible();
-  await expect(content.getByText(/Today most of my work is around backend systems for inventory and e-commerce/i)).toBeVisible();
+  await expect(content.getByText(/today I work mostly on backend platforms for inventory and e-commerce/i)).toBeVisible();
   await expect(content.getByText(/Since 2020, I have worked on central inventory platforms for e-commerce/i)).toBeVisible();
   await expect(content.getByText(/I tend to work close to both the domain and the implementation/i)).toBeVisible();
   await expect(content.getByText(/Earlier in my career I worked on embedded software, a smart-metering platform, and RFID systems/i)).toBeVisible();
