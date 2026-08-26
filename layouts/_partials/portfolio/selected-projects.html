@@ -32,47 +32,28 @@
           </h3>
 
           {{ if $detailed }}
-            {{ with .problem }}
-              <div class="mt-4">
-                <p class="text-foreground text-sm font-semibold">Problem</p>
-                <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
-              </div>
+            {{ with .description }}
+              <p class="text-muted-foreground mt-3 text-sm leading-relaxed">{{ . }}</p>
             {{ end }}
 
-            {{ with .architecturalProposition }}
-              <div class="mt-4">
-                <p class="text-foreground text-sm font-semibold">Architecture</p>
-                <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
-              </div>
-            {{ end }}
-
-            {{ with .designChoices }}
-              <div class="mt-4">
-                <p class="text-foreground text-sm font-semibold">Key decisions</p>
-                <ul class="text-muted-foreground mt-2 text-sm leading-relaxed">
-                  {{ range . }}
-                    <li class="mt-1 flex gap-2"><span aria-hidden="true">—</span><span>{{ . }}</span></li>
+            {{ with .sections }}
+              {{ range . }}
+                <div class="mt-4">
+                  {{ with .title }}
+                    <p class="text-foreground text-sm font-semibold">{{ . }}</p>
                   {{ end }}
-                </ul>
-              </div>
-            {{ end }}
-
-            {{ with .evidence }}
-              <div class="mt-4">
-                <p class="text-foreground text-sm font-semibold">Evidence</p>
-                <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
-              </div>
-            {{ end }}
-
-            {{ with .stack }}
-              <div class="mt-4">
-                <p class="text-foreground text-sm font-semibold">Stack</p>
-                <div class="mt-2 flex flex-wrap gap-2" aria-label="Technology stack">
-                  {{ range . }}
-                    <span class="bg-muted text-foreground rounded-md px-2 py-1 text-xs font-medium">{{ . }}</span>
+                  {{ with .body }}
+                    <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
+                  {{ end }}
+                  {{ with .items }}
+                    <ul class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                      {{ range . }}
+                        <li class="mt-1 flex gap-2"><span aria-hidden="true">—</span><span>{{ . }}</span></li>
+                      {{ end }}
+                    </ul>
                   {{ end }}
                 </div>
-              </div>
+              {{ end }}
             {{ end }}
 
             <div class="mt-5 flex flex-wrap items-center gap-3 text-sm font-medium">
