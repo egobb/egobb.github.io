@@ -9,6 +9,8 @@ const primaryLinks = [
   { name: 'Contact', selector: 'a[href^="mailto:"]' },
 ] as const;
 
+const contactHref = 'mailto:egobernagarcia@gmail.com';
+
 async function tabUntilFocused(page: Page, target: Locator, maxTabs = 12): Promise<void> {
   for (let index = 0; index < maxTabs; index += 1) {
     await page.keyboard.press('Tab');
@@ -47,6 +49,7 @@ test('desktop primary navigation exposes routes and active state', async ({ page
     for (const link of primaryLinks) {
       await expect(desktopNav.locator(`${link.selector}:visible`).first(), `${link.name} link`).toBeVisible();
     }
+    await expect(desktopNav.locator('a[href^="mailto:"]').first()).toHaveAttribute('href', contactHref);
 
     await desktopNav.locator('a[href="/projects/"]').first().click();
     await expect(page).toHaveURL(/\/projects\/$/);
@@ -55,6 +58,26 @@ test('desktop primary navigation exposes routes and active state', async ({ page
     await page.locator('header nav:visible a[href="/writing/"]').first().click();
     await expect(page).toHaveURL(/\/writing\/$/);
     await expect(page.locator('header nav:visible a[href="/writing/"]').first()).toHaveClass(/nav-active-indicator/);
+  });
+});
+
+test('contact stays discoverable without competing with homepage primary actions', async ({ page }) => {
+  await recordInteraction('restrained-contact-path', async () => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    await stabilizePage(page);
+
+    const heroActions = page.locator('[data-visual-role="home-hero-actions"]');
+    await expect(heroActions).toBeVisible();
+    await expect(heroActions.locator('a[href^="mailto:"]')).toHaveCount(0);
+    await expect(heroActions.getByRole('link', { name: 'Explore projects', exact: true })).toBeVisible();
+    await expect(heroActions.getByRole('link', { name: 'Read engineering notes', exact: true })).toBeVisible();
+
+    const contact = page.locator('header nav:visible a[href^="mailto:"]').first();
+    await expect(contact).toBeVisible();
+    await expect(contact).toHaveAttribute('href', contactHref);
+    await tabUntilFocused(page, contact, 20);
+    await expect(contact).toBeFocused();
   });
 });
 
@@ -74,6 +97,7 @@ test('mobile menu opens, exposes routes, and navigates without overflow', async 
     for (const link of primaryLinks) {
       await expect(menu.locator(link.selector).first(), `${link.name} mobile link`).toBeVisible();
     }
+    await expect(menu.locator('a[href^="mailto:"]').first()).toHaveAttribute('href', contactHref);
 
     const overflow = await getOverflowDiagnostics(page);
     expect(
