@@ -1,0 +1,101 @@
+{{/*
+  Local override of hugo-narrow's image processor.
+  Page-bundle cover images are converted to bounded WebP variants at build time:
+  cards/default callers => 640px wide, explicit responsive callers => 1200px wide.
+  Source files remain untouched so historical material and diagrams preserve fidelity.
+*/}}
+
+{{- $context := .context -}}
+{{- $src := .src | string -}}
+{{- $alt := .alt | default "" -}}
+{{- $caption := .caption | default "" -}}
+{{- $outputType := .outputType | default "both" -}}
+{{- $responsiveExplicit := isset . "enableResponsive" -}}
+{{- $enableResponsive := .enableResponsive | default false -}}
+{{- $responsiveWidth := .responsiveWidth | default 1200 -}}
+{{- $responsiveQuality := .responsiveQuality | default 88 -}}
+
+{{- $resource := false -}}
+{{- $resourceType := "" -}}
+{{- $isExternal := false -}}
+{{- $finalUrl := "" -}}
+{{- $sourceWidth := 0 -}}
+{{- $sourceHeight := 0 -}}
+{{- $outputWidth := 0 -}}
+{{- $outputHeight := 0 -}}
+
+{{- if or (hasPrefix $src "http://") (hasPrefix $src "https://") -}}
+  {{- $isExternal = true -}}
+  {{- $resourceType = "external" -}}
+  {{- $finalUrl = $src -}}
+{{- else -}}
+  {{- $searchPath := $src -}}
+  {{- if hasPrefix $src "./" -}}
+    {{- $searchPath = strings.TrimPrefix "./" $src -}}
+  {{- else if hasPrefix $src "/" -}}
+    {{- $searchPath = strings.TrimPrefix "/" $src -}}
+  {{- end -}}
+
+  {{- with $context.Resources.GetMatch $searchPath -}}
+    {{- $resource = . -}}
+    {{- $resourceType = "page" -}}
+    {{- $finalUrl = .RelPermalink -}}
+  {{- else -}}
+    {{- with resources.Get $searchPath -}}
+      {{- $resource = . -}}
+      {{- $resourceType = "global" -}}
+      {{- $finalUrl = .RelPermalink -}}
+    {{- else -}}
+      {{- $resourceType = "static" -}}
+      {{- $finalUrl = $src -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Theme card callers do not currently pass enableResponsive. Treat page covers as bounded card images. */}}
+{{- if and (not $responsiveExplicit) $resource (eq $resourceType "page") $context.Params.cover (eq $src $context.Params.cover) -}}
+  {{- $enableResponsive = true -}}
+  {{- $responsiveWidth = 640 -}}
+{{- end -}}
+
+{{- if and $resource (not $isExternal) -}}
+  {{- $mediaType := $resource.MediaType.SubType -}}
+  {{- if in (slice "jpeg" "jpg" "png" "gif" "webp") $mediaType -}}
+    {{- $sourceWidth = $resource.Width -}}
+    {{- $sourceHeight = $resource.Height -}}
+    {{- if and $enableResponsive (ne $mediaType "gif") -}}
+      {{- $targetWidth := $responsiveWidth -}}
+      {{- if lt $resource.Width $targetWidth -}}
+        {{- $targetWidth = $resource.Width -}}
+      {{- end -}}
+      {{- $resource = $resource.Resize (printf "%dx webp q%d" $targetWidth $responsiveQuality) -}}
+      {{- $finalUrl = $resource.RelPermalink -}}
+    {{- end -}}
+    {{- $outputWidth = $resource.Width -}}
+    {{- $outputHeight = $resource.Height -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if or (eq $outputType "data") (eq $outputType "both") -}}
+  {{- $context.Scratch.Set "imageResource" $resource -}}
+  {{- $context.Scratch.Set "imageUrl" $finalUrl -}}
+  {{- $context.Scratch.Set "imageType" $resourceType -}}
+  {{- $context.Scratch.Set "isExternal" $isExternal -}}
+  {{- $context.Scratch.Set "imageSourceWidth" $sourceWidth -}}
+  {{- $context.Scratch.Set "imageSourceHeight" $sourceHeight -}}
+  {{- $context.Scratch.Set "imageOutputWidth" $outputWidth -}}
+  {{- $context.Scratch.Set "imageOutputHeight" $outputHeight -}}
+{{- end -}}
+
+{{- if or (eq $outputType "img") (eq $outputType "both") -}}
+  <img
+    src="{{ $finalUrl }}"
+    alt="{{ $alt }}"
+    {{ with $caption }}title="{{ . }}"{{ end }}
+    {{ if gt $outputWidth 0 }}width="{{ $outputWidth }}" height="{{ $outputHeight }}"{{ end }}
+    loading="lazy"
+    decoding="async"
+    data-gallery-src="{{ $finalUrl }}"
+    data-gallery-alt="{{ $alt }}"
+    data-gallery-title="{{ $caption }}" />
+{{- end -}}
