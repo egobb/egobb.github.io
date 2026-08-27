@@ -26,10 +26,16 @@
     <div class="grid gap-4 md:grid-cols-2">
       {{ range $projects }}
         {{- $project := . -}}
+        {{- $projectTitle := .title -}}
+        {{- if and $detailed .canonicalTitle -}}
+          {{- $projectTitle = .canonicalTitle -}}
+        {{- end -}}
         <article class="bg-card border-border rounded-xl border p-6 shadow-sm">
-          <h3 class="text-foreground text-xl font-semibold">
-            {{ if and $detailed .canonicalTitle }}{{ .canonicalTitle }}{{ else }}{{ .title }}{{ end }}
-          </h3>
+          {{ if $hideHeader }}
+            <h2 class="text-foreground text-xl font-semibold">{{ $projectTitle }}</h2>
+          {{ else }}
+            <h3 class="text-foreground text-xl font-semibold">{{ $projectTitle }}</h3>
+          {{ end }}
 
           {{ if $detailed }}
             {{ with .description }}
@@ -61,6 +67,7 @@
                 {{ with site.GetPage . }}
                   <a
                     href="{{ .RelPermalink }}"
+                    aria-label="Open {{ $projectTitle }} project overview"
                     class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
                     Project overview
                   </a>
@@ -71,6 +78,7 @@
                 {{ with site.GetPage . }}
                   <a
                     href="{{ .RelPermalink }}"
+                    aria-label="Read {{ $projectTitle }} engineering write-up"
                     class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
                     Engineering write-up
                   </a>
@@ -82,6 +90,7 @@
                   href="{{ . }}"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Open {{ $projectTitle }} source repository"
                   class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
                   Repository
                 </a>
@@ -96,6 +105,7 @@
                 {{ with site.GetPage . }}
                   <a
                     href="{{ .RelPermalink }}"
+                    aria-label="Read {{ $projectTitle }} engineering write-up"
                     class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
                     Engineering write-up
                   </a>
@@ -109,6 +119,7 @@
                   href="{{ . }}"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Open {{ $projectTitle }} source repository"
                   class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
                   Repository
                 </a>
