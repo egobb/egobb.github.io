@@ -6,9 +6,11 @@ tags: ["spring-boot", "ci-cd", "github-actions", "docker", "portfolio"]
 cover: "automatic-order-tracking.png"
 ---
 
-Over the past few days I’ve been evolving [*order-tracking*](https://github.com/egobb/order-tracking), a simple Spring Boot project originally created as a **portfolio piece** to showcase my technical skills. The idea behind it is not only to demonstrate how to build a clean and functional service — with REST endpoints, hexagonal architecture, persistence, and auditability — but also how to approach software engineering with modern practices.  
+> **August 2026 update:** This post records the delivery setup as it existed in September 2025. The project has evolved since then; the [current Order Tracking case study](/projects/order-tracking/) is the reference for present guarantees, limitations, and next work.
 
-This includes automation, reproducibility, and workflows that resemble those found in production environments, turning the project into a practical example of end-to-end software delivery.
+Over the past few days I’ve been evolving [*order-tracking*](https://github.com/egobb/order-tracking), a simple Spring Boot service with REST endpoints, hexagonal boundaries, persistence, and an audit trail. This iteration focused less on new business behavior and more on making the existing service easier to build, test, run, and release consistently.
+
+The work centred on automation, reproducibility, and the delivery workflow around the application rather than changing its core domain model.
 
 ---
 
@@ -57,13 +59,13 @@ With these improvements, *order-tracking* is no longer just a local demo service
 
 ## What’s next?
 
-On the roadmap:
+At that point, the next questions were:
 
-- More integration tests with real infrastructure (databases, queues).
-- **Enable horizontal scaling** with distributed messaging and event-driven design.
-- Advanced observability: tracing, dashboards, metrics.
-- Stronger security: authentication, authorization and secret handling.
-- Automatic deployments to staging environments through GitHub Actions.
+- Add more integration tests with real infrastructure (databases, queues).
+- Explore separating request acceptance from processing if synchronous database work becomes a useful boundary to test.
+- Improve operational visibility with tracing, dashboards, and metrics.
+- Strengthen authentication, authorization, and secret handling where the deployment model requires them.
+- Automate deployment to a staging/pre-production environment through GitHub Actions.
 
 ---
 
@@ -71,4 +73,4 @@ On the roadmap:
 
 The most interesting part of this cycle wasn’t writing new business logic — it was wrapping the project in **automation and reproducibility**. Workflows now guard quality, Docker ensures portability, seeding provides a smoother developer experience, and releases happen in a controlled, repeatable way.
 
-The project feels closer to something production-ready, and every improvement in automation has already paid for itself in confidence and speed.  
+The result was a more repeatable development and delivery environment, with less manual setup and clearer feedback when a change breaks the build or packaging flow.

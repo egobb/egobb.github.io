@@ -2,10 +2,13 @@
 title: "Order Tracking: First Steps into My Portfolio"
 date: 2025-09-18T00:00:00Z
 draft: false
+writingHidden: true
 categories: ["portfolio", "projects"]
 tags: ["order-tracking", "java", "spring-boot", "postgres", "portfolio"]
 cover: "order-tracking-first-steps.png"
 ---
+
+*For the current state of the project, see the [Order Tracking case study](/projects/order-tracking/).*
 
 The first concrete project in my portfolio is an **Order Tracking** service. At its core, it’s simple: an API to create orders, update their status, and check where they are in the delivery process. But even a small project like this can already show the kind of engineering mindset I want this blog to reflect.
 
