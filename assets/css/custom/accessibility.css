@@ -29,8 +29,8 @@
     summary,
     [tabindex]:not([tabindex="-1"])
   ):focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+  outline: 3px solid var(--color-primary) !important;
+  outline-offset: 3px !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
