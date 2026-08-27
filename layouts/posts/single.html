@@ -1,0 +1,66 @@
+{{ define "main" }}
+  <!-- 面包屑导航 -->
+  {{ partial "navigation/breadcrumb.html" . }}
+
+  <!-- 文章封面 -->
+  {{- if .Params.cover -}}
+    {{- partial "content/image-processor.html" (dict
+      "context" .
+      "src" .Params.cover
+      "alt" .Title
+      "enableModal" false
+      "enableResponsive" true
+      "responsiveWidth" 1200
+      "responsiveQuality" 88
+      "enablePlaceholder" false
+      "outputType" "data"
+    ) -}}
+    {{- $coverImage := .Scratch.Get "imageUrl" -}}
+    {{- $sourceWidth := .Scratch.Get "imageSourceWidth" | default 0 -}}
+    {{- $sourceHeight := .Scratch.Get "imageSourceHeight" | default 0 -}}
+    {{- $outputWidth := .Scratch.Get "imageOutputWidth" | default 0 -}}
+    {{- $outputHeight := .Scratch.Get "imageOutputHeight" | default 0 -}}
+    {{- $placeholderData := .Scratch.Get "placeholderData" | default dict -}}
+    {{- $gradients := $placeholderData.gradients | default (slice "from-blue-500/20 to-purple-500/10") -}}
+    {{- $colorIndex := $placeholderData.colorIndex | default 0 -}}
+
+    {{- if $coverImage -}}
+      <div class="mb-8 overflow-hidden rounded-2xl">
+        <img
+          src="{{ $coverImage }}"
+          alt="{{ .Title }}"
+          class="h-64 w-full object-cover md:h-80"
+          {{ if gt $outputWidth 0 }}width="{{ $outputWidth }}" height="{{ $outputHeight }}"{{ end }}
+          data-source-width="{{ $sourceWidth }}"
+          data-source-height="{{ $sourceHeight }}"
+          data-optimized-width="{{ $outputWidth }}"
+          data-optimized-height="{{ $outputHeight }}"
+          loading="eager"
+          decoding="async"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="{{ index $gradients $colorIndex }} relative h-64 md:h-80 w-full bg-gradient-to-br" style="display: none;">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="flex h-24 w-24 items-center justify-center rounded-full border border-white/30 bg-white/20 backdrop-blur-sm">
+              <span class="text-3xl font-bold text-white">{{ substr .Title 0 1 | upper }}</span>
+            </div>
+          </div>
+          <div class="absolute top-8 right-8 h-20 w-20 rounded-full bg-white/15"></div>
+          <div class="absolute bottom-8 left-8 h-16 w-16 rounded-full bg-white/20"></div>
+        </div>
+      </div>
+    {{- end -}}
+  {{ end }}
+
+  <header class="mb-8">
+    {{ partial "content/post-meta.html" . }}
+  </header>
+
+  <article class="prose prose-neutral dark:prose-invert mb-12 max-w-none">
+    {{ .Content }}
+  </article>
+
+  {{ partial "content/post-license.html" . }}
+  {{ partial "content/post-navigation.html" . }}
+  {{ partial "content/related-posts.html" . }}
+  {{ partial "features/comments.html" . }}
+{{ end }}
