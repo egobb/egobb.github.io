@@ -1,0 +1,46 @@
+/* Site-wide accessibility safeguards layered on top of hugo-narrow. */
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  transform: translateY(-200%);
+  border: 2px solid var(--color-primary);
+  border-radius: 0.5rem;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  padding: 0.625rem 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+:where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    [tabindex]:not([tabindex="-1"])
+  ):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
