@@ -8,7 +8,7 @@ tags: ["order-tracking", "java", "spring-boot", "postgres", "portfolio"]
 cover: "order-tracking-first-steps.png"
 ---
 
-> **Archive note — August 2026:** This is a preserved snapshot of the first Order Tracking iteration and its original 2025 roadmap. It is no longer part of the primary Engineering Writing index, and the portfolio/showcase framing below should be read as historical rather than current project direction. For the current guarantees, limitations, and next work, see the [Order Tracking case study](/projects/order-tracking/).
+*For the current state of the project, see the [Order Tracking case study](/projects/order-tracking/).*
 
 The first concrete project in my portfolio is an **Order Tracking** service. At its core, it’s simple: an API to create orders, update their status, and check where they are in the delivery process. But even a small project like this can already show the kind of engineering mindset I want this blog to reflect.
 
