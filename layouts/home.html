@@ -64,7 +64,8 @@
     }}
 
     {{ $recentPostsCount := site.Params.home.recentPostsCount | default 5 }}
-    {{ $posts := where site.RegularPages "Section" "posts" | first $recentPostsCount }}
+    {{ $posts := where site.RegularPages "Section" "posts" }}
+    {{ $posts = where $posts "Params.writingHidden" "ne" true | first $recentPostsCount }}
     {{ partial "content/post-list.html" (dict
       "posts" $posts
       "title" "Engineering writing"

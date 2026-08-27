@@ -2,6 +2,7 @@
 title: "Welcome to the Blog: Building My Portfolio"
 date: 2025-09-16T00:00:00Z
 draft: false
+writingHidden: true
 categories: ["portfolio", "personal", "career"]
 tags: ["software-engineering", "portfolio", "career-growth", "blogging"]
 cover: "welcome-to-the-blog-building-my-portfolio.png"
