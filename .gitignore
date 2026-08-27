@@ -5,3 +5,7 @@ node_modules/
 playwright-report/
 test-results/
 artifacts/visual-review/
+
+# Prevent accidental Windows download metadata and Office temp files.
+*:Zone.Identifier
+*~RF*.TMP
