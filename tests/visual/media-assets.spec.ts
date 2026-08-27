@@ -5,12 +5,12 @@ import path from 'node:path';
 const artifactDir = path.join(process.cwd(), 'artifacts', 'visual-review');
 
 const coverPages = [
-  { route: '/posts/automating-order-tracking/', sourceBytes: 1_355_332 },
-  { route: '/posts/lost-in-the-clouds/', sourceBytes: 1_432_144 },
-  { route: '/posts/order-tracking-first-steps/', sourceBytes: 1_470_687 },
-  { route: '/posts/scaling-order-tracking-kafka/', sourceBytes: 1_486_689 },
+  { route: '/posts/automating-order-tracking-from-functionality-to-continuous-integration/', sourceBytes: 1_355_332 },
+  { route: '/posts/lost-in-the-clouds-automating-deployments-with-aws-terraform-and-github-actions/', sourceBytes: 1_432_144 },
+  { route: '/posts/order-tracking-first-steps-into-my-portfolio/', sourceBytes: 1_470_687 },
+  { route: '/posts/scaling-order-tracking-with-kafka-domain-events-and-auto-ingestion/', sourceBytes: 1_486_689 },
   { route: '/posts/welcome-to-the-blog-building-my-portfolio/', sourceBytes: 1_910_794 },
-  { route: '/posts/when-postgres-is-enough-snapshot-ingestion-pipeline/', sourceBytes: 1_754_621 },
+  { route: '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/', sourceBytes: 1_754_621 },
 ] as const;
 
 test('configured social, logo and favicon assets resolve', async ({ request }) => {
