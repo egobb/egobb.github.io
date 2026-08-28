@@ -25,8 +25,8 @@
 
 .home-hero-avatar {
   display: block;
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 4.75rem;
+  height: 4.75rem;
 }
 
 .home-hero-copy {
@@ -38,10 +38,10 @@
 }
 
 .home-hero-title {
-  max-width: 19ch;
+  max-width: 22ch;
   margin-bottom: 1rem;
-  font-size: 1.95rem;
-  line-height: 1.12;
+  font-size: clamp(2rem, 2.8vw, 2.25rem);
+  line-height: 1.1;
   letter-spacing: -0.025em;
 }
 
@@ -67,6 +67,11 @@
   align-items: center;
 }
 
+.home-hero-actions .home-hero-text-link:last-child {
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
 @media (max-width: 767px) {
   .author-section {
     margin-bottom: 2.85rem;
@@ -80,15 +85,8 @@
     gap: 1rem;
   }
 
-  .home-hero-avatar {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-
   .home-hero-title {
-    max-width: 20ch;
-    font-size: 1.9rem;
-    line-height: 1.12;
+    max-width: none;
   }
 
   .home-hero-summary {
@@ -112,14 +110,5 @@
 
   .home-hero-layout {
     gap: 1.5rem;
-  }
-
-  .home-hero-avatar {
-    width: 4.25rem;
-    height: 4.25rem;
-  }
-
-  .home-hero-title {
-    font-size: 2.35rem;
   }
 }
