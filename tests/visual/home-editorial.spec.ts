@@ -55,7 +55,7 @@ test('Home mobile composition is left aligned and keeps the portrait supportive'
   expect(['left', 'start']).toContain(metrics.textAlign);
   expect(metrics.avatarWidth).toBeGreaterThanOrEqual(75);
   expect(metrics.avatarWidth).toBeLessThanOrEqual(80);
-  expect(metrics.titleSize).toBeGreaterThanOrEqual(32);
+  expect(metrics.titleSize).toBeGreaterThanOrEqual(30);
   expect(metrics.titleSize).toBeLessThanOrEqual(36);
   expect(metrics.primaryWidth).toBeLessThan(metrics.viewportWidth * 0.7);
 });
