@@ -94,5 +94,7 @@ test('the only global shell interactions remain functional on mobile', async ({ 
   const themeToggle = page.locator('.portfolio-mobile-header .portfolio-theme-toggle');
   const before = await themeToggle.getAttribute('aria-pressed');
   await themeToggle.click();
-  await expect(themeToggles).toHaveAttribute('aria-pressed', before === 'true' ? 'false' : 'true');
+  const expected = before === 'true' ? 'false' : 'true';
+  await expect(themeToggles.nth(0)).toHaveAttribute('aria-pressed', expected);
+  await expect(themeToggles.nth(1)).toHaveAttribute('aria-pressed', expected);
 });
