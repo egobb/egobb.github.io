@@ -1,55 +1,56 @@
 {{ define "main" }}
   <div class="mx-auto max-w-4xl">
     {{ if site.Params.author }}
-      <section class="author-section" aria-labelledby="home-hero-title">
-        <div data-visual-role="home-hero-card" class="home-hero-card bg-card border-border rounded-xl border p-8 shadow-sm">
-          <div data-visual-role="home-hero-layout" class="home-hero-layout flex flex-col items-center gap-6 text-center md:flex-row md:text-left">
-            <div class="flex-shrink-0">
-              {{ if site.Params.author.avatar }}
-                <img
-                  src="{{ site.Params.author.avatar }}"
-                  alt="{{ site.Params.author.name | default site.Title }}"
-                  class="home-hero-avatar border-primary/20 h-24 w-24 rounded-full border-4 object-cover shadow-lg" />
-              {{ else }}
-                <div class="home-hero-avatar bg-primary text-primary-foreground flex h-24 w-24 items-center justify-center rounded-full text-2xl font-bold shadow-lg">
-                  {{ substr (site.Params.author.name | default site.Title) 0 1 | upper }}
-                </div>
-              {{ end }}
-            </div>
-
-            <div data-visual-role="home-hero-copy" class="min-w-0 flex-1">
-              <p data-visual-role="home-hero-eyebrow" class="home-hero-eyebrow text-primary text-sm font-semibold tracking-wide">
-                Engineering work and notes
-              </p>
-
-              <h1 data-visual-role="home-hero-title" id="home-hero-title" class="home-hero-title text-foreground text-3xl font-bold md:text-4xl">
-                I build backend systems and write down the decisions that matter.
-              </h1>
-
-              <p data-visual-role="home-hero-summary" class="home-hero-summary text-foreground">
-                The work usually comes down to data movement, ordering, failure handling and keeping systems understandable as they evolve. This site is where I document those constraints, trade-offs and the simpler choices that often survive them.
-              </p>
-
-              <div data-visual-role="home-hero-actions" class="home-hero-actions flex flex-wrap justify-center md:justify-start">
-                <a
-                  data-visual-role="home-hero-primary-cta"
-                  href="{{ "/projects/" | relLangURL }}"
-                  class="home-hero-action bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/20 inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-colors focus:ring-2 focus:outline-none">
-                  Explore projects
-                </a>
-                <a
-                  href="{{ "/writing/" | relLangURL }}"
-                  class="home-hero-action border-border bg-background text-foreground hover:bg-muted focus:ring-primary/20 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
-                  Read engineering notes
-                </a>
-                <a
-                  href="https://github.com/egobb"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="home-hero-action home-hero-tertiary text-muted-foreground hover:text-primary focus:ring-primary/20 inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
-                  GitHub
-                </a>
+      <section data-visual-role="home-hero" class="author-section home-intro" aria-labelledby="home-hero-title">
+        <div data-visual-role="home-hero-layout" class="home-hero-layout flex flex-col items-start text-left md:flex-row">
+          <div class="home-hero-identity flex-shrink-0">
+            {{ if site.Params.author.avatar }}
+              <img
+                data-visual-role="home-hero-avatar"
+                src="{{ site.Params.author.avatar }}"
+                alt="{{ site.Params.author.name | default site.Title }}"
+                class="home-hero-avatar rounded-full object-cover" />
+            {{ else }}
+              <div
+                data-visual-role="home-hero-avatar"
+                class="home-hero-avatar bg-muted text-foreground flex items-center justify-center rounded-full text-lg font-semibold">
+                {{ substr (site.Params.author.name | default site.Title) 0 1 | upper }}
               </div>
+            {{ end }}
+          </div>
+
+          <div data-visual-role="home-hero-copy" class="home-hero-copy min-w-0 flex-1">
+            <p data-visual-role="home-hero-eyebrow" class="home-hero-eyebrow text-primary text-sm font-semibold tracking-wide">
+              Engineering work and notes
+            </p>
+
+            <h1 data-visual-role="home-hero-title" id="home-hero-title" class="home-hero-title text-foreground font-bold">
+              I build backend systems and write down the decisions that matter.
+            </h1>
+
+            <p data-visual-role="home-hero-summary" class="home-hero-summary text-foreground">
+              The work usually comes down to data movement, ordering, failure handling and keeping systems understandable as they evolve. This site is where I document those constraints, trade-offs and the simpler choices that often survive them.
+            </p>
+
+            <div data-visual-role="home-hero-actions" class="home-hero-actions flex flex-wrap items-center">
+              <a
+                data-visual-role="home-hero-primary-cta"
+                href="{{ "/projects/" | relLangURL }}"
+                class="home-hero-primary bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/20 inline-flex min-h-10 items-center rounded-md px-4 py-2 text-sm font-semibold transition-colors focus:ring-2 focus:outline-none">
+                Explore projects
+              </a>
+              <a
+                href="{{ "/writing/" | relLangURL }}"
+                class="home-hero-text-link text-muted-foreground hover:text-foreground focus-visible:outline-primary text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
+                Read engineering notes
+              </a>
+              <a
+                href="https://github.com/egobb"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="home-hero-text-link text-muted-foreground hover:text-foreground focus-visible:outline-primary text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
+                GitHub
+              </a>
             </div>
           </div>
         </div>
