@@ -1,7 +1,9 @@
 /*
  * Keep the restrained default palette while making secondary copy readable
- * before it becomes visually quiet. Scope the override to the Default theme
- * so alternate hugo-narrow palettes retain their own authored hierarchy.
+ * before it becomes visually quiet. These values are verified for body-size
+ * secondary text at WCAG 4.5:1 or better in the rendered Default palette.
+ * Scope the override to the Default theme so alternate hugo-narrow palettes
+ * retain their own authored hierarchy.
  */
 html:root:not([data-theme]),
 html:root[data-theme="default"] {
