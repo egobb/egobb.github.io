@@ -1,0 +1,5 @@
+Epic #47 / issue #48 visual-baseline acceptance record
+
+Reviewed exact visual evidence from SHA 93985202b41f0d18db6375083f19078dff05df0c, workflow run 33142578660, artifact 9674533088.
+
+Accepted intentional changes are limited to removal/simplification of the global shell: editorial text navigation, one Light / Dark control, no theme palette, no floating dock, minimal footer, and one contextual back link on detail pages. Remaining card-heavy Home, Projects, Writing, About, and long-form surfaces are explicitly deferred to issues #49-#53.
