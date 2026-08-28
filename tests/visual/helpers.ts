@@ -26,6 +26,7 @@ export const pages = [
   { name: 'writing', url: '/writing/', heading: 'Engineering writing' },
   { name: 'about', url: '/about/', heading: 'About' },
   { name: 'posts', url: '/posts/', heading: null },
+  { name: 'archives', url: '/archives/', heading: null },
   {
     name: 'long-article',
     url: '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/',
