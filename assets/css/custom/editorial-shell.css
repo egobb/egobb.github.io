@@ -30,6 +30,7 @@
 
 .portfolio-site-name:focus-visible,
 .portfolio-nav-link:focus-visible,
+.portfolio-theme-toggle:focus-visible,
 .portfolio-mobile-menu-toggle:focus-visible,
 .portfolio-mobile-nav-link:focus-visible,
 .portfolio-footer a:focus-visible,
@@ -87,22 +88,7 @@
   border-left: 1px solid color-mix(in srgb, var(--color-border) 58%, transparent);
 }
 
-.portfolio-appearance-control button,
-.portfolio-mobile-controls button {
-  box-shadow: none !important;
-}
-
-.portfolio-mobile-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin-left: auto;
-}
-
-.portfolio-mobile-menu-wrap {
-  position: relative;
-}
-
+.portfolio-theme-toggle,
 .portfolio-mobile-menu-toggle {
   display: inline-flex;
   min-height: 2.5rem;
@@ -110,18 +96,33 @@
   justify-content: center;
   border: 0;
   background: transparent;
+  box-shadow: none;
   color: var(--color-muted-foreground);
   padding-inline: 0.5rem;
   font: inherit;
   font-size: 0.82rem;
   font-weight: 600;
+  line-height: 1;
   cursor: pointer;
   transition: color 150ms ease;
 }
 
+.portfolio-theme-toggle:hover,
+.portfolio-theme-toggle[aria-pressed="true"],
 .portfolio-mobile-menu-toggle:hover,
 .portfolio-mobile-menu-toggle[aria-expanded="true"] {
   color: var(--color-foreground);
+}
+
+.portfolio-mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-left: auto;
+}
+
+.portfolio-mobile-menu-wrap {
+  position: relative;
 }
 
 .portfolio-menu-glyph {
@@ -230,10 +231,15 @@
   }
 
   .portfolio-site-name {
-    max-width: 11.5rem;
+    max-width: 9.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .portfolio-theme-toggle,
+  .portfolio-mobile-menu-toggle {
+    padding-inline: 0.35rem;
   }
 
   .portfolio-footer {
@@ -250,6 +256,7 @@
 @media (prefers-reduced-motion: reduce) {
   .portfolio-site-name,
   .portfolio-nav-link,
+  .portfolio-theme-toggle,
   .portfolio-mobile-menu-toggle,
   .portfolio-mobile-nav-link,
   .portfolio-footer a,
