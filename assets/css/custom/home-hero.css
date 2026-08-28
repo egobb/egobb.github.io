@@ -46,7 +46,7 @@
 }
 
 .home-hero-summary {
-  max-width: 62ch;
+  max-width: 60ch;
   margin-bottom: 1.35rem;
   line-height: 1.65;
 }
@@ -57,6 +57,7 @@
 }
 
 .home-hero-primary {
+  min-height: 40px;
   box-shadow: none;
 }
 
