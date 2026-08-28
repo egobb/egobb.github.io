@@ -119,6 +119,7 @@
 .portfolio-longform-content > :where(figure, picture),
 .portfolio-longform-content > p:has(> img:only-child),
 .portfolio-longform-content > p:has(> picture:only-child) {
+  display: block;
   width: min(60rem, calc(100vw - 3rem));
   max-width: none;
   margin-left: 50%;
