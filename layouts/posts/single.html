@@ -47,8 +47,16 @@
       {{- end -}}
     {{- end -}}
 
+    {{- $page := . -}}
+    {{- $content := .Content -}}
+    {{- with (findRE `(?s)<h1[^>]*>.*?</h1>` $content 1) -}}
+      {{- $firstBodyH1 := index . 0 -}}
+      {{- if eq ($firstBodyH1 | plainify) $page.Title -}}
+        {{- $content = replace $content $firstBodyH1 "" -}}
+      {{- end -}}
+    {{- end -}}
     <article data-visual-role="longform-content" class="portfolio-longform-content prose prose-neutral dark:prose-invert">
-      {{ .Content }}
+      {{ $content | safeHTML }}
     </article>
 
     {{ $related := .Site.RegularPages.Related . | first 3 }}

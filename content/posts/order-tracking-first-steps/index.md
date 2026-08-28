@@ -12,7 +12,7 @@ cover: "order-tracking-first-steps.png"
 
 The first concrete project in my portfolio is an **Order Tracking** service. At its core, it’s simple: an API to create orders, update their status, and check where they are in the delivery process. But even a small project like this can already show the kind of engineering mindset I want this blog to reflect.
 
-### Building the Basics
+## Building the Basics
 
 Right now, the service is built with **Java + Spring Boot**, using **PostgreSQL** for persistence. The initial version is intentionally minimal:
 
@@ -22,7 +22,7 @@ Right now, the service is built with **Java + Spring Boot**, using **PostgreSQL*
 
 The goal at this stage isn’t complexity — it’s a clean foundation to build on. You can explore the code here: [GitHub repo](https://github.com/egobb/order-tracking).
 
-### Choosing the Stack
+## Choosing the Stack
 
 Why this combination of technologies?
 
@@ -34,7 +34,7 @@ Of course, I could have gone with MongoDB or even an event-sourced model from th
 
 But the decision was to begin with something straightforward and solid, then evolve later into more advanced patterns like Kafka events and CQRS.
 
-### Lessons from the First Iteration
+## Lessons from the First Iteration
 
 Even at this early stage, there were small takeaways:
 
@@ -42,11 +42,11 @@ Even at this early stage, there were small takeaways:
 - **Fast local development** matters: H2 in memory for tests keeps the feedback loop short.
 - **APIs should be clear** from the beginning: consistent request/response models save headaches in the future. At one point I had too much logic inside the controllers, and quickly realized it needed to move into services to keep things maintainable. A good reminder that structure matters from day one.
 
-### Looking at the Bigger Picture
+## Looking at the Bigger Picture
 
 This project might look small, but it represents something important for me: instead of just working on large-scale systems at my day job, I’m building **my own projects** that mirror real-world scenarios. Order tracking is something I’ve worked with professionally before, and here I can both **simplify it** for learning and **expand it** to showcase architecture skills.
 
-### Next Steps
+## Next Steps
 
 The plan is simple:
 
