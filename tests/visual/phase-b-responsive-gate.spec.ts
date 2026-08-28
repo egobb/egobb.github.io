@@ -218,7 +218,7 @@ test('200% text resize preserves required Phase B content and interactions', asy
 
   writeEvidenceResult('interactions', 'phase-b-text-zoom-200', {
     status: 'passed',
-    candidate: process.env.GITHUB_SHA ?? 'local',
+    candidate: process.env.VISUAL_REVIEW_REVISION || process.env.GITHUB_SHA || 'local',
     scale: '200%',
     pages: evidence,
   });
