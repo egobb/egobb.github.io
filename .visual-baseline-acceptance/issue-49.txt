@@ -1,6 +1,0 @@
-Reviewed and accepted visual baseline update for roadmap issue #49.
-
-Source SHA: d13b039df32fe058aa885281882084746ad197c4
-Source run: 33144148384
-Artifact: 9675126596
-Scope: Home desktop/tablet/mobile only. Render review confirmed editorial left-aligned hero, smaller supporting avatar, one primary Projects action, secondary Writing/GitHub text links, and no mobile full-width CTA stack or overflow.
