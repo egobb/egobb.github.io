@@ -1,0 +1,22 @@
+Epic #47 · issue #54 visual-baseline acceptance marker
+
+Reviewed implementation SHA: accdfa96c9385fd7f09d675537e323b7bf865b91
+Visual-review run: 33156254664
+Visual-review artifact: 9679760263
+Artifact SHA256: 4789ec98664b5a8f3f314aecf77a30c5abf36789ab44f8232cecdea34d7a74ce
+
+Accepted scope:
+- only the responsive global Light / Dark control changed visually after removing duplicate DOM ids and synchronizing both responsive instances;
+- visual inspection confirmed the remaining page composition/content is unchanged;
+- functional, navigation, keyboard, residual-runtime, hover-restraint and 360/390 overflow checks all pass;
+- the helper is restricted to exactly these reviewed snapshots:
+  - tests/visual/__snapshots__/about-editorial-mobile.png
+  - tests/visual/__snapshots__/about-editorial-tablet.png
+  - tests/visual/__snapshots__/home-mobile.png
+  - tests/visual/__snapshots__/home-tablet.png
+  - tests/visual/__snapshots__/long-article-mobile.png
+  - tests/visual/__snapshots__/projects-mobile.png
+  - tests/visual/__snapshots__/writing-editorial-mobile.png
+  - tests/visual/__snapshots__/writing-editorial-tablet.png
+
+The temporary workflow and this marker must be removed before issue #54 is merged to the phase branch.
