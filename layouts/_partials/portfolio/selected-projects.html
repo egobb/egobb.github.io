@@ -23,11 +23,11 @@
       </div>
     {{ end }}
 
-    <div data-visual-role="project-index" class="project-index border-border border-y">
+    <div data-visual-role="project-index" class="project-index{{ if $detailed }} project-index--detailed{{ else }} border-border border-y{{ end }}">
       {{ range $index, $project := $projects }}
         <article
           data-visual-role="project-entry"
-          class="project-index-entry{{ if gt $index 0 }} border-border border-t{{ end }} py-8 md:py-9">
+          class="project-index-entry{{ if not $detailed }}{{ if gt $index 0 }} border-border border-t{{ end }} py-8 md:py-9{{ end }}">
           <div class="max-w-3xl">
             <h3 class="text-foreground text-xl font-semibold leading-snug">
               {{ with .caseStudyPageRef }}
@@ -45,11 +45,11 @@
 
             {{ if $detailed }}
               {{ with .description }}
-                <p class="text-muted-foreground mt-3 leading-relaxed">{{ . }}</p>
+                <p class="text-muted-foreground mt-3 max-w-2xl leading-relaxed">{{ . }}</p>
               {{ end }}
 
               {{ with .sections }}
-                <div data-visual-role="project-decisions" class="mt-5 space-y-4">
+                <div data-visual-role="project-decisions" class="mt-4 space-y-3">
                   {{ range . }}
                     <div class="max-w-2xl">
                       {{ with .title }}
@@ -75,7 +75,7 @@
               {{ end }}
             {{ end }}
 
-            <div class="project-index-links text-muted-foreground mt-5 flex flex-wrap items-center gap-y-2 text-sm font-medium">
+            <div class="project-index-links text-muted-foreground {{ if $detailed }}mt-4{{ else }}mt-5{{ end }} flex flex-wrap items-center gap-y-2 text-sm font-medium">
               {{ $linkCount := 0 }}
               {{ with .caseStudyPageRef }}
                 {{ with site.GetPage . }}

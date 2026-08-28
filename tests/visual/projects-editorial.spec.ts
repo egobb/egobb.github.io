@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { stabilizePage, viewports } from './helpers';
 
-test('Projects hub is a vertical technical index without card surfaces', async ({ page }) => {
+test('Projects hub is a concise vertical technical index without card surfaces', async ({ page }) => {
   await page.setViewportSize(viewports[0]);
   await page.goto('/projects/');
   await stabilizePage(page);
@@ -17,15 +17,29 @@ test('Projects hub is a vertical technical index without card surfaces', async (
         background: style.backgroundColor,
         radius: style.borderRadius,
         shadow: style.boxShadow,
+        borderTop: style.borderTopWidth,
       };
     });
     expect(chrome.background).toBe('rgba(0, 0, 0, 0)');
     expect(chrome.radius).toBe('0px');
     expect(chrome.shadow).toBe('none');
+    expect(chrome.borderTop).toBe('0px');
+
+    const evidence = entry.locator('[data-visual-role="project-decisions"] > div');
+    expect(await evidence.count()).toBeLessThanOrEqual(2);
   }
 
-  await expect(page.getByText('Current limitation', { exact: true })).toBeVisible();
-  await expect(page.getByText('Operational pressure', { exact: true })).toBeVisible();
+  const geometry = await entries.evaluateAll(nodes => nodes.map(node => {
+    const rect = node.getBoundingClientRect();
+    return { top: rect.top, bottom: rect.bottom };
+  }));
+  const projectGap = geometry[1].top - geometry[0].bottom;
+  expect(projectGap).toBeGreaterThanOrEqual(44);
+  expect(projectGap).toBeLessThanOrEqual(64);
+
+  await expect(page.getByText('Decision', { exact: true })).toHaveCount(2);
+  await expect(page.getByText('Limitation', { exact: true })).toHaveCount(1);
+  await expect(page.getByText('Boundary', { exact: true })).toHaveCount(1);
   await expect(page.getByRole('link', { name: 'Project overview' })).toHaveCount(2);
   await expect(page.getByRole('link', { name: 'Engineering write-up' })).toHaveCount(2);
   await expect(page.getByRole('link', { name: 'Repository' })).toHaveCount(2);
