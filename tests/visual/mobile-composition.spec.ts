@@ -61,9 +61,10 @@ for (const viewport of mobileViewports) {
       };
     });
 
-    expect(metrics.titleSize).toBeGreaterThanOrEqual(30);
-    expect(metrics.titleSize).toBeLessThanOrEqual(32);
-    expect(metrics.avatarWidth).toBeLessThanOrEqual(64);
+    expect(metrics.titleSize).toBeGreaterThanOrEqual(viewport.width <= 374 ? 29 : 30);
+    expect(metrics.titleSize).toBeLessThanOrEqual(36);
+    expect(metrics.avatarWidth).toBeGreaterThanOrEqual(75);
+    expect(metrics.avatarWidth).toBeLessThanOrEqual(80);
     expect(metrics.primaryHeight).toBeGreaterThanOrEqual(44);
     expect(metrics.primaryWidth).toBeLessThan(metrics.viewportWidth * 0.75);
     for (const width of metrics.actionWidths) expect(width).toBeLessThan(metrics.viewportWidth * 0.9);

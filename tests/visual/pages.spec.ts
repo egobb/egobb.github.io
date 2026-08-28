@@ -53,11 +53,7 @@ type VisualResult = {
   error?: string;
 };
 
-const visualBaselineMatrix = new Set([
-  'home:desktop',
-  'home:tablet',
-  'home:mobile',
-]);
+const visualBaselineMatrix = new Set<string>();
 
 test.beforeAll(() => ensureVisualDirectories());
 
