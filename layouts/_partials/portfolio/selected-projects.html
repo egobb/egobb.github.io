@@ -23,7 +23,7 @@
       </div>
     {{ end }}
 
-    <div data-visual-role="project-index" class="project-index{{ if $detailed }} space-y-12 md:space-y-14{{ else }} border-border border-y{{ end }}">
+    <div data-visual-role="project-index" class="project-index{{ if $detailed }} project-index--detailed{{ else }} border-border border-y{{ end }}">
       {{ range $index, $project := $projects }}
         <article
           data-visual-role="project-entry"
