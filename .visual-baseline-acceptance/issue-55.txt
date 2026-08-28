@@ -1,0 +1,18 @@
+Epic #47 · issue #55 visual-baseline acceptance marker
+
+Reviewed implementation SHA: 81335c8ccc16cff3fa09cc53c6a0f7838b995974
+Visual-review run: 33157241828
+Visual-review artifact: 9680151181
+Artifact SHA256: 2c4e3f73a5ef6aec56a5656e2726f78d0e4dbc04ef7894011ea7084af2556d54
+
+Accepted scope:
+- the 390 px Home screenshot increases by 8 px because mobile actions now preserve a 44 px minimum touch target;
+- all 40 route/viewport evidence combinations report no page-level horizontal overflow, broken images or console errors;
+- all narrow-mobile 360 px structural/evidence checks pass;
+- dedicated 390/360 shell, Home, About and long-form composition tests pass;
+- visual inspection confirms the editorial hierarchy remains intact at 390 and 360 px.
+
+The helper may commit only:
+- tests/visual/__snapshots__/home-mobile.png
+
+The temporary workflow and this marker must be removed before issue #55 is merged to the phase branch.
