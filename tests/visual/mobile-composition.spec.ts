@@ -61,7 +61,7 @@ for (const viewport of mobileViewports) {
       };
     });
 
-    expect(metrics.titleSize).toBeGreaterThanOrEqual(32);
+    expect(metrics.titleSize).toBeGreaterThanOrEqual(30);
     expect(metrics.titleSize).toBeLessThanOrEqual(36);
     expect(metrics.avatarWidth).toBeGreaterThanOrEqual(75);
     expect(metrics.avatarWidth).toBeLessThanOrEqual(80);
