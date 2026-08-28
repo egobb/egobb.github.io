@@ -32,6 +32,11 @@ export const pages = [
     url: '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/',
     heading: null,
   },
+  {
+    name: 'historical-order-tracking-article',
+    url: '/posts/scaling-order-tracking-with-kafka-domain-events-and-auto-ingestion/',
+    heading: null,
+  },
 ] as const;
 
 export type OverflowingElement = {
