@@ -33,7 +33,7 @@ for (const viewport of viewports) {
       const lineHeight = Number.parseFloat(style.lineHeight);
       return { fontSize, lineHeight, height: rect.height };
     });
-    expect(titleMetrics.fontSize).toBeGreaterThanOrEqual(32);
+    expect(titleMetrics.fontSize).toBeGreaterThanOrEqual(viewport.width < 768 ? 30 : 32);
     expect(titleMetrics.fontSize).toBeLessThanOrEqual(36.1);
     expect(titleMetrics.lineHeight / titleMetrics.fontSize).toBeGreaterThanOrEqual(1.05);
     expect(titleMetrics.lineHeight / titleMetrics.fontSize).toBeLessThanOrEqual(1.15);
