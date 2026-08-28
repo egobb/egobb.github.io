@@ -13,6 +13,21 @@ async function assertNoPageOverflow(page: import('@playwright/test').Page, width
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(width + 1);
 }
 
+async function assertCoherentHeadingHierarchy(page: import('@playwright/test').Page) {
+  await expect(page.locator('main h1')).toHaveCount(1);
+  await expect(page.locator('[data-visual-role="longform-content"] h1')).toHaveCount(0);
+
+  const levels = await page.locator('[data-visual-role="longform-content"] h2, [data-visual-role="longform-content"] h3, [data-visual-role="longform-content"] h4, [data-visual-role="longform-content"] h5, [data-visual-role="longform-content"] h6').evaluateAll((headings) =>
+    headings.map((heading) => Number(heading.tagName.slice(1))),
+  );
+
+  let previousLevel = 1;
+  for (const level of levels) {
+    expect(level, `heading level h${level} must not skip after h${previousLevel}`).toBeLessThanOrEqual(previousLevel + 1);
+    previousLevel = level;
+  }
+}
+
 test('long article uses document-first measure and quiet metadata', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(longArticle, { waitUntil: 'networkidle' });
@@ -24,8 +39,12 @@ test('long article uses document-first measure and quiet metadata', async ({ pag
   expect(bounds!.width).toBeLessThan(760);
 
   const h1Size = await page.locator('.portfolio-longform-header h1').evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
-  expect(h1Size).toBeGreaterThanOrEqual(42);
-  expect(h1Size).toBeLessThanOrEqual(48);
+  expect(h1Size).toBeGreaterThanOrEqual(40);
+  expect(h1Size).toBeLessThanOrEqual(42);
+
+  const titleBounds = await page.locator('.portfolio-longform-header h1').boundingBox();
+  expect(titleBounds).not.toBeNull();
+  expect(titleBounds!.height).toBeLessThan(150);
 
   const meta = page.locator('[data-visual-role="article-meta"]');
   const metaStyle = await meta.evaluate((el) => {
@@ -68,6 +87,22 @@ test('long article uses document-first measure and quiet metadata', async ({ pag
   });
   expect(coverStyle.radius).toBe('0px');
   expect(coverStyle.shadow).toBe('none');
+});
+
+test('all public articles and flagship case studies keep one H1 and coherent heading levels', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/posts/', { waitUntil: 'networkidle' });
+
+  const articleRoutes = await page.locator('main a[href^="/posts/"]').evaluateAll((links) =>
+    Array.from(new Set(links.map((link) => (link as HTMLAnchorElement).getAttribute('href')).filter((href): href is string => Boolean(href) && href !== '/posts/'))),
+  );
+  expect(articleRoutes.length).toBeGreaterThanOrEqual(4);
+
+  for (const route of [...articleRoutes, ...caseStudies]) {
+    const response = await page.goto(route, { waitUntil: 'networkidle' });
+    expect(response?.status(), route).toBe(200);
+    await assertCoherentHeadingHierarchy(page);
+  }
 });
 
 test('flagship case studies keep narrative structure while diagrams can exceed prose measure', async ({ page }) => {

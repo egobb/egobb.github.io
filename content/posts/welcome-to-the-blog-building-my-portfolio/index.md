@@ -12,13 +12,13 @@ As a software engineer with more than nine years of experience — I’ve spent 
 
 This blog is my space to document that journey. Every step I take to design, improve, and polish my portfolio will be written down here — not only as a way to keep myself accountable, but also to share ideas and approaches that might help other engineers in a similar situation. Think of it as a public logbook of progress.
 
-### Why a Portfolio?
+## Why a Portfolio?
 
 A portfolio is more than just a résumé with code. It’s a way to **showcase skills, decisions, and technical judgment in a tangible way**.
 
 Recruiters and companies don’t just want to read that you’ve worked with Java, Kafka, or distributed systems — they want to see how you *apply* those technologies. A portfolio is the bridge between words and proof.
 
-### What to Expect Here
+## What to Expect Here
 
 The posts in this blog will cover:
 
@@ -26,7 +26,7 @@ The posts in this blog will cover:
 - **Design decisions**: why I chose one approach over another.
 - **Learnings along the way**, including mistakes (which are often the most valuable lessons).
 
-### A Bit About Me
+## A Bit About Me
 
 I’m currently working as a Senior Software Engineer, specialized in backend development, distributed systems, and large-scale data processing. My experience spans from legacy systems to microservices architectures, with a focus on building reliable, high-volume solutions.
 
