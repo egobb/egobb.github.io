@@ -30,7 +30,7 @@ test('Home reads as an editorial introduction instead of a marketing card', asyn
   await expect(actions.getByRole('link', { name: 'GitHub' })).toBeVisible();
 });
 
-test('Home mobile composition is left aligned and keeps the avatar secondary', async ({ page }) => {
+test('Home mobile composition is left aligned and keeps the portrait supportive', async ({ page }) => {
   await page.setViewportSize(viewports[2]);
   await page.goto('/');
   await stabilizePage(page);
@@ -53,9 +53,9 @@ test('Home mobile composition is left aligned and keeps the avatar secondary', a
   });
 
   expect(['left', 'start']).toContain(metrics.textAlign);
-  expect(metrics.avatarWidth).toBeGreaterThanOrEqual(56);
-  expect(metrics.avatarWidth).toBeLessThanOrEqual(64);
-  expect(metrics.titleSize).toBeGreaterThanOrEqual(30);
-  expect(metrics.titleSize).toBeLessThanOrEqual(32);
+  expect(metrics.avatarWidth).toBeGreaterThanOrEqual(75);
+  expect(metrics.avatarWidth).toBeLessThanOrEqual(80);
+  expect(metrics.titleSize).toBeGreaterThanOrEqual(32);
+  expect(metrics.titleSize).toBeLessThanOrEqual(36);
   expect(metrics.primaryWidth).toBeLessThan(metrics.viewportWidth * 0.7);
 });
