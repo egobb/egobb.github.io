@@ -1,0 +1,17 @@
+<footer class="portfolio-footer">
+  <div class="portfolio-footer-inner">
+    <p>&copy; {{ now.Year }} {{ site.Title }}</p>
+    <nav class="portfolio-footer-links" aria-label="Footer">
+      {{ range site.Menus.social }}
+        {{ if in (slice "GitHub" "LinkedIn" "Email") .Name }}
+          <a
+            href="{{ .URL }}"
+            {{ if strings.HasPrefix .URL "http" }}target="_blank" rel="noopener noreferrer"{{ end }}>
+            {{ .Name }}
+          </a>
+        {{ end }}
+      {{ end }}
+      <a href="{{ "/index.xml" | relURL }}">RSS</a>
+    </nav>
+  </div>
+</footer>
