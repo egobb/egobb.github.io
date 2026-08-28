@@ -1,3 +1,7 @@
+.portfolio-site-header {
+  container-type: inline-size;
+}
+
 .portfolio-desktop-header {
   display: none;
 }
@@ -6,7 +10,13 @@
   display: flex;
 }
 
-@media (min-width: 1024px) {
+/*
+ * Use the header container's typographic scale as part of the desktop switch.
+ * At the normal 16px root size, 64em resolves to the existing 1024px boundary.
+ * When users resize text, the threshold grows with the text and the compact
+ * header takes over before navigation or appearance controls can overflow.
+ */
+@container (min-width: 64em) {
   .portfolio-desktop-header {
     display: flex;
   }
