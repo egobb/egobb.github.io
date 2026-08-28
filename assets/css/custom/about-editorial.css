@@ -41,6 +41,10 @@
 }
 
 @media (max-width: 767px) {
+  .portfolio-about-page {
+    margin-inline: 0.5rem;
+  }
+
   .portfolio-about-header {
     margin-bottom: 2rem;
   }
