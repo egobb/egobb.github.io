@@ -1,6 +1,11 @@
 name: Visual review
 
 on:
+  push:
+    branches:
+      - 'issue/**'
+      - 'phase/**'
+      - 'epic/**'
   pull_request:
     branches:
       - main
