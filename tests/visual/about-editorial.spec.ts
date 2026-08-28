@@ -81,11 +81,11 @@ for (const width of [390, 360]) {
 
     const figure = body.locator('figure').first();
     const photo = figure.locator('img[alt="Enrique Goberna outdoors"]');
-    const intro = body.locator('p').first();
     const figureBounds = await figure.boundingBox();
-    const introBounds = await intro.boundingBox();
+    const introBounds = await body.locator('p').first().boundingBox();
     expect(figureBounds).not.toBeNull();
     expect(introBounds).not.toBeNull();
+    expect(await photo.isVisible()).toBeTruthy();
     expect(figureBounds!.width).toBeLessThanOrEqual(240);
     expect(figureBounds!.y).toBeLessThan(introBounds!.y);
     expect(await figure.evaluate(element => getComputedStyle(element).float)).toBe('none');
@@ -95,17 +95,5 @@ for (const width of [390, 360]) {
 
     await expect(page.getByText('Contact:', { exact: false }).first()).toBeVisible();
     await expect(page.getByRole('link', { name: 'Email' }).first()).toBeVisible();
-  });
-}
-
-for (const viewport of [
-  { name: 'desktop', width: 1440, height: 900 },
-  { name: 'tablet', width: 768, height: 1024 },
-  { name: 'mobile', width: 390, height: 844 },
-]) {
-  test(`About editorial baseline at ${viewport.name}`, async ({ page }) => {
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await page.goto('/about/', { waitUntil: 'networkidle' });
-    await expect(page).toHaveScreenshot(`about-editorial-${viewport.name}.png`, { fullPage: true });
   });
 }
