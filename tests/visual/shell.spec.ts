@@ -8,12 +8,12 @@ test('global shell exposes one restrained appearance control and no theme-demo c
 
   const desktopHeader = page.locator('.portfolio-desktop-header');
   await expect(desktopHeader.locator('nav a svg')).toHaveCount(0);
-  await expect(desktopHeader.locator('#portfolio-theme-toggle')).toHaveCount(1);
+  await expect(desktopHeader.locator('.portfolio-theme-toggle')).toHaveCount(1);
   await expect(page.locator('[data-dropdown-type="theme"]')).toHaveCount(0);
   await expect(page.locator('[data-dropdown-type="color-scheme"]')).toHaveCount(0);
   await expect(page.locator('#dock')).toHaveCount(0);
 
-  const themeToggle = desktopHeader.locator('#portfolio-theme-toggle');
+  const themeToggle = desktopHeader.locator('.portfolio-theme-toggle');
   const wasPressed = await themeToggle.getAttribute('aria-pressed');
   await themeToggle.click();
   await expect(themeToggle).toHaveAttribute('aria-pressed', wasPressed === 'true' ? 'false' : 'true');
