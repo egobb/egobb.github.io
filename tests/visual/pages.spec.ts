@@ -57,7 +57,6 @@ const visualBaselineMatrix = new Set([
   'home:desktop',
   'home:tablet',
   'home:mobile',
-  'projects:mobile',
   'long-article:mobile',
 ]);
 
