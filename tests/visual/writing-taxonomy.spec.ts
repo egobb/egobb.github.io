@@ -48,6 +48,18 @@ test('Article header exposes a concise taxonomy and preserves the complete set a
   await expect(chipLikeElements).toHaveCount(0);
 });
 
+test('multi-word taxonomy labels stay human-readable while stable slugs remain unchanged', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const response = await page.goto('/tags/', { waitUntil: 'networkidle' });
+  expect(response?.ok()).toBeTruthy();
+
+  const taxonomy = page.locator('[data-visual-role="taxonomy-index"]');
+  await expect(taxonomy.getByRole('link', { name: 'Spring Boot', exact: true })).toHaveAttribute('href', '/tags/spring-boot/');
+  await expect(taxonomy.getByRole('link', { name: 'GitHub Actions', exact: true })).toHaveAttribute('href', '/tags/github-actions/');
+  await expect(taxonomy.getByRole('link', { name: 'Spring-Boot', exact: true })).toHaveCount(0);
+  await expect(taxonomy.getByRole('link', { name: 'GitHub-Actions', exact: true })).toHaveCount(0);
+});
+
 test('legacy writing indexes share one editorial shell and keep stable taxonomy routes', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
 
