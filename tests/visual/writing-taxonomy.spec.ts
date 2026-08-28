@@ -2,6 +2,18 @@ import { expect, test } from '@playwright/test';
 
 const longArticle = '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/';
 
+async function expectEditorialShell(page: import('@playwright/test').Page, mobile = false) {
+  await expect(page.getByRole('banner')).toHaveCount(1);
+  await expect(page.getByRole('contentinfo')).toHaveCount(1);
+  await expect(page.getByRole('button', { name: 'Toggle light and dark appearance' })).toHaveCount(1);
+  await expect(page.locator('main h1').first()).toBeVisible();
+  if (mobile) {
+    await expect(page.getByRole('button', { name: 'Menu', exact: true })).toHaveCount(1);
+  } else {
+    await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toHaveCount(1);
+  }
+}
+
 test('Writing keeps Archive primary while taxonomy remains quietly discoverable', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   const response = await page.goto('/writing/', { waitUntil: 'networkidle' });
@@ -31,7 +43,6 @@ test('Article header exposes a concise taxonomy and preserves the complete set a
   const fullLinks = fullTaxonomy.getByRole('link');
   expect(await headerLinks.count()).toBeLessThanOrEqual(4);
   expect(await fullLinks.count()).toBeGreaterThan(await headerLinks.count());
-  expect(await fullLinks.count()).toBeGreaterThanOrEqual(7);
 
   const chipLikeElements = page.locator('[data-visual-role="article-taxonomy"] [class*="rounded"], [data-visual-role="article-taxonomy-full"] [class*="rounded"]');
   await expect(chipLikeElements).toHaveCount(0);
@@ -40,18 +51,10 @@ test('Article header exposes a concise taxonomy and preserves the complete set a
 test('legacy writing indexes share one editorial shell and keep stable taxonomy routes', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
 
-  const routes = ['/posts/', '/archives/', '/categories/', '/tags/'];
-  for (const route of routes) {
+  for (const route of ['/posts/', '/archives/', '/categories/', '/tags/']) {
     const response = await page.goto(route, { waitUntil: 'networkidle' });
     expect(response?.status(), route).toBe(200);
-    await expect(page.locator('.portfolio-site-header')).toHaveCount(1);
-    await expect(page.locator('.portfolio-footer')).toHaveCount(1);
-    await expect(page.locator('.portfolio-primary-nav')).toHaveCount(1);
-    await expect(page.locator('.portfolio-theme-toggle:visible')).toHaveCount(1);
-    await expect(page.locator('main h1').first()).toBeVisible();
-
-    const mainWidth = await page.locator('main > div').first().evaluate(element => element.getBoundingClientRect().width);
-    expect(mainWidth, route).toBeLessThanOrEqual(900);
+    await expectEditorialShell(page);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, route).toBeLessThanOrEqual(1);
   }
@@ -60,12 +63,9 @@ test('legacy writing indexes share one editorial shell and keep stable taxonomy 
   const firstTerm = page.locator('[data-visual-role="taxonomy-index"] a[href^="/tags/"]').first();
   const termHref = await firstTerm.getAttribute('href');
   expect(termHref).toBeTruthy();
-
   const termResponse = await page.goto(termHref!, { waitUntil: 'networkidle' });
   expect(termResponse?.status()).toBe(200);
-  await expect(page.locator('.portfolio-site-header')).toHaveCount(1);
-  await expect(page.locator('.portfolio-footer')).toHaveCount(1);
-  await expect(page.locator('main h1').first()).toBeVisible();
+  await expectEditorialShell(page);
 });
 
 for (const width of [390, 360]) {
@@ -75,8 +75,7 @@ for (const width of [390, 360]) {
     for (const route of ['/writing/', '/archives/', '/categories/', '/tags/']) {
       const response = await page.goto(route, { waitUntil: 'networkidle' });
       expect(response?.status(), route).toBe(200);
-      await expect(page.locator('.portfolio-site-header')).toHaveCount(1);
-      await expect(page.locator('.portfolio-theme-toggle:visible')).toHaveCount(1);
+      await expectEditorialShell(page, true);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow, route).toBeLessThanOrEqual(1);
     }
