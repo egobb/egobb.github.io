@@ -219,6 +219,10 @@
   text-underline-offset: 0.2em;
 }
 
+.project-index--detailed .project-index-entry + .project-index-entry {
+  margin-top: 3.25rem;
+}
+
 @media (max-width: 1023px) {
   .portfolio-site-header-inner {
     padding-inline: 1.5rem;
