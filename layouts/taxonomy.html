@@ -13,13 +13,31 @@
     </header>
 
     {{ $terms := .Data.Terms.ByCount }}
+    {{ $editorialLabels := dict
+      "/tags/aws/" "AWS"
+      "/tags/ci-cd/" "CI/CD"
+      "/tags/ci/cd/" "CI/CD"
+      "/tags/ddd/" "DDD"
+      "/tags/devops/" "DevOps"
+      "/tags/docker-compose/" "Docker Compose"
+      "/tags/ecs/" "ECS"
+      "/tags/github-actions/" "GitHub Actions"
+      "/tags/iac/" "IaC"
+      "/tags/msk/" "MSK"
+      "/tags/rds/" "RDS"
+      "/tags/spring-boot/" "Spring Boot"
+    }}
     {{ if $terms }}
       <div data-visual-role="taxonomy-index" class="border-border border-y">
         {{ range $index, $term := $terms }}
+          {{ $label := $term.Page.LinkTitle | humanize }}
+          {{ with index $editorialLabels $term.Page.RelPermalink }}
+            {{ $label = . }}
+          {{ end }}
           <a
             href="{{ $term.Page.RelPermalink }}"
             class="taxonomy-index-entry{{ if gt $index 0 }} border-border border-t{{ end }} focus-visible:outline-primary flex items-baseline justify-between gap-6 py-4 no-underline focus-visible:outline-2 focus-visible:outline-offset-4">
-            <span class="text-foreground hover:text-primary font-medium underline-offset-4 hover:underline">{{ $term.Page.LinkTitle | humanize }}</span>
+            <span class="text-foreground hover:text-primary font-medium underline-offset-4 hover:underline">{{ $label }}</span>
             <span class="text-muted-foreground shrink-0 text-sm">{{ $term.Count }}</span>
           </a>
         {{ end }}
