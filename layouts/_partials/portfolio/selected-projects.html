@@ -75,19 +75,24 @@
               {{ end }}
             {{ end }}
 
-            <div class="project-index-links text-muted-foreground mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium">
+            <div class="project-index-links text-muted-foreground mt-5 flex flex-wrap items-center gap-y-2 text-sm font-medium">
+              {{ $linkCount := 0 }}
               {{ with .caseStudyPageRef }}
                 {{ with site.GetPage . }}
-                  <a class="hover:text-foreground focus-visible:outline-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">Project overview</a>
+                  <a class="hover:text-foreground focus-visible:outline-primary underline decoration-border underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">Project overview</a>
+                  {{ $linkCount = add $linkCount 1 }}
                 {{ end }}
               {{ end }}
               {{ with .articlePageRef }}
                 {{ with site.GetPage . }}
-                  <a class="hover:text-foreground focus-visible:outline-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">Engineering write-up</a>
+                  {{ if gt $linkCount 0 }}<span class="mx-2 text-muted-foreground/60" aria-hidden="true">·</span>{{ end }}
+                  <a class="hover:text-foreground focus-visible:outline-primary underline decoration-border underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">Engineering write-up</a>
+                  {{ $linkCount = add $linkCount 1 }}
                 {{ end }}
               {{ end }}
               {{ with .repositoryUrl }}
-                <a class="hover:text-foreground focus-visible:outline-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ . }}" target="_blank" rel="noopener noreferrer">Repository</a>
+                {{ if gt $linkCount 0 }}<span class="mx-2 text-muted-foreground/60" aria-hidden="true">·</span>{{ end }}
+                <a class="hover:text-foreground focus-visible:outline-primary underline decoration-border underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ . }}" target="_blank" rel="noopener noreferrer">Repository</a>
               {{ end }}
             </div>
           </div>
