@@ -193,10 +193,11 @@ for (const viewport of viewports) {
           });
           result.homeHeroLayout = layout;
 
-          const minimumCardInset = viewport.name === 'mobile' ? 22 : 28;
-          const maximumCardInset = viewport.name === 'mobile' ? 32 : 36;
-          const minimumHeroToProjectsGap = viewport.name === 'mobile' ? 40 : 48;
-          const maximumHeroToProjectsGap = viewport.name === 'mobile' ? 56 : 64;
+          const isMobileViewport = viewport.width <= 640;
+          const minimumCardInset = isMobileViewport ? 22 : 28;
+          const maximumCardInset = isMobileViewport ? 32 : 36;
+          const minimumHeroToProjectsGap = isMobileViewport ? 40 : 48;
+          const maximumHeroToProjectsGap = isMobileViewport ? 56 : 64;
 
           for (const [side, inset] of Object.entries(layout.cardInsets)) {
             expect(inset, `Home hero ${side} inset is too cramped`).toBeGreaterThanOrEqual(minimumCardInset);
@@ -222,7 +223,9 @@ for (const viewport of viewports) {
           expect(layout.summary.lineHeight / layout.summary.fontSize, 'Supporting copy line-height is too dense').toBeGreaterThanOrEqual(
             1.55,
           );
-          expect(layout.primaryCtaHeight, 'Primary CTA is too compressed vertically').toBeGreaterThanOrEqual(40);
+          expect(layout.primaryCtaHeight, 'Primary CTA is too compressed vertically').toBeGreaterThanOrEqual(
+            isMobileViewport ? 44 : 40,
+          );
         }
 
         expect(result.brokenImages, `Broken image resources on ${route.url}`).toEqual([]);

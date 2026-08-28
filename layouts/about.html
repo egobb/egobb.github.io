@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <div class="portfolio-about-page mx-auto max-w-4xl">
+    {{ partial "navigation/breadcrumb.html" . }}
+
+    <header class="portfolio-about-header mb-10">
+      <h1 class="text-foreground mb-4 text-3xl font-bold md:text-4xl">{{ .Title }}</h1>
+      {{ with .Params.summary }}
+        <p class="text-muted-foreground max-w-2xl text-lg leading-relaxed">{{ . }}</p>
+      {{ end }}
+    </header>
+
+    <article data-visual-role="about-editorial" class="portfolio-about-body prose prose-neutral dark:prose-invert">
+      {{ .Content }}
+    </article>
+
+    {{ if site.Params.comments.enabled }}
+      {{ partial "features/comments.html" . }}
+    {{ end }}
+  </div>
+{{ end }}

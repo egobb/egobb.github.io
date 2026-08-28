@@ -10,111 +10,92 @@
             {{ .title | default "Selected projects" }}
           </h2>
           {{ with .description }}
-            <p class="text-muted-foreground mt-2">{{ . }}</p>
+            <p class="text-muted-foreground mt-2 max-w-2xl">{{ . }}</p>
           {{ end }}
         </div>
         {{ with .viewAllUrl }}
           <a
             href="{{ . | relLangURL }}"
-            class="text-primary hover:text-primary/80 focus:ring-primary/20 inline-flex w-fit items-center rounded-md px-1 py-1 text-sm font-medium focus:ring-2 focus:outline-none">
+            class="text-muted-foreground hover:text-foreground focus-visible:outline-primary inline-flex w-fit items-center py-1 text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
             View all projects
           </a>
         {{ end }}
       </div>
     {{ end }}
 
-    <div class="grid gap-4 md:grid-cols-2">
-      {{ range $projects }}
-        {{- $project := . -}}
-        <article class="bg-card border-border rounded-xl border p-6 shadow-sm">
-          <h3 class="text-foreground text-xl font-semibold">
-            {{ if and $detailed .canonicalTitle }}{{ .canonicalTitle }}{{ else }}{{ .title }}{{ end }}
-          </h3>
+    <div data-visual-role="project-index" class="project-index border-border border-y">
+      {{ range $index, $project := $projects }}
+        <article
+          data-visual-role="project-entry"
+          class="project-index-entry{{ if gt $index 0 }} border-border border-t{{ end }} py-8 md:py-9">
+          <div class="max-w-3xl">
+            <h3 class="text-foreground text-xl font-semibold leading-snug">
+              {{ with .caseStudyPageRef }}
+                {{ with site.GetPage . }}
+                  <a class="hover:text-primary focus-visible:outline-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">
+                    {{ if and $detailed $project.canonicalTitle }}{{ $project.canonicalTitle }}{{ else }}{{ $project.title }}{{ end }}
+                  </a>
+                {{ else }}
+                  {{ if and $detailed $project.canonicalTitle }}{{ $project.canonicalTitle }}{{ else }}{{ $project.title }}{{ end }}
+                {{ end }}
+              {{ else }}
+                {{ if and $detailed .canonicalTitle }}{{ .canonicalTitle }}{{ else }}{{ .title }}{{ end }}
+              {{ end }}
+            </h3>
 
-          {{ if $detailed }}
-            {{ with .description }}
-              <p class="text-muted-foreground mt-3 text-sm leading-relaxed">{{ . }}</p>
-            {{ end }}
+            {{ if $detailed }}
+              {{ with .description }}
+                <p class="text-muted-foreground mt-3 leading-relaxed">{{ . }}</p>
+              {{ end }}
 
-            {{ with .sections }}
-              {{ range . }}
-                <div class="mt-4">
-                  {{ with .title }}
-                    <p class="text-foreground text-sm font-semibold">{{ . }}</p>
-                  {{ end }}
-                  {{ with .body }}
-                    <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
-                  {{ end }}
-                  {{ with .items }}
-                    <ul class="text-muted-foreground mt-2 text-sm leading-relaxed">
-                      {{ range . }}
-                        <li class="mt-1 flex gap-2"><span aria-hidden="true">—</span><span>{{ . }}</span></li>
+              {{ with .sections }}
+                <div data-visual-role="project-decisions" class="mt-5 space-y-4">
+                  {{ range . }}
+                    <div class="max-w-2xl">
+                      {{ with .title }}
+                        <p class="text-foreground text-sm font-semibold">{{ . }}</p>
                       {{ end }}
-                    </ul>
+                      {{ with .body }}
+                        <p class="text-muted-foreground mt-1 text-sm leading-relaxed">{{ . }}</p>
+                      {{ end }}
+                      {{ with .items }}
+                        <ul class="text-muted-foreground mt-2 text-sm leading-relaxed">
+                          {{ range . }}
+                            <li class="mt-1 flex gap-2"><span aria-hidden="true">—</span><span>{{ . }}</span></li>
+                          {{ end }}
+                        </ul>
+                      {{ end }}
+                    </div>
                   {{ end }}
                 </div>
               {{ end }}
+            {{ else }}
+              {{ with .summary }}
+                <p class="text-muted-foreground mt-2 max-w-2xl leading-relaxed">{{ . }}</p>
+              {{ end }}
             {{ end }}
 
-            <div class="mt-5 flex flex-wrap items-center gap-3 text-sm font-medium">
+            <div class="project-index-links text-muted-foreground mt-5 flex flex-wrap items-center gap-y-2 text-sm font-medium">
+              {{ $linkCount := 0 }}
               {{ with .caseStudyPageRef }}
                 {{ with site.GetPage . }}
-                  <a
-                    href="{{ .RelPermalink }}"
-                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                    Project overview
-                  </a>
+                  <a class="hover:text-foreground focus-visible:outline-primary underline decoration-border underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">Project overview</a>
+                  {{ $linkCount = add $linkCount 1 }}
                 {{ end }}
               {{ end }}
-
               {{ with .articlePageRef }}
                 {{ with site.GetPage . }}
-                  <a
-                    href="{{ .RelPermalink }}"
-                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                    Engineering write-up
-                  </a>
-                {{ end }}
-              {{ end }}
-
-              {{ with .repositoryUrl }}
-                <a
-                  href="{{ . }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                  Repository
-                </a>
-              {{ end }}
-            </div>
-          {{ else }}
-            {{ with .summary }}
-              <p class="text-muted-foreground mt-2 leading-relaxed">{{ . }}</p>
-            {{ end }}
-            <div class="mt-5 flex flex-wrap items-center text-sm font-medium">
-              {{ with .articlePageRef }}
-                {{ with site.GetPage . }}
-                  <a
-                    href="{{ .RelPermalink }}"
-                    class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                    Engineering write-up
-                  </a>
-                  {{ with $project.repositoryUrl }}
-                    <span aria-hidden="true">&nbsp;·&nbsp;</span>
-                  {{ end }}
+                  {{ if gt $linkCount 0 }}<span class="mx-2 text-muted-foreground/60" aria-hidden="true">·</span>{{ end }}
+                  <a class="hover:text-foreground focus-visible:outline-primary underline decoration-border underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">Engineering write-up</a>
+                  {{ $linkCount = add $linkCount 1 }}
                 {{ end }}
               {{ end }}
               {{ with .repositoryUrl }}
-                <a
-                  href="{{ . }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-primary hover:text-primary/80 focus:ring-primary/20 rounded-md focus:ring-2 focus:outline-none">
-                  Repository
-                </a>
+                {{ if gt $linkCount 0 }}<span class="mx-2 text-muted-foreground/60" aria-hidden="true">·</span>{{ end }}
+                <a class="hover:text-foreground focus-visible:outline-primary underline decoration-border underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ . }}" target="_blank" rel="noopener noreferrer">Repository</a>
               {{ end }}
             </div>
-          {{ end }}
+          </div>
         </article>
       {{ end }}
     </div>

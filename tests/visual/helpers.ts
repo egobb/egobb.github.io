@@ -8,6 +8,7 @@ export const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
   { name: 'tablet', width: 768, height: 1024 },
   { name: 'mobile', width: 390, height: 844 },
+  { name: 'narrow-mobile', width: 360, height: 800 },
 ] as const;
 
 export const pages = [
@@ -26,9 +27,15 @@ export const pages = [
   { name: 'writing', url: '/writing/', heading: 'Engineering writing' },
   { name: 'about', url: '/about/', heading: 'About' },
   { name: 'posts', url: '/posts/', heading: null },
+  { name: 'archives', url: '/archives/', heading: null },
   {
     name: 'long-article',
     url: '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/',
+    heading: null,
+  },
+  {
+    name: 'historical-order-tracking-article',
+    url: '/posts/scaling-order-tracking-with-kafka-domain-events-and-auto-ingestion/',
     heading: null,
   },
 ] as const;

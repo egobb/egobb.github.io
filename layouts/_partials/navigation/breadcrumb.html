@@ -1,0 +1,7 @@
+{{- if and .IsPage .Section -}}
+  {{- with .CurrentSection -}}
+    <nav class="portfolio-context-nav" aria-label="Context navigation">
+      <a class="portfolio-context-link" href="{{ .RelPermalink }}">Back to {{ .Title }}</a>
+    </nav>
+  {{- end -}}
+{{- end -}}
