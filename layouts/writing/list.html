@@ -15,12 +15,8 @@
         </div>
       {{ end }}
 
-      <div class="text-muted-foreground flex flex-wrap items-center text-sm">
+      <div data-visual-role="writing-primary-index" class="text-muted-foreground flex flex-wrap items-center text-sm">
         <span>{{ $paginator.TotalNumberOfElements }} published articles</span>
-        <span aria-hidden="true">&nbsp;·&nbsp;</span>
-        <a class="hover:text-primary" href="{{ "/categories/" | relLangURL }}">Categories</a>
-        <span aria-hidden="true">&nbsp;·&nbsp;</span>
-        <a class="hover:text-primary" href="{{ "/tags/" | relLangURL }}">Tags</a>
         <span aria-hidden="true">&nbsp;·&nbsp;</span>
         <a class="hover:text-primary" href="{{ "/archives/" | relLangURL }}">Archive</a>
       </div>
@@ -35,5 +31,12 @@
     {{ end }}
 
     {{ partial "navigation/pagination.html" . }}
+
+    <nav data-visual-role="writing-taxonomy-links" class="text-muted-foreground mt-10 flex flex-wrap items-center gap-x-2 text-sm" aria-label="Browse writing by topic">
+      <span>Browse by topic:</span>
+      <a class="hover:text-foreground underline underline-offset-4" href="{{ "/categories/" | relLangURL }}">Categories</a>
+      <span aria-hidden="true">·</span>
+      <a class="hover:text-foreground underline underline-offset-4" href="{{ "/tags/" | relLangURL }}">Tags</a>
+    </nav>
   </div>
 {{ end }}
