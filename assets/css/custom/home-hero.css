@@ -78,7 +78,7 @@
   }
 
   .home-hero-surface {
-    padding: 1.375rem 0;
+    padding: 1.375rem;
   }
 
   .home-hero-layout {
@@ -86,7 +86,10 @@
   }
 
   .home-hero-title {
-    max-width: none;
+    width: calc(100% + 1.375rem);
+    max-width: calc(100% + 1.375rem);
+    font-size: 1.875rem;
+    line-height: 1.08;
   }
 
   .home-hero-summary {
