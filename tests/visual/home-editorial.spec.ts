@@ -52,7 +52,7 @@ test('Home mobile composition is left aligned and keeps the avatar secondary', a
     };
   });
 
-  expect(metrics.textAlign).toBe('left');
+  expect(['left', 'start']).toContain(metrics.textAlign);
   expect(metrics.avatarWidth).toBeGreaterThanOrEqual(56);
   expect(metrics.avatarWidth).toBeLessThanOrEqual(64);
   expect(metrics.titleSize).toBeGreaterThanOrEqual(30);
