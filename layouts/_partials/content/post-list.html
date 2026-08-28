@@ -1,0 +1,72 @@
+{{- $posts := .posts -}}
+{{- $title := .title | default "" -}}
+{{- $showTitle := .showTitle | default false -}}
+{{- $showViewAll := .showViewAll | default false -}}
+{{- $viewAllUrl := .viewAllUrl | default ("/posts/" | relLangURL) -}}
+
+{{- if $posts -}}
+  <section class="post-list editorial-post-list"{{ if and $showTitle $title }} aria-labelledby="editorial-post-list-heading"{{ end }}>
+    {{- if and $showTitle $title -}}
+      <div class="mb-6 flex items-baseline justify-between gap-4">
+        <h2 id="editorial-post-list-heading" class="text-foreground text-2xl font-bold">{{ $title }}</h2>
+        {{- if $showViewAll -}}
+          <a
+            href="{{ $viewAllUrl }}"
+            class="text-muted-foreground hover:text-foreground focus-visible:outline-primary shrink-0 text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
+            View all writing
+          </a>
+        {{- end -}}
+      </div>
+    {{- end -}}
+
+    <div data-visual-role="writing-index" class="writing-index border-border border-y">
+      {{- range $index, $page := $posts -}}
+        {{- $summary := "" -}}
+        {{- if $page.Params.summary -}}
+          {{- $summary = $page.Params.summary -}}
+        {{- else if $page.Params.description -}}
+          {{- $summary = $page.Params.description -}}
+        {{- else if $page.Summary -}}
+          {{- $summary = $page.Summary | plainify | truncate 180 -}}
+        {{- end -}}
+        <article
+          data-visual-role="writing-entry"
+          class="writing-entry{{ if gt $index 0 }} border-border border-t{{ end }} py-6 md:py-7">
+          <div class="max-w-3xl">
+            <div data-visual-role="writing-entry-meta" class="text-muted-foreground mb-2 flex flex-wrap items-center gap-x-2 text-sm">
+              <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2 Jan 2006" }}</time>
+              {{- if $page.ReadingTime -}}
+                <span aria-hidden="true">·</span>
+                <span>{{ $page.ReadingTime }} min read</span>
+              {{- end -}}
+            </div>
+            <h3 data-visual-role="writing-entry-title" class="text-foreground text-lg font-semibold leading-snug md:text-xl">
+              <a
+                href="{{ $page.RelPermalink }}"
+                class="hover:text-primary focus-visible:outline-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
+                {{ $page.LinkTitle }}
+              </a>
+            </h3>
+            {{- with $summary -}}
+              <p data-visual-role="writing-entry-summary" class="text-muted-foreground mt-2 max-w-2xl text-sm leading-relaxed md:text-base">{{ . }}</p>
+            {{- end -}}
+          </div>
+        </article>
+      {{- end -}}
+    </div>
+
+    {{- if and $showViewAll (not (and $showTitle $title)) -}}
+      <div class="mt-6">
+        <a
+          href="{{ $viewAllUrl }}"
+          class="text-muted-foreground hover:text-foreground focus-visible:outline-primary text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
+          View all writing
+        </a>
+      </div>
+    {{- end -}}
+  </section>
+{{- else -}}
+  <div class="py-12">
+    <h3 class="text-foreground text-lg font-medium">No writing published yet</h3>
+  </div>
+{{- end -}}
