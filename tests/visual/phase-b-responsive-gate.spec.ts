@@ -97,7 +97,8 @@ test('1024px breakpoint keeps one clear header model without crowding', async ({
   await expect(primaryNavigation).toBeVisible();
   await expect(page.getByRole('button', { name: 'Menu', exact: true })).toBeHidden();
 
-  const header = page.locator('.portfolio-site-header-row');
+  const header = page.locator('.portfolio-desktop-header');
+  await expect(header).toBeVisible();
   const headerBox = await header.boundingBox();
   expect(headerBox).not.toBeNull();
   expect(headerBox!.height).toBeLessThanOrEqual(64);
@@ -181,6 +182,8 @@ test('200% text resize preserves required Phase B content and interactions', asy
     expect(h1Box!.height, `${route.name} h1 dominates 200% viewport`).toBeLessThan(768 * 0.7);
 
     await expect(page.getByRole('button', { name: 'Toggle light and dark appearance' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Menu', exact: true }), `${route.name} compact header at 200%`).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'Primary navigation' }), `${route.name} desktop nav at 200%`).toBeHidden();
     await expectNoPageOverflow(page, `${route.name} at 200% text`);
 
     if (route.name === 'home') {
