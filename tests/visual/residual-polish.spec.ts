@@ -88,8 +88,11 @@ test('the only global shell interactions remain functional on mobile', async ({ 
   await expect(menu).toBeHidden();
   await expect(menuToggle).toBeFocused();
 
-  const themeToggle = page.locator('#portfolio-theme-toggle');
+  await expect(page.locator('#portfolio-theme-toggle')).toHaveCount(0);
+  const themeToggles = page.locator('.portfolio-theme-toggle');
+  await expect(themeToggles).toHaveCount(2);
+  const themeToggle = page.locator('.portfolio-mobile-header .portfolio-theme-toggle');
   const before = await themeToggle.getAttribute('aria-pressed');
   await themeToggle.click();
-  await expect(themeToggle).not.toHaveAttribute('aria-pressed', before ?? 'false');
+  await expect(themeToggles).toHaveAttribute('aria-pressed', before === 'true' ? 'false' : 'true');
 });
