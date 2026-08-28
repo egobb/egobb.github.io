@@ -1,0 +1,69 @@
+name: Accept reviewed issue 53 visual baseline
+
+on:
+  push:
+    branches:
+      - issue/53-longform-reading-system
+    paths:
+      - .visual-baseline-acceptance/issue-53.txt
+
+permissions:
+  contents: write
+
+jobs:
+  accept-reviewed-baseline:
+    if: github.repository_owner == 'egobb'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout issue branch
+        uses: actions/checkout@v4
+        with:
+          ref: issue/53-longform-reading-system
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: latest
+          extended: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Hugo site
+        run: hugo --minify
+
+      - name: Regenerate reviewed visual baselines
+        run: npm run visual:update
+
+      - name: Verify full visual suite
+        run: npm run visual:test
+
+      - name: Commit only visual snapshots
+        shell: bash
+        run: |
+          git add tests/visual/__snapshots__
+          if git diff --cached --quiet; then
+            echo 'No snapshot changes to commit.'
+            exit 0
+          fi
+          if git diff --cached --name-only | grep -v '^tests/visual/__snapshots__/' ; then
+            echo 'Refusing to commit files outside the visual snapshot directory.'
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'test: accept reviewed long-form baseline'
+          git push origin HEAD:issue/53-longform-reading-system
