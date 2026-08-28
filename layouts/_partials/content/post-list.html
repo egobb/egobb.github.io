@@ -33,10 +33,10 @@
           data-visual-role="writing-entry"
           class="writing-entry{{ if gt $index 0 }} border-border border-t{{ end }} py-6 md:py-7">
           <div class="max-w-3xl">
-            <div data-visual-role="writing-entry-meta" class="text-muted-foreground mb-2 flex flex-wrap items-center gap-x-2 text-sm">
+            <div data-visual-role="writing-entry-meta" class="text-muted-foreground mb-2 flex flex-wrap items-center text-sm">
               <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2 Jan 2006" }}</time>
               {{- if $page.ReadingTime -}}
-                <span aria-hidden="true">·</span>
+                <span class="mx-2" aria-hidden="true">·</span>
                 <span>{{ $page.ReadingTime }} min read</span>
               {{- end -}}
             </div>
