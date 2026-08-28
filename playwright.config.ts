@@ -1,5 +1,7 @@
 import { defineConfig } from '@playwright/test';
 
+const visualBrowser = (process.env.VISUAL_BROWSER || 'chromium') as 'chromium' | 'firefox';
+
 export default defineConfig({
   testDir: './tests/visual',
   fullyParallel: false,
@@ -13,7 +15,7 @@ export default defineConfig({
   outputDir: 'test-results',
   use: {
     baseURL: 'http://127.0.0.1:1313',
-    browserName: 'chromium',
+    browserName: visualBrowser,
     colorScheme: 'dark',
     locale: 'en-US',
     reducedMotion: 'reduce',
