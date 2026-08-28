@@ -94,6 +94,11 @@
   .home-hero-summary {
     margin-bottom: 1.2rem;
   }
+
+  .home-hero-primary,
+  .home-hero-text-link {
+    min-height: 2.75rem;
+  }
 }
 
 @media (min-width: 768px) {

@@ -239,6 +239,7 @@
 
   .portfolio-theme-toggle,
   .portfolio-mobile-menu-toggle {
+    min-height: 2.75rem;
     padding-inline: 0.35rem;
   }
 
