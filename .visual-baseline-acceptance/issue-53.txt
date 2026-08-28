@@ -1,0 +1,13 @@
+Epic #47 / issue #53 reviewed visual-baseline acceptance
+
+Reviewed implementation SHA: d08d11dc8be2f5f0d1fb2c7affbc67ba999b6a3a
+GitHub Actions run: 33153946627
+Evidence artifact: 9678871315
+
+Review result:
+- 59/60 Playwright tests passed before baseline acceptance.
+- The only remaining failure was the intentional long-article mobile screenshot change.
+- Long article, Order Tracking case study, Snapshot Ingestion case study, and historical Order Tracking article were reviewed across representative desktop/mobile evidence.
+- Prose measure, technical-media breakout, historical route, and 390/360 overflow contracts are green.
+
+Acceptance scope: regenerate and commit only tests/visual/__snapshots__; no implementation changes are authorized by this marker.
