@@ -34,7 +34,7 @@ export const pages = [
   },
   {
     name: 'historical-order-tracking-article',
-    url: '/posts/scaling-order-tracking-kafka/',
+    url: '/posts/scaling-order-tracking-with-kafka-domain-events-and-auto-ingestion/',
     heading: null,
   },
 ] as const;
