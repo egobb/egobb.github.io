@@ -9,6 +9,7 @@ export const viewports = [
   { name: 'tablet', width: 768, height: 1024 },
   { name: 'mobile', width: 390, height: 844 },
   { name: 'narrow-mobile', width: 360, height: 800 },
+  { name: 'compact-desktop', width: 1024, height: 768 },
 ] as const;
 
 export const pages = [
@@ -28,6 +29,8 @@ export const pages = [
   { name: 'about', url: '/about/', heading: 'About' },
   { name: 'posts', url: '/posts/', heading: null },
   { name: 'archives', url: '/archives/', heading: null },
+  { name: 'categories', url: '/categories/', heading: null },
+  { name: 'tags', url: '/tags/', heading: null },
   {
     name: 'long-article',
     url: '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/',

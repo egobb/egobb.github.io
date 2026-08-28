@@ -14,6 +14,18 @@
   .portfolio-mobile-header {
     display: none;
   }
+
+  /*
+   * Preserve the established desktop header at its 1024px breakpoint while
+   * allowing enlarged text to reflow instead of forcing the page wider.
+   * The navigation consumes only the remaining row width and wraps its own
+   * links as needed, so site identity and appearance control remain anchored.
+   */
+  .portfolio-primary-nav {
+    flex: 1 1 0;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
 }
 
 .link-card {
