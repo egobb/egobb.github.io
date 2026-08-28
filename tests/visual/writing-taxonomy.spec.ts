@@ -48,6 +48,33 @@ test('Article header exposes a concise taxonomy and preserves the complete set a
   await expect(chipLikeElements).toHaveCount(0);
 });
 
+test('technical taxonomy labels keep editorial casing while stable slugs remain unchanged', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const response = await page.goto('/tags/', { waitUntil: 'networkidle' });
+  expect(response?.ok()).toBeTruthy();
+
+  const taxonomy = page.locator('[data-visual-role="taxonomy-index"]');
+  const stableLabels: Array<[string, string]> = [
+    ['Spring Boot', '/tags/spring-boot/'],
+    ['GitHub Actions', '/tags/github-actions/'],
+    ['AWS', '/tags/aws/'],
+    ['DDD', '/tags/ddd/'],
+    ['DevOps', '/tags/devops/'],
+    ['Docker Compose', '/tags/docker-compose/'],
+    ['ECS', '/tags/ecs/'],
+    ['IaC', '/tags/iac/'],
+    ['MSK', '/tags/msk/'],
+    ['RDS', '/tags/rds/'],
+  ];
+
+  for (const [label, href] of stableLabels) {
+    await expect(taxonomy.getByRole('link', { name: new RegExp(`^${label}\\s+\\d+$`) })).toHaveAttribute('href', href);
+  }
+
+  await expect(taxonomy.getByRole('link', { name: /^CI\/CD\s+\d+$/ })).toHaveCount(2);
+  await expect(taxonomy.getByRole('link', { name: /Spring-Boot|Github actions|GitHub-Actions|Aws|Ddd|Dev ops|Ia c|Ecs|Msk|Rds/ })).toHaveCount(0);
+});
+
 test('legacy writing indexes share one editorial shell and keep stable taxonomy routes', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
 
