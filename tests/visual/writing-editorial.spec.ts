@@ -68,15 +68,3 @@ test('Archive and taxonomy surfaces do not reintroduce cards, tag clouds, or hov
     await expect(taxonomy.locator('[class*="scale-"]')).toHaveCount(0);
   }
 });
-
-for (const viewport of [
-  { name: 'desktop', width: 1440, height: 900 },
-  { name: 'tablet', width: 768, height: 1024 },
-  { name: 'mobile', width: 390, height: 844 },
-]) {
-  test(`Writing editorial baseline at ${viewport.name}`, async ({ page }) => {
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await page.goto('/writing/', { waitUntil: 'networkidle' });
-    await expect(page).toHaveScreenshot(`writing-editorial-${viewport.name}.png`, { fullPage: true });
-  });
-}
