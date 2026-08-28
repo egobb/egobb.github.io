@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const longArticle = '/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/';
-const historicalArticle = '/posts/scaling-order-tracking-kafka/';
+const historicalArticle = '/posts/scaling-order-tracking-with-kafka-domain-events-and-auto-ingestion/';
 const caseStudies = ['/projects/order-tracking/', '/projects/snapshot-ingestion/'];
 
 async function assertNoPageOverflow(page: import('@playwright/test').Page, width: number) {
