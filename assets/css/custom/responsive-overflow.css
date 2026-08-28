@@ -9,7 +9,6 @@
 @media (min-width: 1024px) {
   .portfolio-desktop-header {
     display: flex;
-    flex-wrap: wrap;
   }
 
   .portfolio-mobile-header {
@@ -19,11 +18,11 @@
   /*
    * Preserve the established desktop header at its 1024px breakpoint while
    * allowing enlarged text to reflow instead of forcing the page wider.
-   * With normal text this remains a single row; at 200% the navigation may
-   * wrap inside the header while every destination and appearance control
-   * remains available.
+   * The navigation consumes only the remaining row width and wraps its own
+   * links as needed, so site identity and appearance control remain anchored.
    */
   .portfolio-primary-nav {
+    flex: 1 1 0;
     min-width: 0;
     flex-wrap: wrap;
   }
