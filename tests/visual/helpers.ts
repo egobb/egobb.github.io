@@ -8,6 +8,7 @@ export const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
   { name: 'tablet', width: 768, height: 1024 },
   { name: 'mobile', width: 390, height: 844 },
+  { name: 'narrow-mobile', width: 360, height: 800 },
 ] as const;
 
 export const pages = [
