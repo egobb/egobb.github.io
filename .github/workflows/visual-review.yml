@@ -2,7 +2,10 @@ name: Visual review
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - 'epic/**'
+      - 'phase/**'
   workflow_dispatch:
 
 permissions:
