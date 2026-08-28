@@ -181,9 +181,21 @@ test('200% text resize preserves required Phase B content and interactions', asy
     expect(h1Box).not.toBeNull();
     expect(h1Box!.height, `${route.name} h1 dominates 200% viewport`).toBeLessThan(768 * 0.7);
 
-    await expect(page.getByRole('button', { name: 'Toggle light and dark appearance' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Menu', exact: true }), `${route.name} compact header at 200%`).toBeVisible();
-    await expect(page.getByRole('navigation', { name: 'Primary navigation' }), `${route.name} desktop nav at 200%`).toBeHidden();
+    const appearanceToggle = page.getByRole('button', { name: 'Toggle light and dark appearance' });
+    const primaryNavigation = page.getByRole('navigation', { name: 'Primary navigation' });
+    const menuToggle = page.getByRole('button', { name: 'Menu', exact: true });
+    await expect(appearanceToggle).toBeVisible();
+    await expect(primaryNavigation, `${route.name} desktop navigation at 200%`).toBeVisible();
+    await expect(menuToggle, `${route.name} mobile menu at 200%`).toBeHidden();
+
+    const navigationLinks = primaryNavigation.getByRole('link');
+    for (const link of await navigationLinks.all()) {
+      await expect(link).toBeVisible();
+      const box = await link.boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.x).toBeGreaterThanOrEqual(0);
+      expect(box!.x + box!.width).toBeLessThanOrEqual(1024);
+    }
     await expectNoPageOverflow(page, `${route.name} at 200% text`);
 
     if (route.name === 'home') {
