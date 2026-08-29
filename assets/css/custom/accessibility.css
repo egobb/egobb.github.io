@@ -35,6 +35,25 @@
   outline-offset: 3px !important;
 }
 
+/* Keep preformatted code locally scrollable instead of widening the page at reflow widths. */
+.portfolio-longform-content :where(.highlight),
+.portfolio-longform-content > :where(pre) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.portfolio-longform-content :where(.highlight pre) {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;
