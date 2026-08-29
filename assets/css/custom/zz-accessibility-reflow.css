@@ -13,9 +13,6 @@
     overflow-y: hidden !important;
   }
 
-  /* The scrolling viewport must stay constrained; only the code content may
-     retain its intrinsic width. This prevents Chroma's flex lines from
-     contributing their min-content width to the page itself. */
   .portfolio-longform-content .highlight pre,
   .portfolio-longform-content pre.chroma {
     inline-size: 100% !important;
@@ -23,9 +20,22 @@
     min-inline-size: 0 !important;
   }
 
+  /* Chroma renders each source line as a flex row. Constrain the code element
+     itself to the available width and make it the inner scrolling viewport;
+     individual lines retain their intrinsic width without enlarging the page. */
   .portfolio-longform-content pre.chroma > code,
   .portfolio-longform-content .highlight pre > code {
-    display: block;
+    display: block !important;
+    box-sizing: border-box !important;
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+    min-inline-size: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+
+  .portfolio-longform-content pre.chroma > code > .line,
+  .portfolio-longform-content .highlight pre > code > .line {
     inline-size: max-content;
     min-inline-size: 100%;
   }
