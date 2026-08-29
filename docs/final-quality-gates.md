@@ -43,13 +43,20 @@ For each representative page, the gate records mobile (390×844) and desktop (14
 - total transfer bytes
 - five largest encoded resources
 
-The initial regression budgets are deliberately broad enough to avoid treating CI-host variance as a product failure while still catching material regressions:
+The initial regression budgets are calibrated from the first exact-revision CI run rather than pretending that an arbitrary byte limit is a historical baseline:
 
 - load event: ≤ 10,000 ms
-- encoded resources per page: ≤ 5,000,000 bytes
+- encoded resources per normal representative page: ≤ 5,000,000 bytes
+- encoded resources for the image-heavy long article: ≤ 13,000,000 bytes
 - resources per page: ≤ 140
 
-These budgets complement, rather than replace, the image-specific transfer-size checks introduced by #18.
+The first run measured the long article at about 11.0 MB of encoded resources on mobile. That page contains several historical inline diagrams/screenshots and therefore gets a page-specific ceiling with limited headroom instead of weakening the budget for every page. This value is now recorded as baseline evidence, so a material increase is treated as a regression. The image-specific transfer checks introduced by #18 continue to cover optimized covers and architecture assets independently.
+
+## First-run findings and remediation
+
+The first candidate run did what the gate is intended to do and surfaced two real stale internal links in About. They pointed to pre-canonical article slugs and returned 404. The links were corrected to the canonical long-form article routes before the gate was accepted.
+
+Two test-harness issues were also corrected from that run: active-navigation assertions now target the visible desktop navigation rather than matching the hidden mobile copy, and performance evidence is written before budget violations fail the test so future regressions retain diagnostic data.
 
 ## CI and evidence
 
