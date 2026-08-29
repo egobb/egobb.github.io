@@ -1,0 +1,71 @@
+/* Repository-owned accessibility safeguards. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  transform: translateY(-200%);
+  border: 2px solid var(--color-primary);
+  border-radius: 0.375rem;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  padding: 0.625rem 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+#main-content {
+  scroll-margin-top: 4rem;
+}
+
+:where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    [tabindex]:not([tabindex="-1"])
+  ):focus-visible {
+  outline: 3px solid var(--color-primary) !important;
+  outline-offset: 3px !important;
+}
+
+/* Keep preformatted code locally scrollable instead of widening the page at reflow widths. */
+.portfolio-longform-content :where(.highlight),
+.portfolio-longform-content > :where(pre) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.portfolio-longform-content :where(.highlight pre) {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

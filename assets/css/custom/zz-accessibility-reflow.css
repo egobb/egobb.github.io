@@ -1,0 +1,62 @@
+/* Loaded after the editorial custom styles: keep long-form content within narrow reflow viewports. */
+@media (max-width: 767px) {
+  .portfolio-longform-content .highlight,
+  .portfolio-longform-content pre.chroma,
+  .portfolio-longform-content > pre {
+    display: block !important;
+    box-sizing: border-box !important;
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+    min-inline-size: 0 !important;
+    margin-inline: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+
+  .portfolio-longform-content .highlight pre,
+  .portfolio-longform-content pre.chroma,
+  .portfolio-longform-content pre.chroma > code,
+  .portfolio-longform-content .highlight pre > code {
+    box-sizing: border-box !important;
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+    min-inline-size: 0 !important;
+  }
+
+  /* At extreme reflow widths Chroma's flex rows otherwise expose their
+     min-content width to the document. Preserve whitespace while allowing
+     source lines/tokens to wrap inside the code viewport. */
+  .portfolio-longform-content pre.chroma > code,
+  .portfolio-longform-content .highlight pre > code,
+  .portfolio-longform-content pre.chroma .line,
+  .portfolio-longform-content pre.chroma .cl,
+  .portfolio-longform-content .highlight pre .line,
+  .portfolio-longform-content .highlight pre .cl {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .portfolio-longform-content pre.chroma .line,
+  .portfolio-longform-content .highlight pre .line {
+    display: block !important;
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+    min-inline-size: 0 !important;
+  }
+
+  /* Theme-rendered external links use inline-flex, which makes long labels
+     and the trailing icon one unbreakable flex row. Restore inline flow on
+     narrow screens so text/icon can wrap without widening the page. */
+  .portfolio-longform-content a:has(svg#external-link) {
+    display: inline !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .portfolio-longform-content a:has(svg#external-link) svg#external-link {
+    display: inline-block !important;
+    margin-inline-start: 0.25rem;
+    vertical-align: -0.1em;
+  }
+}
