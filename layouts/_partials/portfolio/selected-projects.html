@@ -29,7 +29,11 @@
           data-visual-role="project-entry"
           class="project-index-entry{{ if not $detailed }}{{ if gt $index 0 }} border-border border-t{{ end }} py-8 md:py-9{{ end }}">
           <div class="max-w-3xl">
-            <h3 class="text-foreground text-xl font-semibold leading-snug">
+            {{ if $hideHeader }}
+              <h2 class="text-foreground text-xl font-semibold leading-snug">
+            {{ else }}
+              <h3 class="text-foreground text-xl font-semibold leading-snug">
+            {{ end }}
               {{ with .caseStudyPageRef }}
                 {{ with site.GetPage . }}
                   <a class="hover:text-primary focus-visible:outline-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">
@@ -41,7 +45,11 @@
               {{ else }}
                 {{ if and $detailed .canonicalTitle }}{{ .canonicalTitle }}{{ else }}{{ .title }}{{ end }}
               {{ end }}
-            </h3>
+            {{ if $hideHeader }}
+              </h2>
+            {{ else }}
+              </h3>
+            {{ end }}
 
             {{ if $detailed }}
               {{ with .description }}
