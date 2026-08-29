@@ -1,0 +1,101 @@
+{{ define "main" }}
+  <div class="portfolio-longform-shell portfolio-article-page">
+    {{ partial "navigation/breadcrumb.html" . }}
+
+    <header class="portfolio-longform-header portfolio-article-header">
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.summary }}
+        <p class="portfolio-longform-summary">{{ . | plainify }}</p>
+      {{ end }}
+
+      <div data-visual-role="article-meta" class="portfolio-article-meta" aria-label="Article metadata">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+        {{ if .ReadingTime }}<span aria-hidden="true">·</span><span>{{ .ReadingTime }} min read</span>{{ end }}
+      </div>
+
+      {{ if or .Params.categories .Params.tags }}
+        <div data-visual-role="article-taxonomy" class="portfolio-article-taxonomy">
+          {{ with .Params.categories }}
+            <span>Filed under
+              {{ range $index, $category := first 1 . }}{{ if $index }}, {{ end }}<a href="{{ "/categories/" | relLangURL }}{{ $category | urlize }}/">{{ $category }}</a>{{ end }}
+            </span>
+          {{ end }}
+          {{ with .Params.tags }}
+            <span>Topics:
+              {{ range $index, $tag := first 3 . }}{{ if $index }}, {{ end }}<a href="{{ "/tags/" | relLangURL }}{{ $tag | urlize }}/">{{ $tag }}</a>{{ end }}{{ if gt (len .) 3 }} <span aria-label="More topics are listed after the article">…</span>{{ end }}
+            </span>
+          {{ end }}
+        </div>
+      {{ end }}
+    </header>
+
+    {{- if .Params.cover -}}
+      {{- partial "content/image-processor.html" (dict
+        "context" .
+        "src" .Params.cover
+        "alt" .Title
+        "enableModal" false
+        "enableResponsive" true
+        "enablePlaceholder" false
+        "outputType" "data"
+      ) -}}
+      {{- $coverImage := .Scratch.Get "imageUrl" -}}
+      {{- if $coverImage -}}
+        <figure data-visual-role="article-cover" class="portfolio-article-cover">
+          <img src="{{ $coverImage }}" alt="{{ .Title }}" loading="eager" decoding="async" />
+        </figure>
+      {{- end -}}
+    {{- end -}}
+
+    {{- $page := . -}}
+    {{- $content := .Content -}}
+    {{- with (findRE `(?s)<h1[^>]*>.*?</h1>` $content 1) -}}
+      {{- $firstBodyH1 := index . 0 -}}
+      {{- if eq ($firstBodyH1 | plainify) $page.Title -}}
+        {{- $content = replace $content $firstBodyH1 "" -}}
+      {{- end -}}
+    {{- end -}}
+    <article data-visual-role="longform-content" class="portfolio-longform-content prose prose-neutral dark:prose-invert">
+      {{ $content | safeHTML }}
+    </article>
+
+    {{ if or .Params.categories .Params.tags }}
+      <footer data-visual-role="article-taxonomy-full" class="portfolio-article-taxonomy-full text-muted-foreground mx-auto mb-10 max-w-[72ch] text-sm leading-relaxed">
+        {{ with .Params.categories }}
+          <span>Categories:
+            {{ range $index, $category := . }}{{ if $index }}, {{ end }}<a class="hover:text-foreground underline underline-offset-4" href="{{ "/categories/" | relLangURL }}{{ $category | urlize }}/">{{ $category }}</a>{{ end }}
+          </span>
+        {{ end }}
+        {{ if and .Params.categories .Params.tags }}<span aria-hidden="true"> · </span>{{ end }}
+        {{ with .Params.tags }}
+          <span>All topics:
+            {{ range $index, $tag := . }}{{ if $index }}, {{ end }}<a class="hover:text-foreground underline underline-offset-4" href="{{ "/tags/" | relLangURL }}{{ $tag | urlize }}/">{{ $tag }}</a>{{ end }}
+          </span>
+        {{ end }}
+      </footer>
+    {{ end }}
+
+    {{ $related := .Site.RegularPages.Related . | first 3 }}
+    {{ if $related }}
+      <section data-visual-role="related-writing" class="portfolio-related-writing" aria-labelledby="related-writing-title">
+        <h2 id="related-writing-title">Related writing</h2>
+        <ul>
+          {{ range $related }}
+            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+
+    {{ if or .PrevInSection .NextInSection }}
+      <nav class="portfolio-article-sequence" aria-label="Article navigation">
+        {{ with .PrevInSection }}<a rel="prev" href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ end }}
+        {{ with .NextInSection }}<a rel="next" href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}
+      </nav>
+    {{ end }}
+
+    {{ if site.Params.comments.enabled }}
+      {{ partial "features/comments.html" . }}
+    {{ end }}
+  </div>
+{{ end }}

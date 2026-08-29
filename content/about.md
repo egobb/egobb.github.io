@@ -5,13 +5,13 @@ summary: "Software engineer working on backend platforms for inventory and e-com
 date: 2025-09-19T00:00:00+02:00
 ---
 
+<figure>
+  <img src="/images/nature_profile_small.jpeg" alt="Enrique Goberna outdoors" width="500" height="auto" decoding="async">
+</figure>
+
 Hello, I’m Enrique. I’ve been building software professionally for more than a decade, and today I work mostly on backend platforms for inventory and e-commerce. What I enjoy most is the space between a functional rule and the system that has to enforce it: understanding what the behavior really means, shaping the design, writing and reviewing code, coordinating contracts, and staying close enough to production to see whether the assumptions held up.
 
 **Contact:** [LinkedIn](https://www.linkedin.com/in/enriquegoberna/) · [GitHub](https://github.com/egobb) · [Email](mailto:egobernagarcia@gmail.com)
-
-<figure style="margin: 1.75rem auto 2.25rem; max-width: 500px;">
-  <img src="/images/nature_profile_small.jpeg" alt="Enrique Goberna outdoors" width="500" style="display: block; width: 100%; height: auto; border-radius: 0.75rem;" decoding="async">
-</figure>
 
 ## What I work on
 

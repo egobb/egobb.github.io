@@ -1,0 +1,24 @@
+{{ define "main" }}
+  <div class="mx-auto max-w-4xl">
+    {{ partial "navigation/breadcrumb.html" . }}
+
+    <header class="mb-8">
+      <h1 class="text-foreground text-3xl font-bold">{{ .Title }}</h1>
+      {{ if .Content }}
+        <div class="prose prose-neutral dark:prose-invert mt-4 mb-5 max-w-2xl">{{ .Content }}</div>
+      {{ else }}
+        <p class="text-muted-foreground mt-3 mb-5 max-w-2xl">Articles filed under {{ .Title }}.</p>
+      {{ end }}
+      <p class="text-muted-foreground text-sm">{{ len .Pages }} articles · newest first</p>
+    </header>
+
+    {{ $posts := .Pages }}
+    {{ if $posts }}
+      {{ partial "content/post-list.html" (dict "posts" $posts) }}
+    {{ else }}
+      <div class="py-12">
+        <h2 class="text-foreground text-xl font-medium">No articles in this section yet</h2>
+      </div>
+    {{ end }}
+  </div>
+{{ end }}

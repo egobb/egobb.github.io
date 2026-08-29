@@ -1,0 +1,70 @@
+{{/* Epic #47 editorial shell: load only interactions that still have a visible surface. */}}
+
+{{/* Gallery assets remain feature-gated by content/config. */}}
+{{ if .Scratch.Get "justifiedEnabled" }}
+  <script src="/js/fjGallery.min.js"></script>
+{{ end }}
+
+{{ if .Scratch.Get "lightboxEnabled" }}
+  <script src="/js/glightbox.min.js"></script>
+{{ end }}
+
+{{ $hasMasonryShortcode := false }}
+{{ if .RawContent }}
+  {{ if findRE `{{<\s*masonry` .RawContent }}
+    {{ $hasMasonryShortcode = true }}
+  {{ end }}
+{{ end }}
+
+{{ if $hasMasonryShortcode }}
+  <script src="/js/macy.js"></script>
+  {{ if not (.Scratch.Get "lightboxEnabled") }}
+    {{ $globalLightbox := site.Params.lightbox | default dict }}
+    {{ $lightboxEnabled := $globalLightbox.enabled | default false }}
+    {{ if not $lightboxEnabled }}
+      <script src="/js/glightbox.min.js"></script>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if or (.Scratch.Get "justifiedEnabled") (.Scratch.Get "lightboxEnabled") }}
+  {{- with resources.Get "js/gallery.js" }}
+    {{- $opts := dict
+      "minify" (not hugo.IsDevelopment)
+      "sourceMap" (cond hugo.IsDevelopment "external" "")
+      "targetPath" "js/gallery.js"
+    }}
+    {{- with . | js.Build $opts }}
+      {{- if hugo.IsDevelopment }}
+        <script src="{{ .RelPermalink }}" defer></script>
+      {{- else }}
+        {{- with . | fingerprint }}
+          <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{ end }}
+
+{{/* Repository-owned interactions: Light/Dark and the mobile menu. */}}
+{{- $customJsFiles := resources.Match "js/custom/*.js" }}
+{{- range $customJsFiles }}
+  {{- $opts := dict
+    "minify" (not hugo.IsDevelopment)
+    "sourceMap" (cond hugo.IsDevelopment "external" "")
+    "targetPath" .Name
+  }}
+  {{- with . | js.Build $opts }}
+    {{- if hugo.IsDevelopment }}
+      <script src="{{ .RelPermalink }}" defer></script>
+    {{- else }}
+      {{- with . | fingerprint }}
+        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{ if .Site.Params.analytics.enabled -}}
+  {{ partial "features/analytics.html" . }}
+{{- end }}

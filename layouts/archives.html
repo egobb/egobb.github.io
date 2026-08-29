@@ -1,0 +1,46 @@
+{{ define "main" }}
+  <div class="mx-auto max-w-4xl">
+    {{ partial "navigation/breadcrumb.html" . }}
+
+    {{ $allPosts := where site.RegularPages "Section" "posts" }}
+    <header class="mb-8">
+      <h1 class="text-foreground mb-4 text-3xl font-bold">{{ .Title }}</h1>
+      {{ if .Content }}
+        <div class="prose prose-neutral dark:prose-invert mb-5 max-w-2xl">{{ .Content }}</div>
+      {{ else }}
+        <p class="text-muted-foreground mb-5 max-w-2xl">A chronological index of published engineering notes.</p>
+      {{ end }}
+      <p class="text-muted-foreground text-sm">{{ len $allPosts }} published articles</p>
+    </header>
+
+    {{ if $allPosts }}
+      <div data-visual-role="archive-index" class="space-y-10">
+        {{ range $allPosts.GroupByDate "2006" }}
+          <section aria-labelledby="archive-year-{{ .Key }}">
+            <div class="border-border mb-3 flex items-baseline justify-between gap-4 border-b pb-2">
+              <h2 id="archive-year-{{ .Key }}" class="text-foreground text-xl font-semibold">{{ .Key }}</h2>
+              <span class="text-muted-foreground text-sm">{{ len .Pages }} articles</span>
+            </div>
+            <div>
+              {{ range .Pages }}
+                <article data-visual-role="archive-entry" class="border-border border-b py-4 last:border-b-0">
+                  <div class="grid gap-1 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4">
+                    <time class="text-muted-foreground text-sm" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan" }}</time>
+                    <div>
+                      <h3 class="text-foreground font-medium leading-snug">
+                        <a class="hover:text-primary focus-visible:outline-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                      </h3>
+                      {{ if .ReadingTime }}<p class="text-muted-foreground mt-1 text-sm">{{ .ReadingTime }} min read</p>{{ end }}
+                    </div>
+                  </div>
+                </article>
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+      </div>
+    {{ else }}
+      <div class="py-12"><p class="text-muted-foreground">No writing published yet.</p></div>
+    {{ end }}
+  </div>
+{{ end }}

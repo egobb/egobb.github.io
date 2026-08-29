@@ -4,7 +4,7 @@ The portfolio uses Playwright and Chromium to generate deterministic rendered ev
 
 ## What CI does
 
-For pull requests targeting `main`, `.github/workflows/visual-review.yml`:
+For pull requests targeting `phase/**`, `epic/**`, or `main`, `.github/workflows/visual-review.yml`:
 
 1. checks out the exact pull-request head revision with Hugo Narrow submodules;
 2. installs Hugo Extended and Node 20;
@@ -25,9 +25,12 @@ Pages:
 
 - `/`
 - `/projects/`
+- `/projects/order-tracking/`
+- `/projects/snapshot-ingestion/`
 - `/writing/`
 - `/about/`
 - `/posts/`
+- `/archives/`
 - `/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/`
 
 Viewports:
@@ -36,13 +39,15 @@ Viewports:
 - tablet: 768 × 1024
 - mobile: 390 × 844
 
-All 18 page/viewport combinations are rendered, captured as current screenshots, and checked for response status, expected headings where applicable, broken images, unexpected console/page errors, and horizontal overflow.
+All 27 page/viewport combinations are rendered, captured as current screenshots, and checked for response status, expected headings where applicable, broken images, unexpected console/page errors, and horizontal overflow.
 
 The Home hero also has explicit layout-quality checks at all three viewports. These checks protect bounded card padding and hero-to-Projects separation so the composition is neither cramped nor unnecessarily oversized, minimum semantic spacing between the eyebrow/title/supporting copy/CTA group, readable supporting-copy width and line-height, and a minimum primary-CTA height. The measured values are written into each Home result JSON so failures are diagnosable without relying only on pixel diffs.
 
 These layout-quality assertions complement, rather than replace, visual-regression snapshots. A snapshot proves that rendering did not change unexpectedly; the layout assertions prevent an intentionally refreshed baseline from silently accepting either an objectively cramped or an excessively expanded critical surface.
 
-The suite also exercises desktop primary navigation and active states, the mobile menu, and a bounded keyboard interaction path, for a current total of 21 Playwright checks.
+The suite also exercises desktop primary navigation and active states, the mobile menu, and a bounded keyboard interaction path.
+
+`playwright.config.ts` accepts `VISUAL_BROWSER=chromium|firefox`. Chromium is the default fast gate; the epic-level cross-browser gate runs the same browser-neutral evidence contract under Firefox as well.
 
 ## Run locally
 
@@ -66,6 +71,14 @@ hugo --minify
 node scripts/visual-review-manifest.mjs passed
 npm run visual:test || true
 node scripts/visual-review-finalize.mjs
+```
+
+For an explicit Firefox-compatible run:
+
+```bash
+npx playwright install firefox
+hugo --minify
+VISUAL_BROWSER=firefox npm run visual:test
 ```
 
 The `|| true` above is only to ensure local evidence finalization when inspecting a failing run; the GitHub Actions test step itself is not softened and still fails the workflow. Playwright starts the local HTTP server automatically.
@@ -107,7 +120,7 @@ The baseline set is intentionally smaller than the current-screenshot evidence m
 - About — mobile;
 - representative long article — mobile.
 
-This gives broad responsive evidence without committing 18 largely redundant full-page images to the repository.
+This gives broad responsive evidence without committing every full-page screenshot to the repository.
 
 Baseline assertions run automatically in CI; no environment flag is required.
 
