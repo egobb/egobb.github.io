@@ -1,4 +1,4 @@
-/* Loaded after the editorial custom styles: keep preformatted code internally scrollable at reflow widths. */
+/* Loaded after the editorial custom styles: keep long-form code within narrow reflow viewports. */
 @media (max-width: 767px) {
   .portfolio-longform-content .highlight,
   .portfolio-longform-content pre.chroma,
@@ -14,30 +14,34 @@
   }
 
   .portfolio-longform-content .highlight pre,
-  .portfolio-longform-content pre.chroma {
-    inline-size: 100% !important;
-    max-inline-size: 100% !important;
-    min-inline-size: 0 !important;
-  }
-
-  /* Chroma renders each source line as a flex row. Constrain the code element
-     itself to the available width, isolate descendant paint/size propagation,
-     and keep long lines scrollable inside this local viewport. */
+  .portfolio-longform-content pre.chroma,
   .portfolio-longform-content pre.chroma > code,
   .portfolio-longform-content .highlight pre > code {
-    display: block !important;
     box-sizing: border-box !important;
     inline-size: 100% !important;
     max-inline-size: 100% !important;
     min-inline-size: 0 !important;
-    contain: inline-size paint;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
   }
 
-  .portfolio-longform-content pre.chroma > code > .line,
-  .portfolio-longform-content .highlight pre > code > .line {
-    inline-size: max-content;
-    min-inline-size: 100%;
+  /* At extreme reflow widths Chroma's flex rows otherwise expose their
+     min-content width to the document. Preserve whitespace while allowing
+     source lines/tokens to wrap inside the code viewport. */
+  .portfolio-longform-content pre.chroma > code,
+  .portfolio-longform-content .highlight pre > code,
+  .portfolio-longform-content pre.chroma .line,
+  .portfolio-longform-content pre.chroma .cl,
+  .portfolio-longform-content .highlight pre .line,
+  .portfolio-longform-content .highlight pre .cl {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .portfolio-longform-content pre.chroma .line,
+  .portfolio-longform-content .highlight pre .line {
+    display: block !important;
+    inline-size: 100% !important;
+    max-inline-size: 100% !important;
+    min-inline-size: 0 !important;
   }
 }
