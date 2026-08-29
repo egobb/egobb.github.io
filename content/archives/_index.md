@@ -1,5 +1,5 @@
 ---
 title: "Archives"
-description: ""
+description: "Chronological archive of engineering notes, including historical and superseded context retained for reference."
 layout: "archives"
 ---
