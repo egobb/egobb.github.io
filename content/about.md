@@ -29,8 +29,8 @@ I prefer simple designs until the problem earns more machinery. When complexity 
 
 The projects on this site are smaller, public systems where the source, tests, and trade-offs can be inspected directly.
 
-- **[Order Tracking — Event-Driven Ingestion with Kafka](/projects/order-tracking/)** — a Java and Spring Boot system that moves order-event ingestion onto Kafka while preserving per-order ordering and keeping domain rules isolated from transport and persistence. [Engineering write-up](/posts/scaling-order-tracking-kafka/).
-- **[Snapshot Ingestion — Resilient Coordination with PostgreSQL](/projects/snapshot-ingestion/)** — a staged ingestion pipeline that uses PostgreSQL coordination, streaming XML, idempotent upserts, and recovery mechanisms instead of introducing a message broker before it is needed. [Engineering write-up](/posts/when-postgres-is-enough-snapshot-ingestion-pipeline/).
+- **[Order Tracking — Event-Driven Ingestion with Kafka](/projects/order-tracking/)** — a Java and Spring Boot system that moves order-event ingestion onto Kafka while preserving per-order ordering and keeping domain rules isolated from transport and persistence. [Engineering write-up](/posts/scaling-order-tracking-with-kafka-domain-events-and-auto-ingestion/).
+- **[Snapshot Ingestion — Resilient Coordination with PostgreSQL](/projects/snapshot-ingestion/)** — a staged ingestion pipeline that uses PostgreSQL coordination, streaming XML, idempotent upserts, and recovery mechanisms instead of introducing a message broker before it is needed. [Engineering write-up](/posts/when-postgres-is-enough-building-a-resilient-snapshot-ingestion-pipeline-without-kafka/).
 
 ## Background
 

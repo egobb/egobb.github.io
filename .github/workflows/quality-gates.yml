@@ -1,0 +1,81 @@
+name: Portfolio quality gates
+
+on:
+  push:
+    branches:
+      - 'issue/**'
+      - 'phase/**'
+      - 'epic/**'
+  pull_request:
+    branches:
+      - main
+      - 'epic/**'
+      - 'phase/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-quality-gates-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      QUALITY_GATE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: latest
+          extended: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build production site
+        run: hugo --minify
+
+      - name: Run final responsive, navigation and performance gates
+        run: npx playwright test tests/visual/final-quality-gate.spec.ts
+
+      - name: Publish performance baseline in job log
+        if: always()
+        shell: bash
+        run: |
+          if [ -f artifacts/quality-gates/performance-baseline.json ]; then
+            echo '--- performance-baseline.json ---'
+            cat artifacts/quality-gates/performance-baseline.json
+          fi
+
+      - name: Upload quality-gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-quality-gates-${{ github.event.pull_request.number || 'manual' }}-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            artifacts/quality-gates
+            playwright-report
+            test-results
+          if-no-files-found: warn
+          retention-days: 30
