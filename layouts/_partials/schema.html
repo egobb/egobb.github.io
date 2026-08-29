@@ -79,5 +79,5 @@
     {{- $graph = $graph | append $article -}}
   {{- end -}}
 
-  <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $graph | jsonify | safeHTML }}</script>
+  <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $graph | jsonify | safeJS }}</script>
 {{- end -}}
