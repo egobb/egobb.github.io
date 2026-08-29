@@ -36,13 +36,28 @@
         "alt" .Title
         "enableModal" false
         "enableResponsive" true
+        "responsiveWidth" 1200
+        "responsiveQuality" 88
         "enablePlaceholder" false
         "outputType" "data"
       ) -}}
       {{- $coverImage := .Scratch.Get "imageUrl" -}}
+      {{- $sourceWidth := .Scratch.Get "imageSourceWidth" | default 0 -}}
+      {{- $sourceHeight := .Scratch.Get "imageSourceHeight" | default 0 -}}
+      {{- $outputWidth := .Scratch.Get "imageOutputWidth" | default 0 -}}
+      {{- $outputHeight := .Scratch.Get "imageOutputHeight" | default 0 -}}
       {{- if $coverImage -}}
         <figure data-visual-role="article-cover" class="portfolio-article-cover">
-          <img src="{{ $coverImage }}" alt="{{ .Title }}" loading="eager" decoding="async" />
+          <img
+            src="{{ $coverImage }}"
+            alt="{{ .Title }}"
+            {{ if gt $outputWidth 0 }}width="{{ $outputWidth }}" height="{{ $outputHeight }}"{{ end }}
+            data-source-width="{{ $sourceWidth }}"
+            data-source-height="{{ $sourceHeight }}"
+            data-optimized-width="{{ $outputWidth }}"
+            data-optimized-height="{{ $outputHeight }}"
+            loading="eager"
+            decoding="async" />
         </figure>
       {{- end -}}
     {{- end -}}
