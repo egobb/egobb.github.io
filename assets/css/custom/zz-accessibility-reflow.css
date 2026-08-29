@@ -21,8 +21,8 @@
   }
 
   /* Chroma renders each source line as a flex row. Constrain the code element
-     itself to the available width and make it the inner scrolling viewport;
-     individual lines retain their intrinsic width without enlarging the page. */
+     itself to the available width, isolate descendant paint/size propagation,
+     and keep long lines scrollable inside this local viewport. */
   .portfolio-longform-content pre.chroma > code,
   .portfolio-longform-content .highlight pre > code {
     display: block !important;
@@ -30,6 +30,7 @@
     inline-size: 100% !important;
     max-inline-size: 100% !important;
     min-inline-size: 0 !important;
+    contain: inline-size paint;
     overflow-x: auto !important;
     overflow-y: hidden !important;
   }
