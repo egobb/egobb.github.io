@@ -1,11 +1,12 @@
 <div class="portfolio-mobile-menu-wrap">
   <button
+    type="button"
     id="mobile-menu-toggle"
     class="dropdown-toggle portfolio-mobile-menu-toggle"
     data-dropdown-type="mobile-menu"
     aria-label="{{ i18n "nav.menu" | default "Menu" }}"
     aria-expanded="false"
-    aria-haspopup="true">
+    aria-controls="mobile-menu">
     <span aria-hidden="true" class="portfolio-menu-glyph">Menu</span>
   </button>
 
@@ -13,7 +14,6 @@
     id="mobile-menu"
     class="mobile-menu dropdown-menu portfolio-mobile-menu hidden"
     data-dropdown-type="mobile-menu"
-    role="menu"
     aria-labelledby="mobile-menu-toggle">
     <nav class="portfolio-mobile-menu-nav" aria-label="Primary navigation">
       {{ $currentPage := . }}
@@ -30,7 +30,6 @@
         <a
           href="{{ $menuURL }}"
           class="nav-link portfolio-mobile-nav-link{{ if $isActive }} nav-active-indicator{{ end }}"
-          role="menuitem"
           {{ if $isActive }}aria-current="page"{{ end }}>
           {{ if hasPrefix .Name "nav." }}{{ i18n .Name }}{{ else }}{{ .Name }}{{ end }}
         </a>
