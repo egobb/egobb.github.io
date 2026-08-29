@@ -1,0 +1,25 @@
+{{- $config := site.Data.social_previews -}}
+{{- $pageConfig := index $config.pages .RelPermalink | default (dict) -}}
+{{- $title := .Title -}}
+{{- if .IsHome }}{{- $title = site.Title -}}{{- end -}}
+{{- with $pageConfig.title }}{{- $title = . -}}{{- end -}}
+{{- $description := or .Description .Params.summary site.Params.description -}}
+{{- with $pageConfig.description }}{{- $description = . -}}{{- end -}}
+{{- $image := $config.defaultImage -}}
+{{- with $pageConfig.image }}{{- $image = . -}}{{- end -}}
+{{- $imageAlt := $title -}}
+{{- with $pageConfig.imageAlt }}{{- $imageAlt = . -}}{{- end -}}
+{{- $type := "website" -}}
+{{- if eq .Section "posts" }}{{- $type = "article" -}}{{- end -}}
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $description | plainify }}" />
+<meta property="og:type" content="{{ $type }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:site_name" content="{{ site.Title }}" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="{{ $image | absURL }}" />
+<meta property="og:image:secure_url" content="{{ $image | absURL }}" />
+<meta property="og:image:type" content="{{ $config.imageType }}" />
+<meta property="og:image:width" content="{{ $config.imageWidth }}" />
+<meta property="og:image:height" content="{{ $config.imageHeight }}" />
+<meta property="og:image:alt" content="{{ $imageAlt }}" />
