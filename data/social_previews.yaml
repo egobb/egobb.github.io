@@ -1,0 +1,22 @@
+defaultImage: "/images/social/default.png"
+imageWidth: 1200
+imageHeight: 630
+imageType: "image/png"
+twitterCard: "summary_large_image"
+twitterSite: "@egobb_"
+pages:
+  "/":
+    title: "Enrique Goberna — Software Engineering"
+    description: "Backend systems, architecture decisions and engineering notes about data movement, ordering, failure handling and pragmatic design."
+    image: "/images/social/default.png"
+    imageAlt: "Enrique Goberna — software engineering portfolio"
+  "/projects/order-tracking/":
+    title: "Order Tracking — Event-Driven Ingestion with Kafka"
+    description: "An event-driven order-tracking backend that preserves per-order ordering while keeping domain rules isolated from infrastructure."
+    image: "/images/social/order-tracking.png"
+    imageAlt: "Order Tracking — event-driven ingestion with Kafka"
+  "/projects/snapshot-ingestion/":
+    title: "Snapshot Ingestion — Resilient Coordination with PostgreSQL"
+    description: "Snapshot ingestion coordinated with PostgreSQL, separating unreliable provider access from reads without adding Kafka before the workload requires it."
+    image: "/images/social/snapshot-ingestion.png"
+    imageAlt: "Snapshot Ingestion — resilient coordination with PostgreSQL"

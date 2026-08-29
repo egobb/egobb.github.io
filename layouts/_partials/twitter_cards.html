@@ -1,0 +1,18 @@
+{{- $config := site.Data.social_previews -}}
+{{- $pageConfig := index $config.pages .RelPermalink | default (dict) -}}
+{{- $title := .Title -}}
+{{- if .IsHome }}{{- $title = site.Title -}}{{- end -}}
+{{- with $pageConfig.title }}{{- $title = . -}}{{- end -}}
+{{- $description := or .Description .Params.summary site.Params.description -}}
+{{- with $pageConfig.description }}{{- $description = . -}}{{- end -}}
+{{- $image := $config.defaultImage -}}
+{{- with $pageConfig.image }}{{- $image = . -}}{{- end -}}
+{{- $imageAlt := $title -}}
+{{- with $pageConfig.imageAlt }}{{- $imageAlt = . -}}{{- end -}}
+<meta name="twitter:card" content="{{ $config.twitterCard }}" />
+<meta name="twitter:site" content="{{ $config.twitterSite }}" />
+<meta name="twitter:creator" content="{{ $config.twitterSite }}" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description | plainify }}" />
+<meta name="twitter:image" content="{{ $image | absURL }}" />
+<meta name="twitter:image:alt" content="{{ $imageAlt }}" />
