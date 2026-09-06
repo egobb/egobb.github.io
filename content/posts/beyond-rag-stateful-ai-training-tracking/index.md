@@ -132,6 +132,13 @@ Some workflows are effectively read-only. Some may update a narrow tactical surf
 
 The result is a system in which **reasoning authority and write authority are intentionally different things**.
 
+<figure>
+  <img src="stateful-training-tracking-architecture.svg" alt="Stateful Training Tracking architecture: new evidence enters canonical persistent state, selected state is retrieved into specialized workflows, an authority gate separates read or no-change outcomes from guarded writes, and later prescriptions feed completed evidence back into the loop." loading="lazy">
+  <figcaption>Solid paths represent retrieval and reasoning. Dashed paths represent authorized mutation with stale-state checks and readback. Both paths can influence the next prescription.</figcaption>
+</figure>
+
+The same architecture is useful without the image: new evidence is normalized into canonical state; a workflow retrieves only the relevant slices; the decision gate checks evidence strength, change magnitude and ownership; the outcome either preserves state or performs a guarded write; later prescriptions consume the resulting authoritative state; and completed execution becomes new evidence for a future pass through the loop.
+
 ---
 
 ## Tactical reasoning is not structural authority
