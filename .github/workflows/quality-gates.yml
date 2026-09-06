@@ -56,8 +56,8 @@ jobs:
       - name: Build production site
         run: hugo --minify
 
-      - name: Run final responsive, navigation and performance gates
-        run: npx playwright test tests/visual/final-quality-gate.spec.ts
+      - name: Run final responsive, navigation, performance and publication gates
+        run: npx playwright test tests/visual/final-quality-gate.spec.ts tests/visual/beyond-rag-publication.spec.ts
 
       - name: Publish performance baseline in job log
         if: always()
