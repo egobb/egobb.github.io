@@ -94,6 +94,11 @@ test('Beyond RAG visual and closed loop remain readable at publication viewports
     expect(response?.ok(), `${route} should render at ${viewport.width}px`).toBeTruthy();
 
     const visual = page.locator('img[src$="stateful-training-tracking-architecture.svg"]');
+    await visual.evaluate(image => image.scrollIntoView({ block: 'center' }));
+    await expect.poll(
+      () => visual.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0),
+      { message: `${viewport.name} lazy-loaded architecture visual should finish loading` },
+    ).toBe(true);
     await expect(visual).toBeVisible();
     const visualGeometry = await visual.evaluate((image: HTMLImageElement) => {
       const rect = image.getBoundingClientRect();
