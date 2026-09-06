@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Stateful Training Tracking architecture</title>
+  <desc id="desc">A vertical architecture diagram showing new evidence entering canonical persistent training state, selected retrieval into specialized workflow reasoning, an authority gate that separates no-change/read decisions from authorized writes, and future prescriptions feeding later completed evidence back into the loop.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--line)"/>
+    </marker>
+    <style>
+      :root { --bg:#ffffff; --panel:#f7f7f6; --panel2:#efefed; --text:#1d1d1f; --muted:#5d5d62; --line:#505054; --accent:#2f5d50; --accentBg:#edf5f1; }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg:#171717; --panel:#222222; --panel2:#2a2a2a; --text:#f2f2f2; --muted:#b5b5b5; --line:#c3c3c3; --accent:#9bc7b8; --accentBg:#20312c; }
+      }
+      .bg { fill:var(--bg); }
+      .panel { fill:var(--panel); stroke:var(--line); stroke-width:1.5; }
+      .panel2 { fill:var(--panel2); stroke:var(--line); stroke-width:1.5; }
+      .accent { fill:var(--accentBg); stroke:var(--accent); stroke-width:2; }
+      .title { fill:var(--text); font:600 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+      .label { fill:var(--text); font:600 20px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+      .body { fill:var(--muted); font:16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+      .small { fill:var(--muted); font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+      .flow { fill:none; stroke:var(--line); stroke-width:2; marker-end:url(#arrow); }
+      .write { fill:none; stroke:var(--accent); stroke-width:2.5; stroke-dasharray:8 6; marker-end:url(#arrow); }
+      .loop { fill:none; stroke:var(--line); stroke-width:2; stroke-dasharray:5 5; marker-end:url(#arrow); }
+      .tag { fill:var(--text); font:600 13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; letter-spacing:.06em; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="640" height="1280" rx="18"/>
+  <text class="title" x="320" y="42" text-anchor="middle">A persistent decision loop, not just retrieval</text>
+
+  <rect class="panel" x="70" y="76" width="500" height="104" rx="14"/>
+  <text class="label" x="320" y="112" text-anchor="middle">New evidence / user input</text>
+  <text class="body" x="320" y="140" text-anchor="middle">completed sessions · daily observations</text>
+  <text class="body" x="320" y="164" text-anchor="middle">explicit corrections · current context</text>
+
+  <path class="flow" d="M320 180 V220"/>
+
+  <rect class="panel2" x="54" y="224" width="532" height="174" rx="14"/>
+  <text class="label" x="320" y="260" text-anchor="middle">Canonical persistent state</text>
+  <text class="body" x="320" y="290" text-anchor="middle">structural plan · operational constraints</text>
+  <text class="body" x="320" y="316" text-anchor="middle">prescriptions · completed actuals</text>
+  <text class="body" x="320" y="342" text-anchor="middle">decision lineage · relevant history</text>
+  <text class="body" x="320" y="368" text-anchor="middle">eligible learned/model context only</text>
+
+  <text class="tag" x="340" y="427">SELECTED RETRIEVAL</text>
+  <path class="flow" d="M320 398 V452"/>
+
+  <rect class="panel" x="70" y="456" width="500" height="126" rx="14"/>
+  <text class="label" x="320" y="492" text-anchor="middle">Specialized workflow reasoning</text>
+  <text class="body" x="320" y="522" text-anchor="middle">session analysis · prescription</text>
+  <text class="body" x="320" y="548" text-anchor="middle">strategic plan review</text>
+  <text class="small" x="320" y="570" text-anchor="middle">workflow-triggered; not an always-on background agent</text>
+
+  <path class="flow" d="M320 582 V626"/>
+
+  <rect class="accent" x="70" y="630" width="500" height="128" rx="14"/>
+  <text class="label" x="320" y="668" text-anchor="middle">Decision + authority gate</text>
+  <text class="body" x="320" y="698" text-anchor="middle">evidence class · evidence strength · change magnitude</text>
+  <text class="body" x="320" y="724" text-anchor="middle">which surface owns the fact and the write?</text>
+  <text class="small" x="320" y="746" text-anchor="middle">reasoning permission ≠ mutation permission</text>
+
+  <path class="flow" d="M250 758 V806 H176 V830"/>
+  <path class="write" d="M390 758 V806 H464 V830"/>
+
+  <rect class="panel" x="40" y="834" width="272" height="150" rx="14"/>
+  <text class="tag" x="176" y="864" text-anchor="middle">READ / PRESERVE</text>
+  <text class="label" x="176" y="898" text-anchor="middle">NO_CHANGE / monitor</text>
+  <text class="body" x="176" y="928" text-anchor="middle">keep stronger authority intact</text>
+  <text class="body" x="176" y="954" text-anchor="middle">carry reevaluation gates forward</text>
+  <text class="small" x="176" y="974" text-anchor="middle">successful outcome</text>
+
+  <rect class="accent" x="328" y="834" width="272" height="150" rx="14"/>
+  <text class="tag" x="464" y="864" text-anchor="middle">AUTHORIZED WRITE</text>
+  <text class="label" x="464" y="898" text-anchor="middle">guarded persistence</text>
+  <text class="body" x="464" y="928" text-anchor="middle">before-state fingerprint</text>
+  <text class="body" x="464" y="954" text-anchor="middle">stale check · write · readback</text>
+  <text class="small" x="464" y="974" text-anchor="middle">retry must converge</text>
+
+  <path class="flow" d="M176 984 V1024 H320 V1050"/>
+  <path class="write" d="M464 984 V1024 H320 V1050"/>
+
+  <rect class="panel2" x="70" y="1054" width="500" height="98" rx="14"/>
+  <text class="label" x="320" y="1090" text-anchor="middle">Next prescription / later review</text>
+  <text class="body" x="320" y="1120" text-anchor="middle">consumes the resulting authoritative state</text>
+  <text class="small" x="320" y="1142" text-anchor="middle">a future decision can change even when the plan does not</text>
+
+  <path class="loop" d="M570 1104 H612 V126 H582"/>
+  <text class="tag" x="607" y="620" text-anchor="end" transform="rotate(-90 607 620)">LATER COMPLETED EVIDENCE FEEDS BACK</text>
+
+  <line x1="78" y1="1215" x2="118" y2="1215" stroke="var(--line)" stroke-width="2"/>
+  <text class="small" x="130" y="1220">read / reasoning path</text>
+  <line x1="330" y1="1215" x2="370" y2="1215" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <text class="small" x="382" y="1220">authorized mutation</text>
+
+  <text class="small" x="320" y="1254" text-anchor="middle">Retrieval supplies context; authority and persistence decide what survives the turn.</text>
+</svg>
