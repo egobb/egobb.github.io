@@ -18,6 +18,11 @@ test('Beyond RAG architecture visual remains readable and bounded across article
 
     const visual = page.locator('img[src$="stateful-training-tracking-architecture.svg"]');
     await expect(visual).toHaveCount(1);
+    await visual.evaluate(image => image.scrollIntoView({ block: 'center' }));
+    await expect.poll(
+      () => visual.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0),
+      { message: `${viewport.name} lazy-loaded architecture visual should finish loading` },
+    ).toBe(true);
     await expect(visual).toBeVisible();
     await expect(visual).toHaveAttribute('alt', /canonical persistent state/i);
 
